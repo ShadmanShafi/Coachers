@@ -35,11 +35,11 @@ router.get("/aptitude", ensureAuthenticated, (req, res) => {
   res.render("aptitude.ejs", { user: req.user });
 });
 
-router.get("/test", ensureAuthenticated, (req, res) => {
+router.get("/test", (req, res) => {
 
   //Req will contain the tags of the required questions
-  const questionList = generateQuestionList(req.tag);
-  res.render("../Basic Quiz App/quiz.ejs", { user: req.user, questionList: questionList  });
+  //const questionList = generateQuestionList(req.tag);
+  res.sendFile('quiz.html',{root:"./quiz"});
 });
 
 router.get('/demovideo', (req,res) => {

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylequiz.css">
+    <title>Quiz</title>
+</head>
+<body>
+    <div class="quizpanel">
+        <div id="question"></div>
+        <div><input type="radio" id="option1" name="options"><span id="optt1"></span></div>
+        <div><input type="radio" id="option2" name="options"><span id="optt2"></span></div>
+        <div><input type="radio" id="option3" name="options"><span id="optt3"></span></div>
+        <div><input type="radio" id="option4" name="options"><span id="optt4"></span></div>
+        <div id="totalcorrentanswer"></div>
+        <button class="nxtBtn" onclick="checkAnswer()">next</button>
+    </div>
+    <script>
+        var jsonData=[
+    {
+        "q":"which is 1?",
+        "opt1":"1",
+        "opt2":"2",
+        "opt3":"3",
+        "opt4":"4",
+        "answer":"1"
+    },
+    {
+        "q":"who am I?",
+        "opt1":"nafiul",
+        "opt2":"rafsan",
+        "opt3":"shafi",
+        "opt4":"sadaf",
+        "answer":"nafiul"
+    },
+    {
+        "q":"who is bad?",
+        "opt1":"nafiul",
+        "opt2":"shafi",
+        "opt3":"rafsan",
+        "opt4":"sadaf",
+        "answer":"shafi"
+    },
+];
+
+    </script>
+    <script>
+        // json array movement variable
+var i = 0;
+
+var correctCount = 0 ;
+//initialize the first question
+generate(0);
+// generate from json array data with index
+function generate(index) {
+    document.getElementById("question").innerHTML = jsonData[index].q;
+    document.getElementById("optt1").innerHTML = jsonData[index].opt1;
+    document.getElementById("optt2").innerHTML = jsonData[index].opt2;
+    document.getElementById("optt3").innerHTML = jsonData[index].opt3;
+    document.getElementById("optt4").innerHTML = jsonData[index].opt4;
+}
+
+function checkAnswer() {
+    if (document.getElementById("option1").checked && jsonData[i].opt1 == jsonData[i].answer) {
+       correctCount++;
+    }
+    if (document.getElementById("option2").checked && jsonData[i].opt2== jsonData[i].answer) {
+        correctCount++;
+    }
+    if (document.getElementById("option3").checked && jsonData[i].opt3 == jsonData[i].answer) {
+        correctCount++;
+    }
+    if (document.getElementById("option4").checked && jsonData[i].opt4 == jsonData[i].answer) {
+        correctCount++;
+    }
+    // increment i for next question
+    i++;
+    if(jsonData.length-1 < i){
+        
+        document.write("Your score is : "+correctCount+"**");
+        
+    }
+    // callback to generate
+    generate(i);
+}
+
+
+    </script>
+    
+</body>
+</html>
