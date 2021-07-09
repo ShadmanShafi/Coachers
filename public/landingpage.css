@@ -65,6 +65,7 @@
 }
 
 .container1 .footer {
+  
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -76,25 +77,37 @@
       -ms-flex-align: center;
           align-items: center;
   font-size: 25px;
+  margin-top: 1em;
 }
 
 .container1 .footer a:link {
   text-decoration: none;
   color: lightgreen;
+  padding: none;
+ 
+ 
+
+          
+  
+}
+.container1 .footer a
+{
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 0px 10px 0.8px #2315e6;
+  box-shadow: 0px 0px 10px 0.8px #2315e6;
 }
 
 .container1 .footer a:hover {
   color: #06055a;
 }
 
-@-webkit-keyframes highlights {
-  0% {
-    width: 0%;
-  }
-  100% {
-    width: 100%;
-  }
+.container1 .footer a span img{
+  width: 6%;
+  margin-right: .01em;
 }
+
+
+
 
 @keyframes highlights {
   0% {
