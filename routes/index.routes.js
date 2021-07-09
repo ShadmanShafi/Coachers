@@ -42,5 +42,9 @@ router.get("/test", ensureAuthenticated, (req, res) => {
   res.render("../Basic Quiz App/quiz.ejs", { user: req.user, questionList: questionList  });
 });
 
+router.get('/demovideo', (req,res) => {
+  res.render('videoPlayer.ejs');
+})
+
 
 module.exports = router; 
