@@ -39,7 +39,7 @@ router.get("/test", ensureAuthenticated, (req, res) => {
 
   //Req will contain the tags of the required questions
   const questionList = generateQuestionList(req.tag);
-  res.render("testPage.ejs", { user: req.user, questionList: questionList  });
+  res.render("../Basic Quiz App/quiz.ejs", { user: req.user, questionList: questionList  });
 });
 
 
