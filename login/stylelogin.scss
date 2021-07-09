@@ -1,0 +1,80 @@
+.container{
+    width: 52%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    margin-top: 5em;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px .8px rgb(35, 21, 230);
+    .header{
+        font-size: 30px;
+        font-weight: bold;
+        font-family: cursive;
+    }
+    .contents{
+        display: flex;
+        flex-direction: column;
+        .image{
+            width: 28em;
+            img{
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .form{
+            margin-top: 2em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .formcontents{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                width: fit-content;
+                label{
+                    font-size: 18px;
+                    font-family: cursive;
+                    margin-top: .5em;
+                }
+                input{
+                    margin-bottom: .3em;
+                    font-size: 15px;
+                    padding: 0px 13px;
+                    background-color: white;
+                    border: 0;
+                    border-radius: 4px;
+                    box-shadow: 0px 0px 8px .5px rgb(94, 22, 211);
+                    outline: none;
+                    
+                }
+                input:hover{
+                    padding: 0px 16px;
+                    box-shadow: 0px 0px 10px .8px rgb(13, 17, 224);
+                }
+                
+            }
+
+        }
+    }
+
+    .footer{
+        
+        display: flex;
+        flex-direction: column;
+        margin-top: 1.5em;
+        button{
+        font-size: 15px;
+        font-family: cursive;
+        
+
+        }
+        a{
+            margin-top: 5px;
+            margin-bottom: 12px;
+        }
+
+    }
+}

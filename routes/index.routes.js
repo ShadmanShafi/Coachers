@@ -3,7 +3,7 @@ const router = express.Router();
 const ensureAuthenticated = require('./../middlewares/auth.middleware');
 
 router.get("/",(req, res)=>{
-    res.render('landingPage.ejs')
+    res.sendFile('landingpage.html',{root:"./landingpage"})
 });
 
 router.get("/dashboard", ensureAuthenticated, (req, res) => {
