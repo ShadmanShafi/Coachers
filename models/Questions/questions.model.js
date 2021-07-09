@@ -3,7 +3,7 @@ const generateQuestionList = (tag) => {
     var questionList =[
         {
             Question: "What is 1",
-            answers: {
+            options: {
                 a: 1,
                 b: 2,
                 c: 3,
@@ -13,7 +13,7 @@ const generateQuestionList = (tag) => {
         },
         {
             Question: "What is 3",
-            answers: {
+            options: {
                 a: 1,
                 b: 2,
                 c: 3,
