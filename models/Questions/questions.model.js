@@ -23,7 +23,7 @@ var questionList =[
 
 // Get questions from the database with the matching tag
 const generateQuestionList = (tag) => {
-
+    return questionList;
 }
 
 module.exports = generateQuestionList;

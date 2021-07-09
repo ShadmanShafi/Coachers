@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ensureAuthenticated = require('./../middlewares/auth.middleware');
+const generateQuestionList = require('./../models/Questions/questions.model.js');
 
 router.get("/",(req, res)=>{
     res.sendFile('landingpage.html',{root:"./landingpage"})
@@ -32,6 +33,13 @@ router.get("/suggestion", ensureAuthenticated, (req, res) => {
 
 router.get("/aptitude", ensureAuthenticated, (req, res) => {
   res.render("aptitude.ejs", { user: req.user });
+});
+
+router.get("/test", ensureAuthenticated, (req, res) => {
+
+  //Req will contain the tags of the required questions
+  const questionList = generateQuestionList(req.tag);
+  res.render("testPage.ejs", { user: req.user, questionList: questionList  });
 });
 
 
