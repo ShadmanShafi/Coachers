@@ -49,10 +49,11 @@
   display: -ms-flexbox;
   display: flex;
   text-align: right;
+  font-family: cursive;
 }
 
 .container1 .contents .image img {
-  width: 60%;
+  width: 45%;
   margin-left: 8.5em;
 }
 
@@ -95,6 +96,8 @@
   border-radius: 15px;
   -webkit-box-shadow: 0px 0px 10px 0.8px #2315e6;
   box-shadow: 0px 0px 10px 0.8px #2315e6;
+  text-align: center;
+  
 }
 
 .container1 .footer a:hover {

@@ -43,7 +43,7 @@ router.get("/test", (req, res) => {
 });
 
 router.get('/demovideo', (req,res) => {
-  res.render('videoPlayer.ejs');
+  res.sendFile('videopage.html',{root:"./videopage"});
 })
 
 
