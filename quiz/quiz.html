@@ -28,33 +28,35 @@
         <div><input type="radio" id="option4" name="options"><span id="optt4"></span></div>
         <div id="totalcorrentanswer"></div>
         <button class="nxtBtn" onclick="checkAnswer()">next</button>
+        <br>
+        <div id="result"><h1 id="r"></h1></div>
     </div>
 </div>
     <script>
         var jsonData=[
     {
-        "q":"which is 1?",
-        "opt1":"1",
-        "opt2":"2",
-        "opt3":"3",
-        "opt4":"4",
-        "answer":"1"
+        "q":"What is the average speed of a train that travelled 120 km in 3 hours?",
+        "opt1":"30",
+        "opt2":"40",
+        "opt3":"60",
+        "opt4":"360",
+        "answer":"40"
     },
     {
-        "q":"who am I?",
-        "opt1":"nafiul",
-        "opt2":"rafsan",
-        "opt3":"shafi",
-        "opt4":"sadaf",
-        "answer":"nafiul"
+        "q":"He ___ take the examination next year",
+        "opt1":"will",
+        "opt2":"will have",
+        "opt3":"shall be",
+        "opt4":"is",
+        "answer":"will"
     },
     {
-        "q":"who is bad?",
-        "opt1":"nafiul",
-        "opt2":"shafi",
-        "opt3":"rafsan",
-        "opt4":"sadaf",
-        "answer":"shafi"
+        "q":"I was late ____ office today",
+        "opt1":"from",
+        "opt2":"of",
+        "opt3":"for",
+        "opt4":"with",
+        "answer":"for"
     },
 ];
 
@@ -92,7 +94,8 @@ function checkAnswer() {
     i++;
     if(jsonData.length-1 < i){
         
-        document.write("Your score is : "+correctCount+"**");
+        document.write("Your score is : "+correctCount);
+        //document.getElementById("r").innerHTML(correctCount)
         
     }
     // callback to generate
