@@ -1,4 +1,4 @@
-const User = require('../models/Admin.model');
+const Admin = require('../models/Admin.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
 
@@ -11,9 +11,9 @@ const getLogin = (req, res)=>{
 };
 
 const postLogin = (req, res, next) => {
-    passport.authenticate("local", {
+    passport.authenticate("basic", {
       successRedirect: "/dashboard",
-      failureRedirect: "/users/login",
+      failureRedirect: "/admin/login",
       failureFlash: true,
     })(req, res, next);
   };
@@ -38,29 +38,29 @@ const postRegister = (req, res)=>{
     }
     if (errors.length > 0) {
         req.flash("errors", errors);
-        res.redirect("/users/register");
+        res.redirect("/admin/register");
     } else {
 
 //Create New User
-User.findOne({ email: email }).then((user) => {
+Admin.findOne({ email: email }).then((user) => {
     if (user) {
       errors.push("Admin already exists with this email!");
       req.flash("errors", errors);
-      res.redirect("/users/register");
+      res.redirect("/admin/register");
     } else {
       bcrypt.genSalt(10, (err, salt) => {
         if (err) {
           errors.push(err);
           req.flash("errors", errors);
-          res.redirect("/users/register");
+          res.redirect("/admin/register");
         } else {
           bcrypt.hash(password, salt, (err, hash) => {
             if (err) {
               errors.push(err);
               req.flash("errors", errors);
-              res.redirect("/users/register");
+              res.redirect("/admin/register");
             } else {
-              const newUser = new User({
+              const newUser = new Admin({
                 name,
                 email,
                 password: hash,
@@ -68,12 +68,12 @@ User.findOne({ email: email }).then((user) => {
               newUser
                 .save()
                 .then(() => {
-                  res.redirect("/users/login");
+                  res.redirect("/admin/login");
                 })
                 .catch(() => {
-                  errors.push("Saving User to the daatabase failed!");
+                  errors.push("Saving User to the database failed!");
                   req.flash("errors", errors);
-                  res.redirect("/users/register");
+                  res.redirect("/admin/register");
                 });
             }
           });

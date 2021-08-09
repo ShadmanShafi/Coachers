@@ -4,9 +4,9 @@ const ensureAuthenticated = require('./../middlewares/auth.middleware');
 const { getLogin, getRegister, postLogin, postRegister, getDashboard, getLandingPage } = require('./../controllers/admin.controller');
 
 router.get("/login",getLogin);
-router.post("/login", ensureAuthenticated, postLogin);
+router.post("/login", postLogin);
 router.get("/register", getRegister);
-router.post("/register", ensureAuthenticated, postRegister);
+router.post("/register", postRegister);
 router.get("/logout",(req, res)=>{
     req.logout();
     res.redirect("/");
