@@ -45,8 +45,10 @@ app.use(express.urlencoded({extended:false}));
 //Routes
 const indexRoutes = require("./routes/index.routes");
 const userRoutes = require("./routes/users.routes");
+const adminRoutes = require("./routes/admin.routes");
 const { Session } = require('express-session');
 app.use(indexRoutes);
 app.use("/users", userRoutes);
+app.use("/admin", adminRoutes);
 
 module.exports = app;

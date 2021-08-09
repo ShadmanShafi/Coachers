@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+<!-- Favicon icon-->
+<link rel="shortcut icon" type="image/x-icon" href="./assets/images/favicon/favicon.ico">
+
+<!-- Libs CSS -->
+
+<link rel="stylesheet" href="./assets/libs/prismjs/themes/prism.css">
+<link rel="stylesheet" href="./assets/libs/prismjs/plugins/line-numbers/prism-line-numbers.css">
+<link rel="stylesheet" href="./assets/libs/prismjs/plugins/toolbar/prism-toolbar.css">
+<link rel="stylesheet" href="./assets/libs/bootstrap-icons/font/bootstrap-icons.css">
+<link rel="stylesheet" href="./assets/libs/dropzone/dist/dropzone.css" >
+<link href="./assets/libs/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
+
+
+
+
+
+
+<!-- Theme CSS -->
+<link rel="stylesheet" href="./assets/css/theme.min.css">
+    <title>Dashboard</title>
+  </head>
+
+  <body>
+    <div id="db-wrapper">
+      <!-- navbar vertical -->
+       <!-- Sidebar -->
+ 
+       <!-- Page content -->
+      <div id="page-content">
+        <div class="header @@classList">
+  <!-- navbar -->
+  <nav class="navbar-classic navbar navbar-expand-lg">
+    <a id="nav-toggle" href="#"><i
+        data-feather="menu"
+
+        class="nav-icon me-2 icon-xs"></i></a>
+    <div class="ms-lg-3 d-none d-md-none d-lg-block">
+      <!-- Form -->
+      
+    </div>
+    <!--Navbar nav -->
+    <ul class="navbar-nav navbar-right-wrap ms-auto d-flex nav-top-wrap">
+      
+      <!-- List -->
+      <li class="dropdown ms-2">
+        <a class="rounded-circle" href="#" role="button" id="dropdownUser"
+          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div class="avatar avatar-md ">
+            <img alt="avatar" src="userblank.png"
+              class="rounded-circle" />
+          </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end"
+          aria-labelledby="dropdownUser">
+          <div class="px-4 pb-0 pt-2">
+
+
+            <div class="lh-1 ">
+              <h5 class="mb-1"> <%= user.name%> </h5>
+              <!--<a href="#" class="text-inherit fs-6">View my profile</a>-->
+            </div>
+            <div class=" dropdown-divider mt-3 mb-2"></div>
+          </div>
+
+          <ul class="list-unstyled">
+
+            <li>
+              <a class="dropdown-item" href="#">
+                <!--<i class="me-2 icon-xxs dropdown-item-icon" data-feather="user"></i>Edit
+                Profile-->
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item"
+                href="#">
+                <!--<i class="me-2 icon-xxs dropdown-item-icon"
+                  data-feather="activity"></i>Activity Log-->
+              </a>
+
+
+            </li>
+
+            <li>
+              <a class="dropdown-item text-primary" href="#">
+                <!--<i class="me-2 icon-xxs text-primary dropdown-item-icon"
+                  data-feather="star"></i>Go Pro-->
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">
+                <!--<i class="me-2 icon-xxs dropdown-item-icon"
+                  data-feather="settings"></i>Account Settings-->
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/users/logout">
+                <i class="me-2 icon-xxs dropdown-item-icon"
+                  data-feather="power"></i>Sign Out
+              </a>
+            </li>
+          </ul>
+
+        </div>
+      </li>
+    </ul>
+  </nav>
+</div>
+        <!-- Container fluid -->
+        <div class="bg-primary pt-10 pb-21"></div>
+        <div class="container-fluid mt-n22 px-6">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-12">
+              <!-- Page header -->
+              <div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="mb-2 mb-lg-0">
+                    <h3 class="mb-0 fw-bold text-white"><img src="logo.png"></h3>
+                  </div>
+                  <div>
+                    <a href="/test" class="btn btn-white">Give a Quiz</a>
+                  </div>
+                </div>
+
+                <div>
+                  <a href="/demovideo" class="btn btn-white">Watch Demo Video</a>
+                </div>
+
+              </div>
+            </div>
+            
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
+              <!-- card -->
+              <div class="card rounded-3">
+                <!-- card body -->
+                <div class="card-body">
+                  <!-- heading -->
+                  <div class="d-flex justify-content-between align-items-center
+                    mb-3">
+                    <div>
+                      <h4 class="mb-0">Active Topic</h4>
+                    </div>
+                   
+                  </div>
+                  <!-- project number -->
+                  <div>
+                    <h1 class="fw-bold">132</h1>
+                    <p class="mb-0"><span class="text-dark me-2">28</span>Completed</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
+              <!-- card -->
+              <div class="card rounded-3">
+                <!-- card body -->
+                <div class="card-body">
+                  <!-- heading -->
+                  <div class="d-flex justify-content-between align-items-center
+                    mb-3">
+                    <div>
+                      <h4 class="mb-0">Subjects</h4>
+                    </div>
+                   
+                  </div>
+                  <!-- project number -->
+                  <div>
+                    <h1 class="fw-bold">12</h1>
+                    <p class="mb-0"><span class="text-dark me-2">1</span>Completed</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-xl-3 col-lg-6 col-md-12 col-12 mt-6">
+              <!-- card -->
+              <div class="card rounded-3">
+                <!-- card body -->
+                <div class="card-body">
+                  <!-- heading -->
+                  <div class="d-flex justify-content-between align-items-center
+                    mb-3">
+                    <div>
+                      <h4 class="mb-0">Progress</h4>
+                    </div>
+                    
+                  </div>
+                  <!-- project number -->
+                  <div>
+                    <h1 class="fw-bold">76%</h1>
+                    <p class="mb-0"><span class="text-success me-2">2%</span>Completed</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- row  -->
+          
+          <!-- row  -->
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Libs JS -->
+<script src="./assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./assets/libs/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="./assets/libs/feather-icons/dist/feather.min.js"></script>
+<script src="./assets/libs/prismjs/components/prism-core.min.js"></script>
+<script src="./assets/libs/prismjs/components/prism-markup.min.js"></script>
+<script src="./assets/libs/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+<script src="./assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+<script src="./assets/libs/dropzone/dist/min/dropzone.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+<!-- clipboard -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
+
+
+
+<!-- Theme JS -->
+<script src="./assets/js/theme.min.js"></script>
+
+
+  </body>
+
+</html>

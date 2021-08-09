@@ -3,7 +3,7 @@ const ensureAuthenticated = (req, res, next) => {
       next();
     } else {
       req.flash("error", "You do not have access!");
-      res.redirect("/users/login");
+      res.redirect("login");
     }
   };
   module.exports = ensureAuthenticated;
