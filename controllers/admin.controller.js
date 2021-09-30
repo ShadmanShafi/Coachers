@@ -1,4 +1,5 @@
 const Admin = require('../models/Admin.model');
+const Subjects = require('../models/subjects.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
 
@@ -11,6 +12,10 @@ const getLogin = (req, res)=>{
     res.render("admin/login.ejs", {error: req.flash("error")});
 };
 
+const getaddsubject = (req, res)=>{
+  res.render("admin/addsubjectpage.ejs", {error: req.flash("error")});
+};
+
 const postLogin = (req, res, next) => {
     console.log("Admin Logging In");
     passport.authenticate("local", {
@@ -19,6 +24,30 @@ const postLogin = (req, res, next) => {
       failureFlash: true,
     })(req, res, next);
 };
+const postaddsubject = (req, res) => {
+  const { subjectname } = req.body;
+  Subjects.findOne({ subjectname: subjectname }).then((subject) => {
+    if (subject) {
+      errors.push("Subject already exists with this email!");
+      req.flash("errors", errors);
+      res.redirect("/admin/addsubject");
+    } else {
+      const newSubject = new Subjects({
+        subjectname,
+
+      });
+      newSubject
+        .save()
+        .then(() => {
+          res.redirect("/admin/addsubject");
+        })
+        .catch(() => {
+          errors.push("Saving subject to the database failed!");
+          req.flash("errors", errors);
+          res.redirect("/admin/addsubject");
+        });
+    };
+})};
 
 const getRegister = (req, res)=>{
     res.render("admin/register.ejs", {errors:req.flash('errors')});
@@ -96,5 +125,7 @@ module.exports = {
     postLogin,
     postRegister,
     getDashboard,
-    getLandingPage
+    getLandingPage,
+    getaddsubject,
+    postaddsubject
 };
