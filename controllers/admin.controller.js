@@ -1,6 +1,6 @@
 const Admin = require('../models/Admin.model');
 const bcrypt = require('bcryptjs');
-const passport = require("../config/passport");
+const passport = require("passport");
 
 
 const getDashboard = (req,res) => {
@@ -12,6 +12,7 @@ const getLogin = (req, res)=>{
 };
 
 const postLogin = (req, res, next) => {
+    console.log("Admin Logging In");
     passport.authenticate("local", {
       successRedirect: "/admin/dashboard",
       failureRedirect: "/admin/login",
