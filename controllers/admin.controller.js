@@ -2,12 +2,16 @@ const Admin = require('../models/Admin.model');
 const Subjects = require('../models/subjects.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
+const Topics = require('../models/Topics.model');
 
 
 const getDashboard = (req,res) => {
     res.render("admin/dashboard.ejs");
 }
 
+const getaddtopics = (req,res) => {
+  res.render("admin/addtopicspage.ejs");
+}
 const getLogin = (req, res)=>{
     res.render("admin/login.ejs", {error: req.flash("error")});
 };
@@ -26,6 +30,7 @@ const postLogin = (req, res, next) => {
 };
 const postaddsubject = (req, res) => {
   const { subjectname } = req.body;
+  const errors = [];
   Subjects.findOne({ subjectname: subjectname }).then((subject) => {
     if (subject) {
       errors.push("Subject already exists with this email!");
@@ -45,6 +50,33 @@ const postaddsubject = (req, res) => {
           errors.push("Saving subject to the database failed!");
           req.flash("errors", errors);
           res.redirect("/admin/addsubject");
+        });
+    };
+})};
+
+const postaddtopics = (req, res) => {
+  const { subjectname,topic  } = req.body;
+  const errors = [];
+  Topics.findOne({ topic: topic }).then((topic) => {
+    if (topic) {
+      errors.push("topic already exists with this email!");
+      req.flash("errors", errors);
+      res.redirect("/admin/addtopics");
+    } else {
+      const newtopic = new Topics({
+        subjectname,
+        topic
+
+      });
+      newtopic
+        .save()
+        .then(() => {
+          res.redirect("/admin/addtopics");
+        })
+        .catch(() => {
+          errors.push("Saving topics to the database failed!");
+          req.flash("errors", errors);
+          res.redirect("/admin/addtopics");
         });
     };
 })};
@@ -127,5 +159,7 @@ module.exports = {
     getDashboard,
     getLandingPage,
     getaddsubject,
-    postaddsubject
+    postaddsubject,
+    getaddtopics,
+    postaddtopics
 };
