@@ -1,6 +1,7 @@
 const Admin = require('../models/Admin.model');
 const bcrypt = require('bcryptjs');
-const passport = require("passport");
+const passport = require("../config/passport");
+
 
 const getDashboard = (req,res) => {
     res.render("admin/dashboard.ejs");
@@ -11,12 +12,12 @@ const getLogin = (req, res)=>{
 };
 
 const postLogin = (req, res, next) => {
-    passport.authenticate("basic", {
-      successRedirect: "/dashboard",
+    passport.authenticate("local", {
+      successRedirect: "/admin/dashboard",
       failureRedirect: "/admin/login",
       failureFlash: true,
     })(req, res, next);
-  };
+};
 
 const getRegister = (req, res)=>{
     res.render("admin/register.ejs", {errors:req.flash('errors')});
