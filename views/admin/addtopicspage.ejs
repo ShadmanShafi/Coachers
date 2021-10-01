@@ -24,7 +24,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
 
-
+<!-- 
 <script type = 'module'>
   import subject from '../../models/subjects.model.js';
   var select = document.getElementById("subjectname");
@@ -40,7 +40,7 @@ options.forEach(item => {
 })
 
 alert("Script has run");
-</script>
+</script> -->
 
 
 
@@ -78,18 +78,7 @@ alert("Script has run");
                 <!-- <input type="text" id="text" class="form-control" name="subjectname" placeholder="subject" required=""> -->
                 <select id="subjectname">
                   
-                  <% 
-                  var options = ["1", "2", "3", "4", "5"];
-                 
-                  for(var i=0;i < options.length; i++) {   
-                  %>
-                  
-                  <option value="<%options[i].subjectname%>"><%options[i].subjectname%></option>
-                  
-                  <%
-                  }
-                  %>
-                  
+               
               </select>
               </div>
               <div class="mb-3">
@@ -161,6 +150,10 @@ alert("Script has run");
 
 <!-- Theme JS -->
 <script src="../assets/js/theme.min.js"></script>
+
+<script type="module">
+  import subjects from '../adminJS/subjects.model.js';
+</script>
 
 <!-- <script src="../adminJS/loadSubjectsList.js"></script> -->
 

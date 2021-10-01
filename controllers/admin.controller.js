@@ -10,6 +10,20 @@ const getDashboard = (req,res) => {
 }
 
 const getaddtopics = (req,res) => {
+  // let SubjectList = [];
+  // Subjects.find().then((data) => {
+  //       SubjectList = data;
+  //       console.log("Data found\n");
+  //       res.render("admin/addtopicspage.ejs", {
+  //         options: SubjectList
+  //       });
+  // }).catch(() => {
+  //       res.render("admin/addtopicspage.ejs", {
+  //           options: {NULL}
+  //       });
+  // })
+
+
   res.render("admin/addtopicspage.ejs");
 }
 const getLogin = (req, res)=>{
@@ -151,6 +165,10 @@ const getLandingPage = (req,res) => {
     res.render("admin/landingPage.ejs")
 }
 
+const getUserList = (req, res) => {
+    res.render("admin/userlist.ejs");
+}
+
 module.exports = {
     getLogin,
     getRegister,
@@ -161,5 +179,6 @@ module.exports = {
     getaddsubject,
     postaddsubject,
     getaddtopics,
-    postaddtopics
+    postaddtopics,
+    getUserList
 };
