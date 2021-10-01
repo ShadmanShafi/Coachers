@@ -25,13 +25,29 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
 
 
+<script type = 'module'>
+  import subject from '../../models/subjects.model.js';
+  var select = document.getElementById("subjectname");
 
+var options = ["1", "2", "3", "4", "5"]; 
+
+options.forEach(item => {
+    var opt = item;
+    var el = document.createElement("option");
+    el.text = opt;
+    el.value = opt;
+    select.add(el);
+})
+
+alert("Script has run");
+</script>
 
 
 
 <!-- Theme CSS -->
 <link rel="stylesheet" href="../assets/css/theme.min.css">
   <title>ADMIN addsubjectpage Page</title>
+
 </head>
 
 <body>
@@ -134,7 +150,7 @@
 <!-- Theme JS -->
 <script src="../assets/js/theme.min.js"></script>
 
-<script src="../adminJS/loadSubjectsList.js"></script>
+<!-- <script src="../adminJS/loadSubjectsList.js"></script> -->
 
 </body>
 

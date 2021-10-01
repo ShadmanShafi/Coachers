@@ -1,7 +1,5 @@
-alert("Script is running");
-
-
 var select = document.getElementById("subjectname");
+
 var options = ["1", "2", "3", "4", "5"]; 
 
 options.forEach(item => {
