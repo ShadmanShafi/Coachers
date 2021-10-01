@@ -189,6 +189,21 @@ const registerNewUser = (req, res) => {
   res.render("admin/registerNewUserPage.ejs", {errors:errors});
 }
 
+const deleteUser = (req, res) => {
+  const id = req.params.id;
+  User.deleteOne({_id:id}, (err)=>{
+      if(err){
+          error = "failed to delete data";
+          req.flash('error', error);
+          res.redirect('/admin/userlist');
+      }else{
+          error = "Data Deleted Successfully.";
+          req.flash('error', error);
+          res.redirect('/admin/userlist');
+      }
+  });
+}
+
 module.exports = {
     getLogin,
     getRegister,
@@ -201,5 +216,6 @@ module.exports = {
     getaddtopics,
     postaddtopics,
     getUserList,
-    registerNewUser
+    registerNewUser,
+    deleteUser
 };
