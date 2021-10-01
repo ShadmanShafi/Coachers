@@ -1,4 +1,5 @@
 const Admin = require('../models/Admin.model');
+const User = require('../models/User.model');
 const Subjects = require('../models/subjects.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
@@ -166,7 +167,20 @@ const getLandingPage = (req,res) => {
 }
 
 const getUserList = (req, res) => {
-    res.render("admin/userlist.ejs");
+  let allUsers = [];
+  User.find().then((data) => {
+    allUsers = data;
+    res.render("admin/userList.ejs", {
+          error: req.flash('error'),
+          participants: allUsers
+    });
+  }).catch(() => {
+    error = 'Failed to fetch data';
+    res.render("admin/userList.ejs", {
+          error: req.flash('error', error),
+          participants: allUsers
+    });
+  })
 }
 
 module.exports = {
