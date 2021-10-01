@@ -4,6 +4,7 @@ const Subjects = require('../models/subjects.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
 const Topics = require('../models/Topics.model');
+const { render } = require('ejs');
 
 
 const getDashboard = (req,res) => {
@@ -183,6 +184,11 @@ const getUserList = (req, res) => {
   })
 }
 
+const registerNewUser = (req, res) => {
+  const errors = [];
+  res.render("admin/registerNewUserPage.ejs", {errors:errors});
+}
+
 module.exports = {
     getLogin,
     getRegister,
@@ -194,5 +200,6 @@ module.exports = {
     postaddsubject,
     getaddtopics,
     postaddtopics,
-    getUserList
+    getUserList,
+    registerNewUser
 };
