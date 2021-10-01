@@ -77,20 +77,20 @@ alert("Script has run");
                 <label for="Subjectname" class="form-label">Choose Subject Name</label>
                 <!-- <input type="text" id="text" class="form-control" name="subjectname" placeholder="subject" required=""> -->
                 <select id="subjectname">
-                  
-                  <% 
-                  var options = ["1", "2", "3", "4", "5"];
-                 
-                  for(var i=0;i < options.length; i++) {   
-                  %>
-                  
-                  <option value="<%options[i].subjectname%>"><%options[i].subjectname%></option>
-                  
-                  <%
-                  }
-                  %>
-                  
-              </select>
+                    <% 
+                    var select = document.getElementById("subjectname");
+                    var options = ["1", "2", "3", "4", "5"]; 
+                    options.forEach(item => {
+                        var opt = item; 
+                    %>
+                    <option value="">--</option>
+                    <%
+                    var el = document.createElement("option");
+                    el.text = opt;
+                    el.value = opt;
+                    select.add(el);
+                    %>
+                </select>
               </div>
               <div class="mb-3">
                 <label for="topic" class="form-label">Topic</label>
