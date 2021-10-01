@@ -55,7 +55,7 @@ const postaddsubject = (req, res) => {
 })};
 
 const postaddtopics = (req, res) => {
-  const { subjectname,topic  } = req.body;
+  const { subjectname, topic  } = req.body;
   const errors = [];
   Topics.findOne({ topic: topic }).then((topic) => {
     if (topic) {

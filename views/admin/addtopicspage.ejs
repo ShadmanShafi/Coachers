@@ -58,11 +58,14 @@
             <form action="/admin/addtopics" method="POST">
               <!-- Username -->
               <div class="mb-3">
-                <label for="Subjectname" class="form-label">Subjectname</label>
-                <input type="text" id="text" class="form-control" name="subjectname" placeholder="subject" required="">
+                <label for="Subjectname" class="form-label">Choose Subject Name</label>
+                <!-- <input type="text" id="text" class="form-control" name="subjectname" placeholder="subject" required=""> -->
+                <select id="subjectname">
+                    <option value="">--</option>
+                </select>
               </div>
               <div class="mb-3">
-                <label for="topic" class="form-label">topic</label>
+                <label for="topic" class="form-label">Topic</label>
                 <input type="text" id="text" class="form-control" name="topic" placeholder="topic" >
               </div>
               
@@ -130,6 +133,11 @@
 
 <!-- Theme JS -->
 <script src="../assets/js/theme.min.js"></script>
+
+<script src="../adminJS/loadSubjectsList.js"></script>
+
 </body>
+
+
 
 </html>
