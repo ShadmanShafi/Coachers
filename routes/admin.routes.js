@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const ensureAuthenticated = require('./../middlewares/auth.middleware');
-const { getLogin,gettopiclist,postaddtopics,getaddtopics,getaddsubject,postaddsubject, getRegister, postLogin, postRegister, getDashboard, getLandingPage, getUserList, registerNewUser, deleteUser } = require('./../controllers/admin.controller');
+const { getLogin,gettopiclist,postaddtopics,getaddtopics,getaddsubject,postaddsubject, getRegister, postLogin, postRegister, getDashboard, getLandingPage, getUserList, registerNewUser, deleteUser, deleteTopic } = require('./../controllers/admin.controller');
 
 router.get("/login", getLogin);
 router.get("/addsubject",getaddsubject);
@@ -15,6 +15,7 @@ router.get("/userlist", getUserList);
 router.get("/topiclist", gettopiclist);
 router.get("/registernewuser", registerNewUser);
 router.get("/deleteuser/:id", deleteUser);
+router.get("/deletetopic/:id", deleteTopic);
 router.get("/logout",(req, res)=>{
     req.logout();
     res.redirect("/");

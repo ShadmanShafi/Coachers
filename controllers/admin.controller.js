@@ -232,6 +232,20 @@ const gettopiclist = (req, res) => {
   
 }
 
+const deleteTopic = (req, res) => {
+  const id = req.params.id;
+  Topics.deleteOne({_id:id}, (err)=>{
+      if(err){
+          error = "failed to delete data";
+          req.flash('error', error);
+          res.redirect('/admin/topiclist');
+      }else{
+          error = "Data Deleted Successfully.";
+          req.flash('error', error);
+          res.redirect('/admin/topiclist');
+      }
+  });
+}
 
 
 
@@ -249,5 +263,6 @@ module.exports = {
     postaddtopics,
     getUserList,
     registerNewUser,
-    deleteUser
+    deleteUser,
+    deleteTopic
 };
