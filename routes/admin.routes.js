@@ -13,7 +13,7 @@ router.get("/register", getRegister);
 router.post("/register", postRegister);
 router.get("/userlist", getUserList);
 router.get("/registernewuser", registerNewUser);
-router.get("/delete/:id", deleteUser);
+router.get("/deleteuser/:id", deleteUser);
 router.get("/logout",(req, res)=>{
     req.logout();
     res.redirect("/");
