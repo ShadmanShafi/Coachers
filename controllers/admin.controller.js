@@ -74,17 +74,18 @@ const postaddsubject = (req, res) => {
 
 const postaddtopics = (req, res) => {
   const { subjectname, topic  } = req.body;
+  console.log({ subjectname, topic  });
   const errors = [];
-  Topics.findOne({ topic: topic, subjectname: subjectname }).then((topic) => {
-    if (topic) {
+  Topics.findOne({ topic: topic, subjectname: subjectname }).then((element) => {
+    if (element) {
       errors.push("topic already exists!");
       console.log("topic already exists!");
       req.flash("errors", errors);
       res.redirect("/admin/addtopics");
     } else {
       const newtopic = new Topics({
-        subjectname,
-        topic
+        subjectname: subjectname,
+        topic: topic
 
       });
       newtopic
@@ -93,9 +94,10 @@ const postaddtopics = (req, res) => {
           console.log('Saving topic to the database Successful!');
           res.redirect("/admin/addtopics");
         })
-        .catch(() => {
+        .catch((e) => {
           errors.push("Saving topic to the database failed!");
-          console.log(errors[0]);
+          console.log(errors);
+          console.log(e);
           req.flash("errors", errors);
           res.redirect("/admin/addtopics");
         });
