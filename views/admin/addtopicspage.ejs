@@ -76,12 +76,18 @@ alert("Script has run");
               <div class="mb-3">
                 <label for="Subjectname" class="form-label">Choose Subject Name</label>
                 <!-- <input type="text" id="text" class="form-control" name="subjectname" placeholder="subject" required=""> -->
-                <select id="subjectname">
-                  <% if(SubjectList.length>0){ %>
-                    <% SubjectList.forEach(subject => { %>
-                      <option> <%= subject.subjectname %> </option>
-                    <% })} %>
-              </select>
+
+                  <select id="subjectname" name="subjectname">
+                   <% if(SubjectList.length>0){ %>
+                      <% SubjectList.forEach(subject => { %>
+                       <option>
+              
+                          <%= subject.subjectname %>
+                       
+                        </option>
+                      <% })} %>
+                  </select>
+                
               </div>
               <div class="mb-3">
                 <label for="topic" class="form-label">Topic</label>
@@ -109,10 +115,10 @@ alert("Script has run");
 
                 <div class="d-md-flex justify-content-between mt-4">
                   
-                  <!--<div>
-                    <a href="forget-password.html" class="text-inherit
-                        fs-5">Forgot your password?</a>
-                  </div>-->
+                  <div>
+                    <a href="/admin/dashboard" class="text-inherit
+                        fs-5">Back</a>
+                  </div>
 
                 </div>
               </div>

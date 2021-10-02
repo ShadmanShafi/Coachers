@@ -45,6 +45,7 @@ const postLogin = (req, res, next) => {
       failureFlash: true,
     })(req, res, next);
 };
+
 const postaddsubject = (req, res) => {
   const { subjectname } = req.body;
   const errors = [];
@@ -74,9 +75,10 @@ const postaddsubject = (req, res) => {
 const postaddtopics = (req, res) => {
   const { subjectname, topic  } = req.body;
   const errors = [];
-  Topics.findOne({ topic: topic }).then((topic) => {
+  Topics.findOne({ topic: topic, subjectname: subjectname }).then((topic) => {
     if (topic) {
-      errors.push("topic already exists with this email!");
+      errors.push("topic already exists!");
+      console.log("topic already exists!");
       req.flash("errors", errors);
       res.redirect("/admin/addtopics");
     } else {
@@ -88,10 +90,12 @@ const postaddtopics = (req, res) => {
       newtopic
         .save()
         .then(() => {
+          console.log('Saving topic to the database Successful!');
           res.redirect("/admin/addtopics");
         })
         .catch(() => {
-          errors.push("Saving topics to the database failed!");
+          errors.push("Saving topic to the database failed!");
+          console.log(errors[0]);
           req.flash("errors", errors);
           res.redirect("/admin/addtopics");
         });
@@ -210,17 +214,20 @@ const gettopiclist = (req, res) => {
   let alltopics = [];
   Topics.find().then((data) => {
     alltopics = data;
+    console.log(alltopics);
     res.render("admin/viewtopicspage.ejs", {
           error: req.flash('error'),
           participants: alltopics
     });
   }).catch(() => {
     error = 'Failed to fetch data';
+    console.log(alltopics);
     res.render("admin/viewtopicspage.ejs", {
           error: req.flash('error', error),
           participants: alltopics
     });
   })
+  
 }
 
 
