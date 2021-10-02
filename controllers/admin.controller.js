@@ -12,21 +12,22 @@ const getDashboard = (req,res) => {
 }
 
 const getaddtopics = (req,res) => {
-  // let SubjectList = [];
-  // Subjects.find().then((data) => {
-  //       SubjectList = data;
-  //       console.log("Data found\n");
-  //       res.render("admin/addtopicspage.ejs", {
-  //         options: SubjectList
-  //       });
-  // }).catch(() => {
-  //       res.render("admin/addtopicspage.ejs", {
-  //           options: {NULL}
-  //       });
-  // })
+  var SubjectList = [];
+  Subjects.find().then((data) => {
+        SubjectList = data;
+        console.log("Data found\n");
+        res.render("admin/addtopicspage.ejs", {
+          SubjectList: SubjectList,
+          size: SubjectList.legnth
+        });
+  }).catch(() => {
+        res.render("admin/addtopicspage.ejs", {
+          SubjectList: SubjectList,
+          size: SubjectList.legnth
+        });
+  })
+  // res.render("admin/addtopicspage.ejs", {SubjectList})
 
-
-  res.render("admin/addtopicspage.ejs");
 }
 const getLogin = (req, res)=>{
     res.render("admin/login.ejs", {error: req.flash("error")});

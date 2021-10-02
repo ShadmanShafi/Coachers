@@ -77,8 +77,10 @@ alert("Script has run");
                 <label for="Subjectname" class="form-label">Choose Subject Name</label>
                 <!-- <input type="text" id="text" class="form-control" name="subjectname" placeholder="subject" required=""> -->
                 <select id="subjectname">
-                  
-               
+                  <% if(SubjectList.length>0){ %>
+                    <% SubjectList.forEach(subject => { %>
+                      <option> <%= subject.subjectname %> </option>
+                    <% })} %>
               </select>
               </div>
               <div class="mb-3">
@@ -151,9 +153,6 @@ alert("Script has run");
 <!-- Theme JS -->
 <script src="../assets/js/theme.min.js"></script>
 
-<script type="module">
-  import subjects from '../adminJS/subjects.model.js';
-</script>
 
 <!-- <script src="../adminJS/loadSubjectsList.js"></script> -->
 
