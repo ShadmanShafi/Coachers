@@ -204,6 +204,27 @@ const deleteUser = (req, res) => {
   });
 }
 
+
+const gettopiclist = (req, res) => {
+  let alltopics = [];
+  Topics.find().then((data) => {
+    alltopics = data;
+    res.render("admin/viewtopicspage.ejs", {
+          error: req.flash('error'),
+          participants: alltopics
+    });
+  }).catch(() => {
+    error = 'Failed to fetch data';
+    res.render("admin/viewtopicspage.ejs", {
+          error: req.flash('error', error),
+          participants: alltopics
+    });
+  })
+}
+
+
+
+
 module.exports = {
     getLogin,
     getRegister,
@@ -213,6 +234,7 @@ module.exports = {
     getLandingPage,
     getaddsubject,
     postaddsubject,
+    gettopiclist,
     getaddtopics,
     postaddtopics,
     getUserList,
