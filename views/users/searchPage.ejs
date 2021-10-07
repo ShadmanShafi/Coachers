@@ -30,44 +30,38 @@
 
   <div class="page-section bg-light">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="card-service">
-            <div class="header">
-              <img src="../seogram/assets/img/services/service-1.svg" alt="">
-            </div>
-            <div class="body">
-              <h5 class="text-secondary">Subjects</h5>
-              <p>6</p>
-              <a href="service.html" class="btn btn-primary">View</a>
-            </div>
-          </div>
+        <div class="text-center wow fadeInUp">
+            <div class="subhead">Available Subjects</div>
+            <h2 class="title-section">Pick out the Subjects you need</h2>
+            <div class="divider mx-auto"></div>
         </div>
-        <div class="col-lg-4">
-          <div class="card-service">
-            <div class="header">
-              <img src="../seogram/assets/img/services/service-2.svg" alt="">
+         <div class="row mt-5">
+          <% subjectsList.forEach(subject=>{ %>
+
+            <div class="col-lg-4 py-3 wow zoomIn">
+              <div class="card-pricing">
+                <div class="header">
+                  <div class="pricing-type">GCE O'Level</div>
+                  <div class="price">
+                    <h1><%= subject.subjectname %></h1>
+                  </div>
+                  <!-- <h5>Per Month</h5> -->
+                </div>
+                <div class="body">
+                  <!-- <p>25 Analytics <span class="suffix">Campaign</span></p>
+                  <p>1,300 Change <span class="suffix">Keywords</span></p>
+                  <p>Social Media <span class="suffix">Reviews</span></p>
+                  <p>1 Free <span class="suffix">Optimization</span></p>
+                  <p>24/7 <span class="suffix">Support</span></p> -->
+                </div>
+                <div class="footer">
+                  <a href="#" class="btn btn-pricing btn-block">Enroll</a>
+                </div>
+              </div>
             </div>
-            <div class="body">
-              <h5 class="text-secondary">Content Marketing</h5>
-              <p>We help you define your SEO objective & develop a realistic strategy with you</p>
-              <a href="service.html" class="btn btn-primary">Read More</a>
-            </div>
+          <% }) %>
+    
           </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="card-service">
-            <div class="header">
-              <img src="../seogram/assets/img/services/service-3.svg" alt="">
-            </div>
-            <div class="body">
-              <h5 class="text-secondary">Keyword Research</h5>
-              <p>We help you define your SEO objective & develop a realistic strategy with you</p>
-              <a href="service.html" class="btn btn-primary">Read More</a>
-            </div>
-          </div>
-        </div>
-      </div>
     </div> <!-- .container -->
   </div> <!-- .page-section -->
 

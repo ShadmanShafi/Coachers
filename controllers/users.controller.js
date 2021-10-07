@@ -1,4 +1,5 @@
 const User = require('../models/User.model');
+const Subjects = require('../models/subjects.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
 
@@ -85,11 +86,25 @@ const getDashboard = (req, res) => {
 }
 
 const getSearchPage = (req, res) => {
-  res.render("users/searchPage.ejs", { user: req.user });
+  Subjects.find().then((data)=>{
+    res.render("users/searchPage.ejs", { user: req.user,  subjectsList: data});
+  }).catch((error)=>{
+      console.log(error);
+      res.render("users/searchPage.ejs", { user: req.user,  subjectsList: []});
+    }
+  )
 }
 
 const getCoursePage = (req, res) => {
-  res.render("users/coursePage.ejs", { user: req.user });
+  let subjectsList = [];
+  Subjects.find().then((data)=>{
+    subjectsList = data;
+  }).catch((error)=>{
+      console.log(error);
+    }
+  )
+  
+  res.render("users/coursePage.ejs", { user: req.user,  subjectsList: subjectsList});
 }
 
 module.exports = {
