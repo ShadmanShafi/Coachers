@@ -4,7 +4,7 @@ const ensureAuthenticated = require('./../middlewares/auth.middleware');
 const generateQuestionList = require('./../models/Questions/questions.model.js');
 
 router.get("/",(req, res)=>{
-    res.sendFile('landingpage.html',{root:"./landingpage"})
+    res.render('landingpage.ejs')
 });
 
 router.get("/dashboard", ensureAuthenticated, (req, res) => {
