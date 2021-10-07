@@ -48,7 +48,7 @@ router.get('/demovideo', (req,res) => {
 
 
 router.get('/about', (req, res) => {
-  
+  res.render('aboutUsPage.ejs')
 })
 
 router.get('/contactus', (req, res) => {
