@@ -81,7 +81,7 @@ User.findOne({ email: email }).then((user) => {
 };
 
 const getDashboard = (req, res) => {
-  res.render("dashboard.ejs", { user: req.user });
+  res.render("users/dashboard.ejs", { user: req.user });
 }
 
 module.exports = {
