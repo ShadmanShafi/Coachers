@@ -52,7 +52,7 @@ router.get('/about', (req, res) => {
 })
 
 router.get('/contactus', (req, res) => {
-  
+  res.render('contactUsPage.ejs')
 })
 
 router.get('/reviews', (req, res) => {
