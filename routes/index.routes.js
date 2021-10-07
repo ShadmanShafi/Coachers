@@ -44,7 +44,22 @@ router.get("/test", (req, res) => {
 
 router.get('/demovideo', (req,res) => {
   res.sendFile('videopage.html',{root:"./videopage"});
+});
+
+
+router.get('/about', (req, res) => {
+  
 })
+
+router.get('/contactus', (req, res) => {
+  
+})
+
+router.get('/reviews', (req, res) => {
+  
+})
+
+
 
 
 module.exports = router; 
