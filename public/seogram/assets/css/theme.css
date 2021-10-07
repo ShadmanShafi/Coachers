@@ -1607,15 +1607,15 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .card-pricing .footer .btn-pricing {
-  background-color: #B8B4D5;
+  background-color: #493ca8;
   color: #fff;
   box-shadow: none !important;
 }
 
 .card-pricing.marked {
-  background-color: #6C55F9;
+  background-color: #867fb1;
   color: #fff;
-  box-shadow: 0 4px 16px rgba(107, 85, 249, 0.5);
+  box-shadow: 0 4px 16px rgba(42, 31, 114, 0.5);
 }
 
 .card-pricing.marked .header h5 {
