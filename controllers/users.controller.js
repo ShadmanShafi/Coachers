@@ -84,10 +84,20 @@ const getDashboard = (req, res) => {
   res.render("users/dashboard.ejs", { user: req.user });
 }
 
+const getSearchPage = (req, res) => {
+  res.render("users/searchPage.ejs", { user: req.user });
+}
+
+const getCoursePage = (req, res) => {
+  res.render("users/coursePage.ejs", { user: req.user });
+}
+
 module.exports = {
     getLogin,
     getRegister,
     postLogin,
     postRegister,
-    getDashboard
+    getDashboard,
+    getSearchPage,
+    getCoursePage
 };
