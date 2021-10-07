@@ -56,7 +56,7 @@ router.get('/contactus', (req, res) => {
 })
 
 router.get('/reviews', (req, res) => {
-  
+  res.render('reviewsPage.ejs')
 })
 
 
