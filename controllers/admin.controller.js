@@ -39,7 +39,7 @@ const getaddsubject = (req, res)=>{
 
 const postLogin = (req, res, next) => {
     console.log("Admin Logging In");
-    passport.authenticate("local", {
+    passport.authenticate("adminLocal", {
       successRedirect: "/admin/dashboard",
       failureRedirect: "/admin/login",
       failureFlash: true,
