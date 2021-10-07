@@ -7,9 +7,6 @@ router.get("/",(req, res)=>{
     res.render('landingpage.ejs')
 });
 
-router.get("/dashboard", ensureAuthenticated, (req, res) => {
-    res.render("dashboard.ejs", { user: req.user });
-});
 
 router.get("/aptitude", ensureAuthenticated, (req, res) => {
     res.render("aptitude.ejs", { user: req.user });

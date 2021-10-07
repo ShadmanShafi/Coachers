@@ -8,7 +8,7 @@ const getLogin = (req, res)=>{
 
 const postLogin = (req, res, next) => {
     passport.authenticate("userLocal", {
-      successRedirect: "/dashboard",
+      successRedirect: "/users/dashboard",
       failureRedirect: "/users/login",
       failureFlash: true,
     })(req, res, next);
@@ -80,9 +80,14 @@ User.findOne({ email: email }).then((user) => {
   }
 };
 
+const getDashboard = (req, res) => {
+  res.render("dashboard.ejs", { user: req.user });
+}
+
 module.exports = {
     getLogin,
     getRegister,
     postLogin,
     postRegister,
+    getDashboard
 };
