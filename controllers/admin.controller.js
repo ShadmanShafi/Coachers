@@ -229,21 +229,39 @@ const deleteUser = (req, res) => {
 
 const gettopiclist = (req, res) => {
   let alltopics = [];
-  Topics.find().then((data) => {
-    alltopics = data;
-    console.log(alltopics);
+  Topics.aggregate([{
+    $lookup: {
+        from: "subjects", // collection name in db
+        localField: "subject",
+        foreignField: "_id",
+        as: "subject_topic_list"
+    }
+  }]).exec(function(err, topicList) {
+    console.log(topicList)
+    alltopics = topicList;
+    
     res.render("admin/viewtopicspage.ejs", {
-          error: req.flash('error'),
-          participants: alltopics
+        error: req.flash('error'),
+        participants: alltopics
     });
-  }).catch(() => {
-    error = 'Failed to fetch data';
-    console.log(alltopics);
-    res.render("admin/viewtopicspage.ejs", {
-          error: req.flash('error', error),
-          participants: alltopics
-    });
-  })
+  });
+
+
+  // Topics.find().then((data) => {
+  //   alltopics = data;
+  //   console.log(alltopics);
+  //   res.render("admin/viewtopicspage.ejs", {
+  //         error: req.flash('error'),
+  //         participants: alltopics
+  //   });
+  // }).catch(() => {
+  //   error = 'Failed to fetch data';
+  //   console.log(alltopics);
+  //   res.render("admin/viewtopicspage.ejs", {
+  //         error: req.flash('error', error),
+  //         participants: alltopics
+  //   });
+  // })
   
 }
 
