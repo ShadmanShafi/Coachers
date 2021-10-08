@@ -1,5 +1,6 @@
 const User = require('../models/User.model');
 const Subjects = require('../models/subjects.model');
+const registerSubjects = require('../models/registeredSubjects.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
 
@@ -66,6 +67,9 @@ User.findOne({ email: email }).then((user) => {
                 .save()
                 .then(() => {
                   res.redirect("/users/login");
+                  const newEntry = new registerSubjects();
+                  newEntry.email = newUser.email;
+                  newEntry.save();
                 })
                 .catch(() => {
                   errors.push("Saving User to the daatabase failed!");
