@@ -4,9 +4,9 @@ const TopicSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  subject: [
-    {type: mongoose.Types.ObjectId, ref: 'subjects'}
-  ]
+  subject: {
+    type: mongoose.Types.ObjectId, ref: 'subjects',
+  }
   
 });
 

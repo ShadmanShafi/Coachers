@@ -92,7 +92,7 @@ const postaddtopics = (req, res) => {
           const subjectID = result._id;
           
           newtopic.name = topic;
-          newtopic.subject.push(subjectID);
+          newtopic.subject = (subjectID);
           newtopic
           .save()
           .then(() => {
