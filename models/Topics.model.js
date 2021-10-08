@@ -5,6 +5,11 @@ const TopicSchema = new mongoose.Schema({
     required: true,
   },
 
+  subjectName: {
+    type: String,
+    required: true
+  },
+
   videoLink:{
     type: String,
     required: true

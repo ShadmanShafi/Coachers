@@ -88,6 +88,7 @@ const postaddtopics = (req, res) => {
           const newtopic = new Topics();
           newtopic.name = topic;
           newtopic.videoLink = link;
+          newtopic.subjectName = subjectname;
           console.log("Going in", result._id);
           
           newtopic
@@ -273,15 +274,30 @@ const gettopiclist = (req, res) => {
 
 const deleteTopic = (req, res) => {
   const id = req.params.id;
+  const subjectName = req.params.subjectid;
   Topics.deleteOne({_id:id}, (err)=>{
       if(err){
           error = "failed to delete data";
           req.flash('error', error);
           res.redirect('/admin/topiclist');
       }else{
-          error = "Data Deleted Successfully.";
-          req.flash('error', error);
-          res.redirect('/admin/topiclist');
+          console.log(req.params.id);
+          Subjects.findOneAndUpdate({name: subjectName}, {$pullall: {topics: req.params.id}}, (err,suc)=>{
+            if(err){
+              console.log(Err);
+              error = "Data Delete unsuccessful.";
+              console.log(error);
+              req.flash('error', error);
+              res.redirect('/admin/topiclist');
+            }
+            else{
+              console.log(suc);
+              error = "Data Deleted Successfully.";
+              console.log(error);
+              req.flash('error', error);
+              res.redirect('/admin/topiclist');
+            }
+          });
       }
   });
 }
