@@ -78,24 +78,23 @@
                                 </thead>
                 
                                 <tbody>
-                                    <% if(participants.size>0){ %>
-                                        <% participants.forEach(participant=>{ %>
-                                            <tr></tr>
-                                            <td> <%= participant.subject %> </td>
+                                  <% if(participants.length>0){ %>
+                                    <% participants.forEach(participant=>{ %>
+                                        <tr></tr>
+                                        <td> <%= participant.subject %> </td>
+                                    
+                                        <td> <%= participant.name %> </td>
+
+                                        <td>
+                                            <% const deleteURL = 'deletetopic/' + participant._id %>
+                                            <a href = "<%= deleteURL %>">
+                                                <i class="fa fa-trash"></i>
+                                                <span class="fa fa-chevron"></span>
+                                            </a>
                                         
-                                            <td> <%= participant.name %> </td>
-
-                                          
-
-                                            <td>
-                                                <% const deleteURL = 'deletetopic/' + participant._id %>
-                                                <a href = "<%= deleteURL %>">
-                                                    <i class="fa fa-trash"></i>
-                                                    <span class="fa fa-chevron"></span>
-                                                </a>
-                                            </td>
-                                        <% }) %>
-                                    <% } %>
+                                        </td>
+                                    <% }) %>
+                                <% } %>
 
                                 </tbody>
                             </table>
