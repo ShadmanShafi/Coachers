@@ -108,7 +108,12 @@ const getSearchPage = (req, res) => {
         else{
           const registeredSubjectsList = registeredSubjectsListData.subjects;
 
-          res.render("users/searchPage.ejs", { user: req.user,  subjectsList: data});
+          const subjectsToDisplay = outerUnion(registeredSubjectsList, allSubjects);
+
+         
+          console.log("SubjectsToDisplay", subjectsToDisplay);
+
+          res.render("users/searchPage.ejs", { user: req.user,  subjectsList: subjectsToDisplay});
         }
     })
     
@@ -132,7 +137,7 @@ const enrollUser = (req, res) => {
         res.redirect("/users/dashboard");
       } else {
         console.log(success);
-        res.redirect("/users/dashboard");
+        res.redirect("/users/searchpage");
       }
     })
 }

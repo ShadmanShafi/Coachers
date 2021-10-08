@@ -5,10 +5,11 @@ const outerUnion = (array1, array2)=>{
     });
     const resArray = [];
     array2.forEach(element => {
-        if(!set.has(element)){
+        if(!set.has(element.name)){
             resArray.push(element);
         }
     })
+
     return resArray;
 }
 
