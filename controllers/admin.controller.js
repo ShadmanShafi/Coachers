@@ -31,25 +31,25 @@ const postLogin = (req, res, next) => {
 const postaddsubject = (req, res) => {
   const { subjectname } = req.body;
   const errors = [];
-  Subjects.findOne({ subjectname: subjectname }).then((subject) => {
+  Subjects.findOne({ name: subjectname }).then((subject) => {
     if (subject) {
       errors.push("Subject already exists with this email!");
       req.flash("errors", errors);
       res.redirect("/admin/addsubject");
     } else {
-      const newSubject = new Subjects({
-        subjectname,
-
-      });
+      const newSubject = new Subjects();
+      newSubject.name = subjectname;
       newSubject
         .save()
         .then(() => {
+          console.log("Saving Subject Success");
           res.redirect("/admin/addsubject");
         })
         .catch(() => {
           errors.push("Saving subject to the database failed!");
           req.flash("errors", errors);
           res.redirect("/admin/addsubject");
+          console.log("Saving Subject Failed");
         });
     };
 })};
@@ -60,12 +60,10 @@ const getaddtopics = (req,res) => {
         SubjectList = data;
         res.render("admin/addtopicspage.ejs", {
           SubjectList: SubjectList,
-          size: SubjectList.legnth
         });
   }).catch(() => {
         res.render("admin/addtopicspage.ejs", {
           SubjectList: SubjectList,
-          size: SubjectList.legnth
         });
   })
   // res.render("admin/addtopicspage.ejs", {SubjectList})
@@ -73,34 +71,42 @@ const getaddtopics = (req,res) => {
 }
 
 const postaddtopics = (req, res) => {
-  const { subjectname, topic  } = req.body;
-  console.log({ subjectname, topic  });
+  const { subjectname, topic, link } = req.body;
+  console.log({ subjectname, topic, link });
 
   const errors = [];
-  Topics.findOne({ topic: topic, subjectname: subjectname }).then((element) => {
+  Topics.findOne({ name: topic}).then((element) => {
     if (element) {
       errors.push("topic already exists!");
       console.log("topic already exists!");
       req.flash("errors", errors);
       res.redirect("/admin/addtopics");
     } else {
-      const newtopic = new Topics();
-
-      Subjects.findOne({subjectname: subjectname}).then((result) => {
+      
+      Subjects.findOne({name: subjectname}).then((result) => {
         if(result){
-          console.log("Going in", result._id);
-          const subjectID = result._id;
-          
+          const newtopic = new Topics();
           newtopic.name = topic;
-          newtopic.subject = (subjectID);
+          newtopic.videoLink = link;
+          console.log("Going in", result._id);
+          
           newtopic
           .save()
           .then(() => {
-          console.log('Saving topic to the database Successful!');
-          res.redirect("/admin/addtopics");
+          console.log('Saving topic to the database Successful! ID is ', newtopic._id);
+          Subjects.findOneAndUpdate({name: subjectname}, {$push: {topics: newtopic._id}}, (error,success)=>{
+            if (error) {
+              console.log(error);
+              res.redirect("/admin/addtopics");
+            } else {
+              console.log(success);
+              res.redirect("/admin/addtopics");
+            }
+          })
+          
         })
         .catch((e) => {
-          errors.push("Saving topic to the database failed!");
+          errors.push("Error Found");
           console.log(errors);
           console.log(e);
           req.flash("errors", errors);

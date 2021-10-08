@@ -82,7 +82,7 @@ alert("Script has run");
                       <% SubjectList.forEach(subject => { %>
                        <option>
               
-                          <%= subject.subjectname %>
+                          <%= subject.name %>
                        
                         </option>
                       <% })} %>
@@ -92,6 +92,10 @@ alert("Script has run");
               <div class="mb-3">
                 <label for="topic" class="form-label">Topic</label>
                 <input type="text" id="text" class="form-control" name="topic" placeholder="topic" >
+              </div>
+              <div class="mb-3">
+                <label for="topic" class="form-label">Link</label>
+                <input type="text" id="text" class="form-control" name="link" placeholder="link" >
               </div>
               
               

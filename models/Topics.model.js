@@ -4,8 +4,10 @@ const TopicSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  subject: {
-    type: mongoose.Types.ObjectId, ref: 'subjects',
+
+  videoLink:{
+    type: String,
+    required: true
   }
   
 });

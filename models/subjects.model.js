@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
 const subjectSchema = new mongoose.Schema({
-  subjectname: {
+  name: {
     type: String,
     required: true,
   },
+  topics: [
+    {type: mongoose.Types.ObjectId, ref: 'topic',}
+  ]
   
 });
 
