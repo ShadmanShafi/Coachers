@@ -98,7 +98,19 @@ const getDashboard = (req, res) => {
 
 const getSearchPage = (req, res) => {
   Subjects.find().then((data)=>{
-    res.render("users/searchPage.ejs", { user: req.user,  subjectsList: data});
+    const allSubjects = data;
+    registeredSubjects.findOne({email: req.user.email}, (error, registeredSubjectsListData)=>{
+        if(error){
+          console.log("DataBase Error. Subjects Junction Table: NO DATA\n");
+          res.redirect("/users/dashboard");
+        }
+        else{
+          const registeredSubjectsList = registeredSubjectsListData.subjects;
+          
+          res.render("users/searchPage.ejs", { user: req.user,  subjectsList: data});
+        }
+    })
+    
   }).catch((error)=>{
       console.log(error);
       res.render("users/searchPage.ejs", { user: req.user,  subjectsList: []});
