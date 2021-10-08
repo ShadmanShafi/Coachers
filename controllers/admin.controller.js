@@ -11,24 +11,6 @@ const getDashboard = (req,res) => {
     res.render("admin/dashboard.ejs");
 }
 
-const getaddtopics = (req,res) => {
-  var SubjectList = [];
-  Subjects.find().then((data) => {
-        SubjectList = data;
-        console.log("Data found\n");
-        res.render("admin/addtopicspage.ejs", {
-          SubjectList: SubjectList,
-          size: SubjectList.legnth
-        });
-  }).catch(() => {
-        res.render("admin/addtopicspage.ejs", {
-          SubjectList: SubjectList,
-          size: SubjectList.legnth
-        });
-  })
-  // res.render("admin/addtopicspage.ejs", {SubjectList})
-
-}
 const getLogin = (req, res)=>{
     res.render("admin/login.ejs", {error: req.flash("error")});
 };
@@ -72,9 +54,28 @@ const postaddsubject = (req, res) => {
     };
 })};
 
+const getaddtopics = (req,res) => {
+  var SubjectList = [];
+  Subjects.find().then((data) => {
+        SubjectList = data;
+        res.render("admin/addtopicspage.ejs", {
+          SubjectList: SubjectList,
+          size: SubjectList.legnth
+        });
+  }).catch(() => {
+        res.render("admin/addtopicspage.ejs", {
+          SubjectList: SubjectList,
+          size: SubjectList.legnth
+        });
+  })
+  // res.render("admin/addtopicspage.ejs", {SubjectList})
+
+}
+
 const postaddtopics = (req, res) => {
   const { subjectname, topic  } = req.body;
   console.log({ subjectname, topic  });
+
   const errors = [];
   Topics.findOne({ topic: topic, subjectname: subjectname }).then((element) => {
     if (element) {
@@ -83,14 +84,18 @@ const postaddtopics = (req, res) => {
       req.flash("errors", errors);
       res.redirect("/admin/addtopics");
     } else {
-      const newtopic = new Topics({
-        subjectname: subjectname,
-        topic: topic
+      const newtopic = new Topics();
 
-      });
-      newtopic
-        .save()
-        .then(() => {
+      Subjects.findOne({subjectname: subjectname}).then((result) => {
+        if(result){
+          console.log("Going in", result._id);
+          const subjectID = result._id;
+          
+          newtopic.name = topic;
+          newtopic.subject.push(subjectID);
+          newtopic
+          .save()
+          .then(() => {
           console.log('Saving topic to the database Successful!');
           res.redirect("/admin/addtopics");
         })
@@ -101,7 +106,17 @@ const postaddtopics = (req, res) => {
           req.flash("errors", errors);
           res.redirect("/admin/addtopics");
         });
-    };
+
+        }
+        else{
+          console.log("Subject Error. Not Found.");
+          return;
+        }
+    })
+  
+
+      
+  };
 })};
 
 const getRegister = (req, res)=>{
