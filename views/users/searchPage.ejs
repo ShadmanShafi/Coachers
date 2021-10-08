@@ -55,7 +55,8 @@
                   <p>24/7 <span class="suffix">Support</span></p> -->
                 </div>
                 <div class="footer">
-                  <a href="#" class="btn btn-pricing btn-block">Enroll</a>
+                  <% const enrollurl = '/users/enroll/'+user.email+'&'+subject.subjectname;  %>
+                  <a href="<%= enrollurl %>" class="btn btn-pricing btn-block">Enroll</a>
                 </div>
               </div>
             </div>

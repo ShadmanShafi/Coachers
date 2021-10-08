@@ -95,6 +95,14 @@ const getSearchPage = (req, res) => {
   )
 }
 
+
+const enrollUser = (req, res) => {
+    const userId = req.params.userid;
+    const subject = req.params.subjectid;
+    console.log("Enrolling");
+    console.log(userId, subject);
+}
+
 const getCoursePage = (req, res) => {
   let subjectsList = [];
   Subjects.find().then((data)=>{
@@ -107,6 +115,8 @@ const getCoursePage = (req, res) => {
   res.render("users/coursePage.ejs", { user: req.user,  subjectsList: subjectsList});
 }
 
+
+
 module.exports = {
     getLogin,
     getRegister,
@@ -114,5 +124,6 @@ module.exports = {
     postRegister,
     getDashboard,
     getSearchPage,
-    getCoursePage
+    getCoursePage,
+    enrollUser
 };
