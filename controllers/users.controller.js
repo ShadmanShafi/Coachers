@@ -3,6 +3,7 @@ const Subjects = require('../models/subjects.model');
 const registeredSubjects = require('../models/registeredSubjects.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
+const outerUnion = require('../utilities/getOuterUnion.js');
 
 const getLogin = (req, res)=>{
     res.render("users/login.ejs", {error: req.flash("error")});
@@ -106,7 +107,7 @@ const getSearchPage = (req, res) => {
         }
         else{
           const registeredSubjectsList = registeredSubjectsListData.subjects;
-          
+
           res.render("users/searchPage.ejs", { user: req.user,  subjectsList: data});
         }
     })
