@@ -1,6 +1,6 @@
 const User = require('../models/User.model');
 const Subjects = require('../models/subjects.model');
-const registerSubjects = require('../models/registeredSubjects.model');
+const registeredSubjects = require('../models/registeredSubjects.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
 
@@ -67,7 +67,7 @@ User.findOne({ email: email }).then((user) => {
                 .save()
                 .then(() => {
                   res.redirect("/users/login");
-                  const newEntry = new registerSubjects();
+                  const newEntry = new registeredSubjects();
                   newEntry.email = newUser.email;
                   newEntry.save();
                 })
@@ -86,7 +86,14 @@ User.findOne({ email: email }).then((user) => {
 };
 
 const getDashboard = (req, res) => {
-  res.render("users/dashboard.ejs", { user: req.user });
+  const userEmail = req.user.email;
+  registeredSubjects.findOne({email: userEmail}, (err, data)=>{
+    res.render("users/dashboard.ejs", { user: req.user, subjectsRegistered: data.subjects });
+  }).catch((error)=>{
+    console.log(error);
+    res.render("users/dashboard.ejs", { user: req.user,  subjectsRegistered: []});
+  });
+  
 }
 
 const getSearchPage = (req, res) => {
@@ -106,7 +113,7 @@ const enrollUser = (req, res) => {
     console.log("Enrolling");
     console.log(userEmail, subject);
 
-    registerSubjects.findOneAndUpdate({email: userEmail}, {$push: {subjects: subject}}, (error,success)=>{
+    registeredSubjects.findOneAndUpdate({email: userEmail}, {$push: {subjects: subject}}, (error,success)=>{
       if (error) {
         console.log(error);
         res.redirect("/users/dashboard");
