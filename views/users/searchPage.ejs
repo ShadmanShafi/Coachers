@@ -43,7 +43,7 @@
                 <div class="header">
                   <div class="pricing-type">GCE O'Level</div>
                   <div class="price">
-                    <h1><%= subject.subjectname %></h1>
+                    <h1><%= subject.name %></h1>
                   </div>
                   <!-- <h5>Per Month</h5> -->
                 </div>
@@ -55,7 +55,7 @@
                   <p>24/7 <span class="suffix">Support</span></p> -->
                 </div>
                 <div class="footer">
-                  <% const enrollurl = '/users/enroll/'+user.email+'&'+subject.subjectname;  %>
+                  <% const enrollurl = '/users/enroll/'+user.email+'&'+subject.name;  %>
                   <a href="<%= enrollurl %>" class="btn btn-pricing btn-block">Enroll</a>
                 </div>
               </div>

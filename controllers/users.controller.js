@@ -101,10 +101,20 @@ const getSearchPage = (req, res) => {
 
 
 const enrollUser = (req, res) => {
-    const userId = req.params.userid;
-    const subject = req.params.subjectid;
+    const userEmail = req.params.useremail;
+    const subject = req.params.subject;
     console.log("Enrolling");
-    console.log(userId, subject);
+    console.log(userEmail, subject);
+
+    registerSubjects.findOneAndUpdate({email: userEmail}, {$push: {subjects: subject}}, (error,success)=>{
+      if (error) {
+        console.log(error);
+        res.redirect("/users/dashboard");
+      } else {
+        console.log(success);
+        res.redirect("/users/dashboard");
+      }
+    })
 }
 
 const getCoursePage = (req, res) => {

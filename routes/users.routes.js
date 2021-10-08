@@ -15,7 +15,7 @@ router.get("/logout",(req, res)=>{
 router.get("/dashboard", ensureAuthenticated, getDashboard);
 router.get("/searchpage", ensureAuthenticated, getSearchPage);
 router.get("/coursepage", ensureAuthenticated, getCoursePage);
-router.get("/enroll/:userid&:subjectid", ensureAuthenticated, enrollUser);
+router.get("/enroll/:useremail&:subject", ensureAuthenticated, enrollUser);
 
 
 module.exports = router;
