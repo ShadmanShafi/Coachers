@@ -154,6 +154,11 @@ const getCoursePage = (req, res) => {
   res.render("users/coursePage.ejs", { user: req.user,  subjectsList: subjectsList});
 }
 
+const getEnrolledCoursesPage = (req, res) => {
+  const subjectsList = [];
+  res.render("users/enrolledCoursesListPage.ejs", { user: req.user,  subjectsList: subjectsList});
+}
+
 
 
 module.exports = {
@@ -164,5 +169,6 @@ module.exports = {
     getDashboard,
     getSearchPage,
     getCoursePage,
-    enrollUser
+    enrollUser,
+    getEnrolledCoursesPage
 };
