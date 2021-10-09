@@ -3,7 +3,7 @@ const Subjects = require('../models/subjects.model');
 const registeredSubjects = require('../models/registeredSubjects.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
-const {outerUnion, innerUnion} = require('../utilities/getOuterUnion.js');
+const {outerUnion, innerUnion} = require('../utilities/getUnionFunctions.js');
 
 const getLogin = (req, res)=>{
     res.render("users/login.ejs", {error: req.flash("error")});
@@ -134,7 +134,6 @@ const enrollUser = (req, res) => {
         console.log(error);
         res.redirect("/users/dashboard");
       } else {
-        console.log(success);
         res.redirect("/users/searchpage");
       }
     })
@@ -189,10 +188,12 @@ const unregisteCcourse = (req, res) => {
         registeredSubjects.updateOne( {email: eMail}, { $pull: {subjects: subjectName } }, (error, succ)=>{
           if(error){
             console.log("Error Found\n");
+            res.redirect("/users/enrolledcourselist"); 
+          }
+          else{
+            res.redirect("/users/enrolledcourselist"); 
           }
         });
-       
-        res.redirect("/users/enrolledcourselist"); 
       }
   });
   
