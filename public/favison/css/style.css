@@ -1960,12 +1960,11 @@ h6 {
 
 .progress-table .table-head .serial, .progress-table .table-head .country, .progress-table .table-head .visit, .progress-table .table-head .percentage {
   color: #222222;
-  line-height: 40px;
-  text-transform: uppercase;
-  font-weight: 500; }
+  line-height: 60px;
+  font-weight: 550; }
 
 .progress-table .table-row {
-  padding: 15px 0;
+  padding: 30px 0;
   border-top: 1px solid #edf3fd;
   display: flex; }
 
