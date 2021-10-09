@@ -3,7 +3,7 @@ const Subjects = require('../models/subjects.model');
 const registeredSubjects = require('../models/registeredSubjects.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
-const outerUnion = require('../utilities/getOuterUnion.js');
+const {outerUnion, innerUnion} = require('../utilities/getOuterUnion.js');
 
 const getLogin = (req, res)=>{
     res.render("users/login.ejs", {error: req.flash("error")});
@@ -111,8 +111,6 @@ const getSearchPage = (req, res) => {
           const subjectsToDisplay = outerUnion(registeredSubjectsList, allSubjects);
 
          
-          console.log("SubjectsToDisplay", subjectsToDisplay);
-
           res.render("users/searchPage.ejs", { user: req.user,  subjectsList: subjectsToDisplay});
         }
     })
@@ -155,8 +153,27 @@ const getCoursePage = (req, res) => {
 }
 
 const getEnrolledCoursesPage = (req, res) => {
-  const subjectsList = [];
-  res.render("users/enrolledCoursesListPage.ejs", { user: req.user,  subjectsList: subjectsList});
+  Subjects.find().then((data)=>{
+    const allSubjects = data;
+    registeredSubjects.findOne({email: req.user.email}, (error, registeredSubjectsListData)=>{
+        if(error){
+          console.log("DataBase Error. Subjects Junction Table: NO DATA\n");
+          res.redirect("/users/dashboard");
+        }
+        else{
+          const registeredSubjectsList = registeredSubjectsListData.subjects;
+
+          const subjectsToDisplay = innerUnion(registeredSubjectsList, allSubjects);
+
+         
+          res.render("users/enrolledCoursesListPage.ejs", { user: req.user,  subjectsList: subjectsToDisplay});        }
+    })
+    
+  }).catch((error)=>{
+      console.log(error);
+      res.render("users/enrolledCoursesListPage.ejs", { user: req.user,  subjectsList: []});    }
+  )
+  
 }
 
 

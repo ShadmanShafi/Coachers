@@ -53,17 +53,18 @@
                 <div class="visit">Topics Done </div>
                 <div class="percentage">Progress</div>
               </div>
-              
-              <div class="table-row">
-                <div class="serial">07</div>
-                <div class="country"> <img src="" alt="">Canada</div>
-                <div class="visit">645032</div>
-                <div class="percentage">
-                  <div class="progress">
-                    <div class="progress-bar color-7" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+              <% subjectsList.forEach(subject=>{ %>
+                  <div class="table-row">
+                    <div class="serial">07</div>
+                    <div class="country"> <img src="" alt=""> <%= subject.name %> </div>
+                    <div class="visit">645032</div>
+                    <div class="percentage">
+                      <div class="progress">
+                        <div class="progress-bar color-7" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+              <% }) %>
               
             </div>
           </div>
