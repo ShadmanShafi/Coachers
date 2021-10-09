@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getLogin, getRegister, postLogin, postRegister, getDashboard, getSearchPage, getCoursePage, enrollUser, getEnrolledCoursesPage } = require('./../controllers/users.controller');
+const { getLogin, getRegister, postLogin, postRegister, getDashboard, getSearchPage, getCoursePage, enrollUser, getEnrolledCoursesPage, unregisteCcourse } = require('./../controllers/users.controller');
 const ensureAuthenticated = require('./../middlewares/auth.middleware');
 
 router.get("/login",getLogin);
@@ -17,6 +17,7 @@ router.get("/searchpage", ensureAuthenticated, getSearchPage);
 router.get("/coursepage", ensureAuthenticated, getCoursePage);
 router.get("/enrolledcourselist", ensureAuthenticated, getEnrolledCoursesPage);
 router.get("/enroll/:useremail&:subject", ensureAuthenticated, enrollUser);
+router.get("/unregistercourse/:subject", ensureAuthenticated, unregisteCcourse);
 
 
 module.exports = router;

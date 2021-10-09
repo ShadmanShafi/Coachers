@@ -176,6 +176,27 @@ const getEnrolledCoursesPage = (req, res) => {
   
 }
 
+const unregisteCcourse = (req, res) => {
+    const eMail = req.user.email;
+    const subjectName = req.params.subject;
+    registeredSubjects.findOne({email: eMail}, (error, registeredSubjectsListData)=>{
+      if(error){
+        console.log("DataBase Error. Subjects Junction Table: NO DATA\n");
+        res.redirect("/users/dashboard");
+      }
+      else{
+        
+        registeredSubjects.updateOne( {email: eMail}, { $pull: {subjects: subjectName } }, (error, succ)=>{
+          if(error){
+            console.log("Error Found\n");
+          }
+        });
+       
+        res.redirect("/users/enrolledcourselist"); 
+      }
+  });
+  
+}
 
 
 module.exports = {
@@ -187,5 +208,6 @@ module.exports = {
     getSearchPage,
     getCoursePage,
     enrollUser,
-    getEnrolledCoursesPage
+    getEnrolledCoursesPage,
+    unregisteCcourse
 };
