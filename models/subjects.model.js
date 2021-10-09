@@ -5,7 +5,7 @@ const subjectSchema = new mongoose.Schema({
     required: true,
   },
   topics: [
-    {type: mongoose.Types.ObjectId, ref: 'topic',}
+    {type: Array}
   ]
   
 });
