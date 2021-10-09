@@ -4,9 +4,7 @@ const subjectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  topics: [
-    {type: Array}
-  ]
+  topics: [ ]
   
 });
 

@@ -94,8 +94,11 @@ const postaddtopics = (req, res) => {
           newtopic
           .save()
           .then(() => {
-          console.log('Saving topic to the database Successful! ID is ', newtopic._id);
-          Subjects.findOneAndUpdate({name: subjectname}, {$push: {topics: newtopic._id}}, (error,success)=>{
+          console.log('Saving topic to the database Successful! ID is ', newtopic.name);
+
+          const toAdd = {name: newtopic.name};
+
+          Subjects.findOneAndUpdate({name: subjectname}, {$push: {topics: toAdd}}, (error,success)=>{
             if (error) {
               console.log(error);
               res.redirect("/admin/addtopics");
