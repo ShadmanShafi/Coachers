@@ -18,7 +18,7 @@ router.get("/deleteuser/:id", deleteUser);
 router.get("/deletetopic/:id&:subject", deleteTopic);
 router.get("/logout",(req, res)=>{
     req.logout();
-    res.redirect("/");
+    res.redirect("/admin");
 });
 
 router.get("/dashboard", ensureAuthenticated, getDashboard);
