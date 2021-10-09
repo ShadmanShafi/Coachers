@@ -1938,15 +1938,15 @@ h6 {
     overflow-x: scroll; } }
 .progress-table {
   background: #fff;
-  padding: 15px 0px 30px 0px;
+  padding: 10px 10 30px 10px;
   min-width: 800px; }
 
 .progress-table .serial {
-  width: 11.83%;
-  padding-left: 30px; }
+  width: 5.83%;
+  padding-left: 10; }
 
 .progress-table .country {
-  width: 28.07%; }
+  width: 20.07%; }
 
 .progress-table .visit {
   width: 19.74%; }
@@ -1973,7 +1973,7 @@ h6 {
   align-items: center; }
 
 .progress-table .table-row .country img {
-  margin-right: 15px; }
+  margin-right: 50px; }
 
 .progress-table .table-row .percentage .progress {
   width: 80%;
