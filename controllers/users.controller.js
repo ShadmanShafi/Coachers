@@ -165,7 +165,8 @@ const getEnrolledCoursesPage = (req, res) => {
           const subjectsToDisplay = innerUnion(registeredSubjectsList, allSubjects);
 
          
-          res.render("users/enrolledCoursesListPage.ejs", { user: req.user,  subjectsList: subjectsToDisplay});        }
+          res.render("users/enrolledCoursesListPage.ejs", { user: req.user,  subjectsList: subjectsToDisplay});        
+        }
     })
     
   }).catch((error)=>{
@@ -175,7 +176,7 @@ const getEnrolledCoursesPage = (req, res) => {
   
 }
 
-const unregisteCcourse = (req, res) => {
+const unregisterCourse = (req, res) => {
     const eMail = req.user.email;
     const subjectName = req.params.subject;
     registeredSubjects.findOne({email: eMail}, (error, registeredSubjectsListData)=>{
@@ -199,6 +200,12 @@ const unregisteCcourse = (req, res) => {
   
 }
 
+const getQuizInfoPage = (req, res) => {
+  
+    res.render("users/quizInfoPage.ejs", { user: req.user,  subjectsList: []});   
+
+}
+
 
 module.exports = {
     getLogin,
@@ -210,5 +217,7 @@ module.exports = {
     getCoursePage,
     enrollUser,
     getEnrolledCoursesPage,
-    unregisteCcourse
+    unregisterCourse,
+    getQuizInfoPage
+
 };
