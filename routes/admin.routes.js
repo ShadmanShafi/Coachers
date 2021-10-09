@@ -15,7 +15,7 @@ router.get("/userlist", getUserList);
 router.get("/topiclist", gettopiclist);
 router.get("/registernewuser", registerNewUser);
 router.get("/deleteuser/:id", deleteUser);
-router.get("/deletetopic/:id&:subject", deleteTopic);
+router.get("/deletetopic/:topic&:subject", deleteTopic);
 router.get("/logout",(req, res)=>{
     req.logout();
     res.redirect("/admin");

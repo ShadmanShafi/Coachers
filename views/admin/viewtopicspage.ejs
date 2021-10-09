@@ -81,12 +81,12 @@
                                   <% if(participants.length>0){ %>
                                     <% participants.forEach(participant=>{ %>
                                         <tr></tr>
-                                        <td> <%= participant.subject %> </td>
+                                        <td> <%= participant.subjectName %> </td>
                                     
                                         <td> <%= participant.name %> </td>
 
                                         <td>
-                                            <% const deleteURL = 'deletetopic/' + participant._id + '&' + participant.subjectName %>
+                                            <% const deleteURL = 'deletetopic/' + participant.name + '&' + participant.subjectName %>
                                             <a href = "<%= deleteURL %>">
                                                 <i class="fa fa-trash"></i>
                                                 <span class="fa fa-chevron"></span>

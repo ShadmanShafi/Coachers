@@ -276,16 +276,16 @@ const gettopiclist = (req, res) => {
 }
 
 const deleteTopic = (req, res) => {
-  const id = req.params.id;
-  const subjectName = req.params.subjectid;
-  Topics.deleteOne({_id:id}, (err)=>{
+  const topicName = req.params.topic;
+  const subjectName = req.params.subject;
+  Topics.deleteOne({name:topicName}, (err, succ)=>{
       if(err){
           error = "failed to delete data";
           req.flash('error', error);
           res.redirect('/admin/topiclist');
       }else{
           console.log(req.params.id);
-          Subjects.findOneAndUpdate({name: subjectName}, {$pullall: {topics: req.params.id}}, (err,suc)=>{
+          Subjects.findOneAndUpdate({name: subjectName}, {$pull: {topics: {name:topicName}}}, (err,suc)=>{
             if(err){
               console.log(Err);
               error = "Data Delete unsuccessful.";
