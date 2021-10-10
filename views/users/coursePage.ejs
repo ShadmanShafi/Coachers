@@ -34,50 +34,55 @@
 </head>
 <body>
   <!-- Back to top button -->
+  <div class="back-to-top"></div>
   <!-- Header -->
   <%- include('./userPartials/headerNavbar.ejs') %>
   <!-- header end -->
-  <div class="back-to-top"></div>
+  
   <div class="page-section bg-light">
 
-  <div style="padding-left: 10%;">
-    <h5>
-      This is the Course Page for <%= subject %>
-    </h5>
-  </div>
-  <br>
-
-  <!--Nav Bar-->
-  <aside class="mdc-drawer" style="float: left;">
-    <div class="mdc-drawer__content">
-      <nav class="mdc-list">
-        <a class="mdc-list-item mdc-list-item--activated" href="#" aria-current="page">
-          <span class="mdc-list-item__ripple"></span>
-          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
-          <span class="mdc-list-item__text">Inbox</span>
-        </a>
-        <a class="mdc-list-item" href="#">
-          <span class="mdc-list-item__ripple"></span>
-          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">send</i>
-          <span class="mdc-list-item__text">Outgoing</span>
-        </a>
-        <a class="mdc-list-item" href="#">
-          <span class="mdc-list-item__ripple"></span>
-          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
-          <span class="mdc-list-item__text">Drafts</span>
-        </a>
-      </nav>
+    <div style="padding-left: 10%;">
+      <h5>
+        This is the Course Page for <%= subject %>
+      </h5>
     </div>
-  </aside>
+    <br>
+
+    <!--Nav Bar-->
+    <div style="padding-left: 5%;padding-right: 5%;">
+      <aside class="mdc-drawer" style="float: left; width: 20%;">
+        <div class="mdc-drawer__content">
+          <nav class="mdc-list">
+            <a class="mdc-list-item" href="#" aria-current="page">
+              <span class="mdc-list-item__ripple"></span>
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
+              <span class="mdc-list-item__text">Inbox</span>
+            </a>
+            <a class="mdc-list-item" href="#">
+              <span class="mdc-list-item__ripple"></span>
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">send</i>
+              <span class="mdc-list-item__text">Outgoing</span>
+            </a>
+            <a class="mdc-list-item" href="#">
+              <span class="mdc-list-item__ripple"></span>
+              <i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
+              <span class="mdc-list-item__text">Drafts</span>
+            </a>
+          </nav>
+        </div>
+      </aside>
+    </div>
   <!--Nav Bar End-->
-    <p style="margin: auto; width: 75%; padding: 20px;">
-      <button style="display: block; margin-left: auto; margin-right: auto; width: 100%;"class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        VIDEO
-      </button>
-    </p>
-    <div class="collapse" id="collapseExample">
-      <div class="card card-body">
-        Porte boy bhai, porte boy
+    <div style="margin: auto; width: 52%;">
+      <p>
+        <button style="display: block; margin-left: auto; margin-right: auto; width: 100%;"class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          VIDEO
+        </button>
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          Porte boy bhai, porte boy
+        </div>
       </div>
     </div>
   </div>
