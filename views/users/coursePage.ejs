@@ -83,6 +83,7 @@
       description: 'Algebra and Stuff'
     } -->
     <div style="margin: auto; width: 52%;">
+      <% if(topicsList != undefined) {%>
       <% for(var i=0; i < topicsList.length ; i++){ %>
         <p>
           <button style="display: block; margin-left: auto; margin-right: auto; width: 100%;"class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample<%=i%>" aria-expanded="false" aria-controls="collapseExample">
@@ -91,15 +92,16 @@
         </p>
         <div class="collapse" id="collapseExample<%=i%>">
           <div class="card card-body">
-            
+            <div>
+              <iframe width="700" height="315" src="<%=topicsList[i].videoURL%>" title="YouTube video player" frameborder="5" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
           <div>
-              <p>
-                <%= topicsList[i].description %>
-              </p>
+              <p><%= topicsList[i].description %></p>
           </div>
           </div>
         </div>
       <% } %>
+    <% } %>
     </div>
   </div>
   
