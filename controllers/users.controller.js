@@ -1,9 +1,10 @@
 const User = require('../models/User.model');
-const Subjects = require('../models/subjects.model');
-const registeredSubjects = require('../models/registeredSubjects.model');
+const {Subjects, createTopic} = require('../models/subjects.model');
+const {registeredSubjects, createSubjectInstanceForEnrolling} = require('../models/registeredSubjects.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
 const {outerUnion, innerUnion} = require('../utilities/getUnionFunctions.js');
+const { create } = require('../models/User.model');
 
 const getLogin = (req, res)=>{
     res.render("users/login.ejs", {error: req.flash("error")});
@@ -67,13 +68,15 @@ User.findOne({ email: email }).then((user) => {
               newUser
                 .save()
                 .then(() => {
-                  res.redirect("/users/login");
-                  const newEntry = new registeredSubjects();
+                  let newEntry = new registeredSubjects();
                   newEntry.email = newUser.email;
-                  newEntry.save();
+                  newEntry.subjects = [];
+                  newEntry.save().then(()=>{res.redirect("/users/login");})
+                  
                 })
-                .catch(() => {
-                  errors.push("Saving User to the daatabase failed!");
+                .catch((e) => {
+                  errors.push("Saving User to the database failed!");
+                  console.log(e);
                   req.flash("errors", errors);
                   res.redirect("/users/register");
                 });
@@ -129,7 +132,8 @@ const enrollUser = (req, res) => {
     console.log("Enrolling");
     console.log(userEmail, subject);
 
-    registeredSubjects.findOneAndUpdate({email: userEmail}, {$push: {subjects: subject}}, (error,success)=>{
+    const toAdd = createSubjectInstanceForEnrolling(subject)
+    registeredSubjects.findOneAndUpdate({email: userEmail}, {$push: {subjects: toAdd}}, (error,success)=>{
       if (error) {
         console.log(error);
         res.redirect("/users/dashboard");

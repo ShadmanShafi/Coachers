@@ -4,10 +4,17 @@ const UserSubjectsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  subjects: [
-      {type: String}
-  ]
+  subjects: []
 });
 
-const User = mongoose.model("user_subjects", UserSubjectsSchema);
-module.exports = User;
+const registeredSubjects = mongoose.model("user_subjects", UserSubjectsSchema);
+
+
+const createSubjectInstanceForEnrolling = (subjectName) => {
+  return {
+    subjectName: subjectName,
+    topicsCovered: []
+  }
+}
+
+module.exports = {registeredSubjects, createSubjectInstanceForEnrolling};
