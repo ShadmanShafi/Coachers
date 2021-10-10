@@ -9,4 +9,15 @@ const subjectSchema = new mongoose.Schema({
 });
 
 const Subjects= mongoose.model("Subjects",subjectSchema);
-module.exports = Subjects;
+
+const createTopic = (topicName, weekNumber, videoURL, description) => {
+    return {
+      topicName: topicName,
+      weekNumber: weekNumber,
+      videoURL: videoURL,
+      description: description
+    }
+}
+
+
+module.exports = {Subjects, createTopic};
