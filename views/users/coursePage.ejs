@@ -85,13 +85,18 @@
     <div style="margin: auto; width: 52%;">
       <% for(var i=0; i < topicsList.length ; i++){ %>
         <p>
-          <button style="display: block; margin-left: auto; margin-right: auto; width: 100%;"class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            <%= topicsList[i].topicName  %>
+          <button style="display: block; margin-left: auto; margin-right: auto; width: 100%;"class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample<%=i%>" aria-expanded="false" aria-controls="collapseExample">
+              Chapter <%= i+1 %>: <%= topicsList[i].topicName  %>
           </button>
         </p>
-        <div class="collapse" id="collapseExample">
+        <div class="collapse" id="collapseExample<%=i%>">
           <div class="card card-body">
-            Porte boy bhai, porte boy
+            
+          <div>
+              <p>
+                <%= topicsList[i].description %>
+              </p>
+          </div>
           </div>
         </div>
       <% } %>
