@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material/drawer": "^13.0.0",
+    "@material/menu": "^13.0.0",
+    "@material/tab-bar": "^13.0.0",
     "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
     "dotenv": "^10.0.0",
