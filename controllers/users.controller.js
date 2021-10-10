@@ -148,7 +148,8 @@ const enrollUser = (req, res) => {
 
 const getCoursePage = (req, res) => {
   const subject = req.params.subject;
-  res.render('users/coursePage.ejs', {user: req.user, subject: subject});
+  const weekSelected = req.params.week;
+  res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected  });
 }
 
 const getEnrolledCoursesPage = (req, res) => {
