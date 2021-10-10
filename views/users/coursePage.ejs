@@ -55,13 +55,15 @@
           <nav class="mdc-list">
             <% for(var i=0; i < totalWeeks ; i++) {%>
 
-                <a class="mdc-list-item" href="#" aria-current="page">
+                <a class="mdc-list-item" href="/users/coursepage/<%=subject%>&<%=i+1%>" aria-current="page">
                 <span class="mdc-list-item__ripple"></span>
+
                 <% if(i+1 == weekSelected) { %>
                     <span class="mdc-list-item__text" style="color: black;">Week <%= i+1 %></span>
                 <% }else{ %>
                       <span class="mdc-list-item__text">Week <%= i+1 %></span>
                 <% } %>
+                
                 </a>
             <% } %>
              
