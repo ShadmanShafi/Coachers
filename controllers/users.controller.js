@@ -149,7 +149,31 @@ const enrollUser = (req, res) => {
 const getCoursePage = (req, res) => {
   const subject = req.params.subject;
   const weekSelected = req.params.week;
-  res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected  });
+
+  Subjects.findOne({name: subject}).then((data, error)=>{
+      if(error){
+        console.log("Data retrival Failed");
+        console.log(error);
+        res.redirect('/users/dashboard');
+      }
+      else{
+        const topicsList = data.topics;
+
+        const map = new Map();
+
+        topicsList.forEach(element=>{
+            const elementsWeek = parseInt(element.weekNumber);
+            if(map.get(elementsWeek) == undefined){
+              map.set(elementsWeek, new Array());
+            }
+            map.get(elementsWeek).push(element);
+        })
+
+        console.log(map);
+        res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected  });
+      }
+  })
+
 }
 
 const getEnrolledCoursesPage = (req, res) => {
