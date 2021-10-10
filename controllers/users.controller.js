@@ -169,8 +169,8 @@ const getCoursePage = (req, res) => {
             map.get(elementsWeek).push(element);
         })
 
-        console.log(map);
-        res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected  });
+        const topicsList = map.get(weekSelected);
+        res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList  });
       }
   })
 
