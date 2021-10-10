@@ -43,6 +43,7 @@
         </div>
 
         <div class="card smooth-shadow-md">
+          
 
           <!-- Card body -->
           <div class="card-body p-6">
@@ -50,6 +51,24 @@
               <!--<a href="../index.html"><img src="../v1Build/assetsimages/brand/logo/logo-primary.svg" class="mb-2" alt=""></a>-->
               <p class="mb-6"> Topics Currently Registered</p>
             </div>
+
+            <div class="mb-3">
+              <label for="Subjectname" class="form-label">Choose Subject</label>
+              <!-- <input type="text" id="text" class="form-control" name="subjectname" placeholder="subject" required=""> -->
+  
+                <select id="subjectname" name="subjectname">
+                 <% if(SubjectList.length>0){ %>
+                    <% SubjectList.forEach(subject => { %>
+                     <option>
+            
+                        <%= subject.name %>
+                     
+                      </option>
+                    <% })} %>
+                </select>
+              
+            </div>
+
             <!-- Form -->
 
             <!-- <List></List> -->
@@ -78,15 +97,15 @@
                                 </thead>
                 
                                 <tbody>
-                                  <% if(participants.length>0){ %>
-                                    <% participants.forEach(participant=>{ %>
+                                  <% if(SubjectList.length>0){ %>
+                                    <% SubjectList.forEach(subject=>{ %>
                                         <tr></tr>
-                                        <td> <%= participant.subjectName %> </td>
+                                        <td> <%= subject.subjectName %> </td>
                                     
-                                        <td> <%= participant.name %> </td>
+                                        <td> <%= subject.name %> </td>
 
                                         <td>
-                                            <% const deleteURL = 'deletetopic/' + participant.name + '&' + participant.subjectName %>
+                                            <% const deleteURL = 'deletetopic/' + subject.name + '&' + subject.subjectName %>
                                             <a href = "<%= deleteURL %>">
                                                 <i class="fa fa-trash"></i>
                                                 <span class="fa fa-chevron"></span>
