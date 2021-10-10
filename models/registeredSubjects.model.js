@@ -12,7 +12,7 @@ const registeredSubjects = mongoose.model("user_subjects", UserSubjectsSchema);
 
 const createSubjectInstanceForEnrolling = (subjectName) => {
   return {
-    subjectName: subjectName,
+    name: subjectName,
     topicsCovered: []
   }
 }

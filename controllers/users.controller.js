@@ -111,8 +111,11 @@ const getSearchPage = (req, res) => {
         else{
           const registeredSubjectsList = registeredSubjectsListData.subjects;
 
+          console.log("registeredSubjectsList:", registeredSubjectsList);
+
           const subjectsToDisplay = outerUnion(registeredSubjectsList, allSubjects);
 
+          console.log("subjectsToDisplay", subjectsToDisplay);
          
           res.render("users/searchPage.ejs", { user: req.user,  subjectsList: subjectsToDisplay});
         }
