@@ -197,17 +197,41 @@ const deleteUser = (req, res) => {
 const gettopiclist = (req, res) => {
   let SubjectList = [];
 
+  let subjectName = req.params.subject;
+
   Subjects.find().then((data) => {
     SubjectList = data;
+    if(subjectName == '--'){
+      res.render('admin/viewtopicspage.ejs', {
+        error: req.flash('error'),
+        SubjectList: SubjectList,
+        hosenSubject: [],
+        topicsList: []
+      })
+      return;
+    }
+    let subjectTouple;
+    SubjectList.forEach(subject=>{
+        if(subject.name == subjectName){
+            subjectTouple = subject;
+        }
+    })
+
+    console.log(subjectTouple.topics);
+
     res.render("admin/viewtopicspage.ejs", {
           error: req.flash('error'),
-          SubjectList: SubjectList
+          SubjectList: SubjectList,
+          chosenSubject: subjectName,
+          topicsList: subjectTouple.topics
     });
   }).catch(() => {
     error = 'Failed to fetch data';
     res.render("admin/viewtopicspage.ejs", {
           error: req.flash('error', error),
-          SubjectList: SubjectList
+          SubjectList: SubjectList,
+          topicsList: [],
+          chosenSubject: null,
     });
   })
   
@@ -219,31 +243,25 @@ const gettopiclist = (req, res) => {
 const deleteTopic = (req, res) => {
   const topicName = req.params.topic;
   const subjectName = req.params.subject;
-  Topics.deleteOne({name:topicName}, (err, succ)=>{
-      if(err){
-          error = "failed to delete data";
-          req.flash('error', error);
-          res.redirect('/admin/topiclist');
-      }else{
-          console.log(req.params.id);
-          Subjects.findOneAndUpdate({name: subjectName}, {$pull: {topics: {name:topicName}}}, (err,suc)=>{
-            if(err){
-              console.log(Err);
-              error = "Data Delete unsuccessful.";
-              console.log(error);
-              req.flash('error', error);
-              res.redirect('/admin/topiclist');
-            }
-            else{
-              console.log(suc);
-              error = "Data Deleted Successfully.";
-              console.log(error);
-              req.flash('error', error);
-              res.redirect('/admin/topiclist');
-            }
-          });
-      }
+
+  console.log(req.params.id);
+  Subjects.findOneAndUpdate({name: subjectName}, {$pull: {topics: {topicName:topicName}}}, (error,success)=>{
+    if(error){
+      console.log(error);
+      error = "Data Delete unsuccessful.";
+      console.log(error);
+      req.flash('error', error);
+      res.redirect('/admin/topiclist/'+subjectName);
+    }
+    else{
+      console.log(success);
+      error = "Data Deleted Successfully.";
+      console.log(error);
+      req.flash('error', error);
+      res.redirect('/admin/topiclist/'+subjectName);
+    }
   });
+  
 }
 
 

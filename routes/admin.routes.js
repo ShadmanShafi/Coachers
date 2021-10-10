@@ -13,9 +13,10 @@ router.get("/register", getRegister);
 router.post("/register", postRegister);
 router.get("/userlist", getUserList);
 router.get("/topiclist/:subject", gettopiclist);
+router.get("/deletetopic/:topic&:subject", deleteTopic);
 router.get("/registernewuser", registerNewUser);
 router.get("/deleteuser/:id", deleteUser);
-router.get("/deletetopic/:topic&:subject", deleteTopic);
+
 router.get("/logout",(req, res)=>{
     req.logout();
     res.redirect("/admin");

@@ -20,7 +20,17 @@
   <link rel="stylesheet" href="/seogram/assets/css/theme.css">
 
 
-  <title>DashBoard</title>
+  <script>
+      function getTopics(){
+        const subjectChosen = document.getElementById("subjectname").value;
+        if(subjectChosen != '--'){
+          window.location.replace("/admin/topiclist/" + subjectChosen);
+        }
+      }
+  </script>
+
+
+  <title>Topics List</title>
 </head>
 <body>
   <!-- Back to top button -->
@@ -38,7 +48,23 @@
           </div>
           <div class="x_content">
               <br/>
+              <div class="mb-3">
+                <label for="Subjectname" class="form-label" style="font-weight: bold; color: black;">Choose Subject Name</label>
+                <!-- <input type="text" id="text" class="form-control" name="subjectname" placeholder="subject" required=""> -->
+
+                  <select id="subjectname" name="subjectname" onchange="getTopics();">
+                    <option>--</option>
+                   <% if(SubjectList.length>0){ %>
+                      <% SubjectList.forEach(subject => { %>
+                       <option>
               
+                          <%= subject.name %>
+                       
+                        </option>
+                      <% })} %>
+                  </select>
+                
+              </div>
               <div class="row">
                   <div class="col-sm-12">
                       <div class="card-box table-responsive">
@@ -48,26 +74,29 @@
                               width="100%">
                               <thead style="background-color: whitesmoke;">
                                   <tr>
-                                      <th>User Name</th>
-                                      <th>E-mail</th>
-                                      <th>Password</th>
+                                      <th>Topic Name</th>
+                                      <th>Week Number</th>
+                                      <th>Video URL</th>
+                                      <th>Description</th>
                                       <th></th>
                                       
                                   </tr>
                               </thead>
               
                               <tbody>
-                                  <% if(SubjectList.length>0){ %>
-                                      <% SubjectList.forEach(subject=>{ %>
+                                  <% if(topicsList.length>0){ %>
+                                      <% topicsList.forEach(topic=>{ %>
                                           <tr></tr>
-                                          <td> <%= subject.name %> </td>
+                                          <td> <%= topic.topicName %> </td>
                                       
-                                          <td> <%= subject.email %> </td>
+                                          <td> <%= topic.weekNumber %> </td>
 
-                                          <td> <%= subject.password %> </td>
+                                          <td> <%= topic.videoURL %> </td>
+
+                                          <td> <%= topic.description %> </td>
 
                                           <td>
-                                              <% const deleteURL = 'deleteuser/' + subject._id %>
+                                              <% const deleteURL = '/admin/deletetopic/' + topic.topicName + '&' + chosenSubject %>
                                               <a href = "<%= deleteURL %>">
                                                 <i class="mai-trash" aria-hidden="true"></i>
                                               </a>
