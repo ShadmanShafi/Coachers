@@ -195,25 +195,45 @@ const deleteUser = (req, res) => {
 
 
 const gettopiclist = (req, res) => {
-  let alltopics = [];
+  let SubjectList = [];
 
   Subjects.find().then((data) => {
-    alltopics = data;
-    console.log(alltopics);
+    SubjectList = data;
     res.render("admin/viewtopicspage.ejs", {
           error: req.flash('error'),
-          SubjectList: alltopics
+          SubjectList: SubjectList
     });
   }).catch(() => {
     error = 'Failed to fetch data';
-    console.log(alltopics);
     res.render("admin/viewtopicspage.ejs", {
           error: req.flash('error', error),
-          SubjectList: alltopics
+          SubjectList: SubjectList
     });
   })
   
 }
+
+const gettopiclistWithSubject = (req, res) => {
+  let SubjectList = [];
+  const subjectName = req.params.subject;
+  Subjects.find().then((data) => {
+    SubjectList = data;
+
+    res.render("admin/viewTopicsWithSubjet.ejs", {
+          error: req.flash('error'),
+          SubjectList: SubjectList
+    });
+  }).catch(() => {
+    error = 'Failed to fetch data';
+    res.render("admin/viewTopicsWithSubjet.ejs", {
+          error: req.flash('error', error),
+          SubjectList: alSubjectListltopics
+    });
+  })
+  
+}
+
+
 
 const deleteTopic = (req, res) => {
   const topicName = req.params.topic;
@@ -257,6 +277,7 @@ module.exports = {
     getaddsubject,
     postaddsubject,
     gettopiclist,
+    gettopiclistWithSubject,
     getaddtopics,
     postaddtopics,
     getUserList,

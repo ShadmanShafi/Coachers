@@ -67,7 +67,6 @@
                 
               </div>
             </form>
-
             <!-- Form -->
 
             <!-- <List></List> -->
@@ -96,7 +95,23 @@
                                 </thead>
                 
                                 <tbody>
-                                  
+                                  <% if(SubjectList.length>0){ %>
+                                    <% SubjectList.forEach(subject=>{ %>
+                                        <tr></tr>
+                                        <td> <%= subject.subjectName %> </td>
+                                    
+                                        <td> <%= subject.name %> </td>
+
+                                        <td>
+                                            <% const deleteURL = 'deletetopic/' + subject.name + '&' + subject.subjectName %>
+                                            <a href = "<%= deleteURL %>">
+                                                <i class="fa fa-trash"></i>
+                                                <span class="fa fa-chevron"></span>
+                                            </a>
+                                        
+                                        </td>
+                                    <% }) %>
+                                <% } %>
 
                                 </tbody>
                             </table>
