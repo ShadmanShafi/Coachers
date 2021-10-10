@@ -1,155 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <%- include('../partials/head.ejs') %>
-
 <head>
-  <!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <meta name="copyright" content="MACode ID, https://macodeid.com/">
+
+  <title>Coachers - Admin</title>
+
+  <link rel="stylesheet" href="/seogram/assets/css/maicons.css">
+
+  <link rel="stylesheet" href="/seogram/assets/css/bootstrap.css">
+
+  <link rel="stylesheet" href="/seogram/assets/vendor/animate/animate.css">
+
+  <link rel="stylesheet" href="/seogram/assets/css/theme.css">
 
 
-
-<!-- Favicon icon-->
-<link rel="shortcut icon" type="image/x-icon" href="../v1Build/assets/images/favicon/favicon.ico">
-
-<!-- Libs CSS -->
-
-<link rel="stylesheet" href="../v1Build/assets/libs/prismjs/themes/prism.css">
-<link rel="stylesheet" href="../v1Build/assets/libs/prismjs/plugins/line-numbers/prism-line-numbers.css">
-<link rel="stylesheet" href="../v1Build/assets/libs/prismjs/plugins/toolbar/prism-toolbar.css">
-<link rel="stylesheet" href="../v1Build/assets/libs/bootstrap-icons/font/bootstrap-icons.css">
-<link rel="stylesheet" href="../v1Build/assets/libs/dropzone/dist/dropzone.css" >
-<link href="../v1Build/assets/libs/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet" />
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-
-
-
-
-<!-- Theme CSS -->
-<link rel="stylesheet" href="../v1Build/assets/css/theme.min.css">
-  <title>ADMIN View User Page</title>
+  <title>DashBoard</title>
 </head>
-
 <body>
-  <!-- container -->
-  
-        <!-- Card -->
-        <div class="card-header text-center">
-          <a href="" class="h1"><b>Coachers || Admin</b></a>
-        </div>
+  <!-- Back to top button -->
+  <div class="back- to-top"></div>
 
-        <div class="card smooth-shadow-md">
+  <%- include('./partials/headerNavBar.ejs') %>
 
-          <!-- Card body -->
-          <div class="card-body p-6">
-            <div class="mb-4">
-              <!--<a href="../index.html"><img src="../v1Build/assets/images/brand/logo/logo-primary.svg" class="mb-2" alt=""></a>-->
-              <p class="mb-6"> Users Currently Registered</p>
-            </div>
-            <!-- Form -->
+  <div class="page-section" id="about" style="background-color:rgb(216, 220, 221)">
+    <div class="container">
 
-            <!-- <List></List> -->
-            <div class="x_panel">
-            <div class="x_title">
-              <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <br/>
-                
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="card-box table-responsive">
+      <div class="row align-items-center">
+        <div class="x_panel">
+          <div class="x_title">
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+              <br/>
+              
+              <div class="row">
+                  <div class="col-sm-12">
+                      <div class="card-box table-responsive">
 
-                            <table id="datatable-responsive"
-                                class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
-                                width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>User Name</th>
-                                        <th>E-mail</th>
-                                        <th>Password</th>
-                                        <th></th>
-                                        
-                                    </tr>
-                                </thead>
-                
-                                <tbody>
-                                    <% if(participants.length>0){ %>
-                                        <% participants.forEach(participant=>{ %>
-                                            <tr></tr>
-                                            <td> <%= participant.name %> </td>
-                                        
-                                            <td> <%= participant.email %> </td>
+                          <table id="datatable-responsive"
+                              class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
+                              width="100%">
+                              <thead style="background-color: whitesmoke;">
+                                  <tr>
+                                      <th>User Name</th>
+                                      <th>E-mail</th>
+                                      <th>Password</th>
+                                      <th></th>
+                                      
+                                  </tr>
+                              </thead>
+              
+                              <tbody>
+                                  <% if(participants.length>0){ %>
+                                      <% participants.forEach(participant=>{ %>
+                                          <tr></tr>
+                                          <td> <%= participant.name %> </td>
+                                      
+                                          <td> <%= participant.email %> </td>
 
-                                            <td> <%= participant.password %> </td>
+                                          <td> <%= participant.password %> </td>
 
-                                            <td>
-                                                <% const deleteURL = 'deleteuser/' + participant._id %>
-                                                <a href = "<%= deleteURL %>">
-                                                    <i class="fa fa-trash"></i>
-                                                    <span class="fa fa-chevron"></span>
-                                                </a>
-                                            </td>
-                                        <% }) %>
-                                    <% } %>
+                                          <td>
+                                              <% const deleteURL = 'deleteuser/' + participant._id %>
+                                              <a href = "<%= deleteURL %>">
+                                                <i class="mai-trash" aria-hidden="true"></i>
+                                              </a>
+                                          </td>
+                                      <% }) %>
+                                  <% } %>
 
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </br>
 
-        <div class="d-grid">
+          <div class="d-grid">
             <a href="registernewuser">
                 <button class="btn btn-primary">
                     Add A New User
                 </button>   
             </a>
-        </div>
+          </div>
 
-      </br>
-        <div>
-          <a href="/admin/dashboard" class="text-inherit
+          </br>
+          <div>
+            <a href="/admin/dashboard" class="text-inherit
               fs-5">Home</a>
+          </div>
         </div>
-
         
-     </div>
-      
-  <!-- Scripts -->
-  <!-- Libs JS -->
-<script src="../v1Build/assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="../v1Build/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../v1Build/assets/libs/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<script src="../v1Build/assets/libs/feather-icons/dist/feather.min.js"></script>
-<script src="../v1Build/assets/libs/prismjs/components/prism-core.min.js"></script>
-<script src="../v1Build/assets/libs/prismjs/components/prism-markup.min.js"></script>
-<script src="../v1Build/assets/libs/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
-<script src="../v1Build/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-<script src="../v1Build/assets/libs/dropzone/dist/min/dropzone.min.js"></script>
+      </div>
+    </div> <!-- .container -->
+  </div> <!-- .page-section -->
+
+  
+
+  <%- include('./partials/footer.ejs') %>
 
 
+  <script src="../seogram/assets/js/jquery-3.5.1.min.js"></script>
 
-
-
-
-
-
-
-
-<!-- clipboard -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
-
-
-
-<!-- Theme JS -->
-<script src="../v1Build/assets/js/theme.min.js"></script>
+  <script src="../seogram/assets/js/bootstrap.bundle.min.js"></script>
+  
+  <script src="../seogram/assets/js/google-maps.js"></script>
+  
+  <script src="../seogram/assets/vendor/wow/wow.min.js"></script>
+  
+  <script src="../seogram/assets/js/theme.js"></script>
+  
+  
 </body>
 
-</html>
+</html> 

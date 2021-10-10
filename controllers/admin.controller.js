@@ -213,25 +213,6 @@ const gettopiclist = (req, res) => {
   
 }
 
-const gettopiclistWithSubject = (req, res) => {
-  let SubjectList = [];
-  const subjectName = req.params.subject;
-  Subjects.find().then((data) => {
-    SubjectList = data;
-
-    res.render("admin/viewTopicsWithSubjet.ejs", {
-          error: req.flash('error'),
-          SubjectList: SubjectList
-    });
-  }).catch(() => {
-    error = 'Failed to fetch data';
-    res.render("admin/viewTopicsWithSubjet.ejs", {
-          error: req.flash('error', error),
-          SubjectList: alSubjectListltopics
-    });
-  })
-  
-}
 
 
 
@@ -277,7 +258,6 @@ module.exports = {
     getaddsubject,
     postaddsubject,
     gettopiclist,
-    gettopiclistWithSubject,
     getaddtopics,
     postaddtopics,
     getUserList,

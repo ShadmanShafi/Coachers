@@ -11,42 +11,21 @@
 
   <title>Coachers - Admin</title>
 
-  <link rel="stylesheet" href="../seogram/assets/css/maicons.css">
+  <link rel="stylesheet" href="/seogram/assets/css/maicons.css">
 
-  <link rel="stylesheet" href="../seogram/assets/css/bootstrap.css">
+  <link rel="stylesheet" href="/seogram/assets/css/bootstrap.css">
 
-  <link rel="stylesheet" href="../seogram/assets/vendor/animate/animate.css">
+  <link rel="stylesheet" href="/seogram/assets/vendor/animate/animate.css">
 
-  <link rel="stylesheet" href="../seogram/assets/css/theme.css">
+  <link rel="stylesheet" href="/seogram/assets/css/theme.css">
 
-  <title>Document</title>
+  <title>DashBoard</title>
 </head>
 <body>
   <!-- Back to top button -->
   <div class="back- to-top"></div>
 
-  <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky" data-offset="500">
-      <div class="container">
-        <a href="/admin" class="navbar-brand">COACHERS<span class="text-primary"></br>Admin</span></a>
-
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="navbar-collapse collapse" id="navbarContent">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="btn btn-primary ml-lg-2" href="/admin/logout">Sign Out</a>
-            </li>
-          </ul>
-        </div>
-
-      </div>
-    </nav>
-
-    
-  </header>
+  <%- include('./partials/headerNavBar.ejs') %>
 
   <div class="page-section" id="about">
     <div class="container">
@@ -64,7 +43,7 @@
             <a href="userlist">View Users</a>
           </div>
           <div>
-            <a href="topiclist">View Topic List</a>
+            <a href="topiclist/--">View Topic List</a>
           </div>
           
         </div>
@@ -74,17 +53,7 @@
 
   
 
-  <footer class="page-footer bg-image" style="background-image: url(../seogram/assets/img/world_pattern.svg);">
-    <div class="container">
-      <div class="row mb-5">
-        <div class="col-lg-3 py-3">
-          <h3>Coachers</h3>
-          <p>Your Study Partner</p>
-        </div>
-      </div>
-
-    </div>
-  </footer>
+  <%- include('./partials/footer.ejs') %>
 
 
   <script src="../seogram/assets/js/jquery-3.5.1.min.js"></script>
