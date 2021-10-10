@@ -158,7 +158,8 @@ const getCoursePage = (req, res) => {
       }
       else{
         const topicsList = data.topics;
-
+        
+        // Map the topics to their corresponding weeks
         const map = new Map();
 
         topicsList.forEach(element=>{
