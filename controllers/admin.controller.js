@@ -261,9 +261,41 @@ const deleteTopic = (req, res) => {
       res.redirect('/admin/topiclist/'+subjectName);
     }
   });
-  
 }
 
+
+const getDeleteSubjectPage = (req, res) => {
+  var SubjectList = [];
+  Subjects.find().then((data) => {
+        SubjectList = data;
+        res.render("admin/deleteSubjectPage.ejs", {
+          SubjectList: SubjectList,
+        });
+  }).catch(() => {
+        res.render("admin/deleteSubjectPage.ejs", {
+          SubjectList: SubjectList,
+        });
+  })
+  // res.render("admin/addtopicspage.ejs", {SubjectList})
+
+}
+
+
+const postDeleteSubject = (req, res) => {
+  const {subjectname} = req.body;
+  console.log(subjectname);
+  Subjects.findOneAndDelete({name: subjectname}).then((success, error)=>{
+    if(error){
+      console.log("Delete Failed");
+    }
+    else{
+      console.log("Delete Successful");
+    }
+    res.redirect('/admin/deletesubject')
+  });
+
+
+}
 
 
 module.exports = {
@@ -281,5 +313,7 @@ module.exports = {
     getUserList,
     registerNewUser,
     deleteUser,
-    deleteTopic
+    deleteTopic,
+    getDeleteSubjectPage,
+    postDeleteSubject
 };
