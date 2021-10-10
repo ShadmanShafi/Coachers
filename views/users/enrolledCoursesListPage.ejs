@@ -56,7 +56,8 @@
               <% if (subjectsList.length > 0){ %>
                 <% subjectsList.forEach(subject=>{ %>
                     <div class="table-row">
-                      <div class="country"> <img src="" alt=""> <%= subject.name %> </div>
+                      <% const url = '/users/coursepage/' + subject.name%>
+                      <div class="country"> <img src="" alt=""> <a href="<%=url%>"><%= subject.name %> </a></div>
                       
                       <% if(typeof subjectsList.topicsCovered == 'undefined') {%>
                         <div class="visit" style="padding-left: 10%; padding-right: 15%;">0</div>

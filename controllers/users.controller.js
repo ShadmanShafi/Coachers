@@ -147,15 +147,8 @@ const enrollUser = (req, res) => {
 }
 
 const getCoursePage = (req, res) => {
-  let subjectsList = [];
-  Subjects.find().then((data)=>{
-    subjectsList = data;
-  }).catch((error)=>{
-      console.log(error);
-    }
-  )
-  
-  res.render("users/coursePage.ejs", { user: req.user,  subjectsList: subjectsList});
+  const subject = req.params.subject;
+  res.render('users/coursePage.ejs', {user: req.user, subject: subject});
 }
 
 const getEnrolledCoursesPage = (req, res) => {

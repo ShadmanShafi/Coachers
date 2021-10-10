@@ -14,7 +14,7 @@ router.get("/logout",(req, res)=>{
 
 router.get("/dashboard", ensureAuthenticated, getDashboard);
 router.get("/searchpage", ensureAuthenticated, getSearchPage);
-router.get("/coursepage", ensureAuthenticated, getCoursePage);
+router.get("/coursepage/:subject", ensureAuthenticated, getCoursePage);
 router.get("/enrolledcourselist", ensureAuthenticated, getEnrolledCoursesPage);
 router.get("/enroll/:useremail&:subject", ensureAuthenticated, enrollUser);
 router.get("/unregistercourse/:subject", ensureAuthenticated, unregisterCourse);
