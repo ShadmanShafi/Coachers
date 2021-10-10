@@ -169,7 +169,7 @@ const getEnrolledCoursesPage = (req, res) => {
         else{
           const registeredSubjectsList = registeredSubjectsListData.subjects;
 
-          const subjectsToDisplay = innerUnion(registeredSubjectsList, allSubjects);
+          const subjectsToDisplay = innerUnion(allSubjects, registeredSubjectsList);
 
          
           res.render("users/enrolledCoursesListPage.ejs", { user: req.user,  subjectsList: subjectsToDisplay});        
