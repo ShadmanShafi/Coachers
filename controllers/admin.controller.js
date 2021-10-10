@@ -1,9 +1,8 @@
 const Admin = require('../models/Admin.model');
 const User = require('../models/User.model');
-const Subjects = require('../models/subjects.model');
+const {Subjects, createTopic} = require('../models/subjects.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
-const Topics = require('../models/Topics.model');
 const { render } = require('ejs');
 
 
@@ -71,64 +70,22 @@ const getaddtopics = (req,res) => {
 }
 
 const postaddtopics = (req, res) => {
-  const { subjectname, topic, link } = req.body;
-  console.log({ subjectname, topic, link });
+  const { subjectname, topic, week, link, description } = req.body;
+  console.log({ subjectname, topic, week, link, description });
 
-  const errors = [];
-  Topics.findOne({ name: topic}).then((element) => {
-    if (element) {
-      errors.push("topic already exists!");
-      console.log("topic already exists!");
-      req.flash("errors", errors);
+  const toAdd = createTopic(topic, week, link, description);
+  Subjects.findOneAndUpdate({name: subjectname}, {$push: {topics: toAdd}}, (error,success)=>{
+    if (error) {
+      console.log(error);
       res.redirect("/admin/addtopics");
     } else {
-      
-      Subjects.findOne({name: subjectname}).then((result) => {
-        if(result){
-          const newtopic = new Topics();
-          newtopic.name = topic;
-          newtopic.videoLink = link;
-          newtopic.subjectName = subjectname;
-          console.log("Going in", result._id);
-          
-          newtopic
-          .save()
-          .then(() => {
-          console.log('Saving topic to the database Successful! ID is ', newtopic.name);
-
-          const toAdd = {name: newtopic.name};
-
-          Subjects.findOneAndUpdate({name: subjectname}, {$push: {topics: toAdd}}, (error,success)=>{
-            if (error) {
-              console.log(error);
-              res.redirect("/admin/addtopics");
-            } else {
-              console.log(success);
-              res.redirect("/admin/addtopics");
-            }
-          })
-          
-        })
-        .catch((e) => {
-          errors.push("Error Found");
-          console.log(errors);
-          console.log(e);
-          req.flash("errors", errors);
-          res.redirect("/admin/addtopics");
-        });
-
-        }
-        else{
-          console.log("Subject Error. Not Found.");
-          return;
-        }
-    })
+      console.log(success);
+      res.redirect("/admin/addtopics");
+    }
+  });
   
-
-      
-  };
-})};
-
+  
+}
 const getRegister = (req, res)=>{
     res.render("admin/register.ejs", {errors:req.flash('errors')});
 };
