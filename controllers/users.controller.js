@@ -157,7 +157,7 @@ const getCoursePage = (req, res) => {
         res.redirect('/users/dashboard');
       }
       else{
-        const topicsList = data.topics;
+        let topicsList = data.topics;
         
         // Map the topics to their corresponding weeks
         const map = new Map();
@@ -170,7 +170,7 @@ const getCoursePage = (req, res) => {
             map.get(elementsWeek).push(element);
         })
 
-        const topicsList = map.get(weekSelected);
+        topicsList = map.get(weekSelected);
         res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList  });
       }
   })
