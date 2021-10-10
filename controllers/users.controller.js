@@ -169,13 +169,14 @@ const getCoursePage = (req, res) => {
             }
             map.get(elementsWeek).push(element);
         })
-
+        const totalWeeks = map.size;
         topicsList = map.get(weekSelected);
-        res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList  });
+        res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList, totalWeeks: totalWeeks  });
       }
-  })
-
+  });
 }
+
+
 
 const getEnrolledCoursesPage = (req, res) => {
   Subjects.find().then((data)=>{
