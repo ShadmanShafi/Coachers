@@ -73,17 +73,28 @@
       </aside>
     </div>
   <!--Nav Bar End-->
+
+
+  <!-- This is how topicsList Objects are defined: 
+    { 
+      topicName: 'Algebra',
+      weekNumber: '1',
+      videoURL: 'https://youtu.be/LwCRRUa8yTU',
+      description: 'Algebra and Stuff'
+    } -->
     <div style="margin: auto; width: 52%;">
-      <p>
-        <button style="display: block; margin-left: auto; margin-right: auto; width: 100%;"class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-          VIDEO
-        </button>
-      </p>
-      <div class="collapse" id="collapseExample">
-        <div class="card card-body">
-          Porte boy bhai, porte boy
+      <% for(var i=0; i < topicsList.length ; i++){ %>
+        <p>
+          <button style="display: block; margin-left: auto; margin-right: auto; width: 100%;"class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <%= topicsList[i].topicName  %>
+          </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            Porte boy bhai, porte boy
+          </div>
         </div>
-      </div>
+      <% } %>
     </div>
   </div>
   

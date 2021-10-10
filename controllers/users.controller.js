@@ -148,7 +148,7 @@ const enrollUser = (req, res) => {
 
 const getCoursePage = (req, res) => {
   const subject = req.params.subject;
-  const weekSelected = req.params.week;
+  const weekSelected = parseInt(req.params.week);
 
   Subjects.findOne({name: subject}).then((data, error)=>{
       if(error){
@@ -171,6 +171,8 @@ const getCoursePage = (req, res) => {
         })
         const totalWeeks = map.size;
         topicsList = map.get(weekSelected);
+        console.log('Map',map);
+        console.log('For', weekSelected, 'Topics Are', topicsList);
         res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList, totalWeeks: totalWeeks  });
       }
   });
