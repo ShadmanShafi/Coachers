@@ -193,7 +193,7 @@ const unregisterCourse = (req, res) => {
       }
       else{
         
-        registeredSubjects.updateOne( {email: eMail}, { $pull: {subjects: subjectName } }, (error, succ)=>{
+        registeredSubjects.updateOne( {email: eMail}, { $pull: {subjects: {name: subjectName} } }, (error, succ)=>{
           if(error){
             console.log("Error Found\n");
             res.redirect("/users/enrolledcourselist"); 
