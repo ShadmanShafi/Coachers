@@ -59,7 +59,7 @@
           <div class="card-body p-6">
             
             <!-- Form -->
-            <form action="/admin/deletesubject" method="POST">
+            <form action="/admin/addquestion" method="POST">
               <!-- Username -->
               <div class="mb-3">
                 <label for="Subjectname" class="form-label">Choose Subject Name</label>
@@ -86,10 +86,10 @@
               </div>
 
               <div class="mb-3">
-                <label for="Subjectname" class="form-label">Choose Topic Name</label>
+                <label for="Topicname" class="form-label">Choose Topic Name</label>
                 <!-- <input type="text" id="text" class="form-control" name="subjectname" placeholder="subject" required=""> -->
 
-                  <select id="topicname" name="topicname" onchange="getTopics()">
+                  <select id="topicname" name="topicname">
                     <option>--</option>
                     <% if(topicsList.length>0){ %>
                          <% topicsList.forEach(topic => { %>
@@ -103,8 +103,42 @@
                   </select>
                 
               </div>
+              <div class="mb-3">
+                <label for="Subjectname" class="form-label">Question</label>
+                <input type="text" id="question" class="form-control" name="question" placeholder="" required="yes">
+              </div>
+
+              <div class="mb-3">
+                <input type="text" id="optionA" class="form-control" name="optionA" placeholder="A" required="yes">
+              </div>
+
+              <div class="mb-3">
+                <input type="text" id="optionB" class="form-control" name="optionB" placeholder="B" required="yes">
+              </div>
+
+              <div class="mb-3">
+                <input type="text" id="optionC" class="form-control" name="optionC" placeholder="C" required="yes">
+              </div>
+
+              <div class="mb-3">
+                <input type="text" id="optionD" class="form-control" name="optionD" placeholder="D" required="yes">
+              </div>
+
+        
               
-              
+              <div class="mb-3">
+                <label for="" class="form-label">Correct Option</label>
+                <!-- <input type="text" id="text" class="form-control" name="subjectname" placeholder="subject" required=""> -->
+
+                  <select id="correctOption" name="correctOption">
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                  </select>
+                
+              </div>
+
               <!-- Checkbox -->
               <div class="d-lg-flex justify-content-between align-items-center
                   mb-4">
@@ -118,7 +152,7 @@
               <div>
                 <!-- Button -->
                 <div class="d-grid">
-                  <button type="submit" class="btn btn-primary">Delete
+                  <button type="submit" class="btn btn-primary">Add
                     </button>
                 </div>
 

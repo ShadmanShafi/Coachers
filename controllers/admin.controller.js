@@ -315,8 +315,6 @@ const getAddQuestion = (req, res) => {
                 subjectTouple = subject;
             }
         })
-
-        console.log("Sending:", subjectTouple.topics);
         res.render("admin/addQuestionPage.ejs", {
               error: req.flash('error'),
               SubjectList: SubjectList,
@@ -334,17 +332,10 @@ const getAddQuestion = (req, res) => {
 }
 
 const postAddQuestion = (req, res) => {
-  const {subjectname} = req.body;
-  console.log(subjectname);
-  Subjects.findOneAndDelete({name: subjectname}).then((success, error)=>{
-    if(error){
-      console.log("Delete Failed");
-    }
-    else{
-      console.log("Delete Successful");
-    }
-    res.redirect('/admin/deletesubject')
-  });
+  const {subjectname, topicname, question, optionA, optionB, optionC, optionD, correctOption} = req.body;
+  console.log( {subjectname, topicname, question, optionA, optionB, optionC, optionD, correctOption} );
+  
+  res.redirect('/admin/addquestion/--')
 }
 
 
