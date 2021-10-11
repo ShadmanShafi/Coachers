@@ -56,11 +56,15 @@
                     <option>--</option>
                    <% if(SubjectList.length>0){ %>
                       <% SubjectList.forEach(subject => { %>
-                       <option>
-              
-                          <%= subject.name %>
-                       
-                        </option>
+                        <% if(subject.name == chosenSubject){   %>
+                          <option selected="selected">
+                            <%= subject.name %>
+                          </option>
+                        <% }else{   %>
+                          <option>
+                            <%= subject.name %>
+                          </option>
+                        <% }  %>
                       <% })} %>
                   </select>
                 

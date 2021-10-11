@@ -205,7 +205,7 @@ const gettopiclist = (req, res) => {
       res.render('admin/viewtopicspage.ejs', {
         error: req.flash('error'),
         SubjectList: SubjectList,
-        hosenSubject: [],
+        chosenSubject: [],
         topicsList: []
       })
       return;
