@@ -261,6 +261,14 @@ const getQuiz = (req, res) => {
 
 
 
+const getuserInfoUpdate = (req, res) => {
+  
+  res.render("users/userInfoUpdate.ejs",{ user: req.user});   
+
+}
+
+
+
 
 module.exports = {
     getLogin,
@@ -274,6 +282,7 @@ module.exports = {
     getEnrolledCoursesPage,
     unregisterCourse,
     getQuizInfoPage,
-    getQuiz
+    getQuiz,
+    getuserInfoUpdate
 
 };
