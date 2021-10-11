@@ -3,7 +3,7 @@ const User = require('../models/User.model');
 const {Subjects, createTopic} = require('../models/subjects.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
-const {generateQuestion, questionBank, checkQuestionsAnswer} = require('../models/Questions/questions.model')
+const {generateQuestion, QuestionBank, checkQuestionsAnswer} = require('../models/Questions/questions.model')
 const { render } = require('ejs');
 
 
@@ -335,6 +335,28 @@ const getAddQuestion = (req, res) => {
 const postAddQuestion = (req, res) => {
   const {subjectname, topicname, question, optionA, optionB, optionC, optionD, correctOption} = req.body;
   console.log( {subjectname, topicname, question, optionA, optionB, optionC, optionD, correctOption} );
+  const questionToAdd = generateQuestion(question, optionA, optionB, optionC, optionD, correctOption);
+  QuestionBank.findOne({subject: subjectname, topic: topicname}).then((data,error)=>{
+    if(error){
+      console.log("Data Error");
+    }
+    else if(data){
+      console.log("Data Found");
+    }
+    else{
+      const newEntry = new QuestionBank();
+      newEntry.subject = subjectname;
+      newEntry.topic= topicname;
+      newEntry.questions.push(questionToAdd);
+      newEntry.save().then((error)=>{
+          console.log("New Question Entry Saved");
+      }).catch((e)=>{
+          console.log("New Question Entry Error:", e);
+      })
+    }
+
+  })
+
   
   res.redirect('/admin/addquestion/--')
 }

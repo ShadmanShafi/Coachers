@@ -8,10 +8,10 @@ const questionBankSchema = new mongoose.Schema({
         type: String,
         required: true,
   },
-  question:[]
+  questions:[]
 });
 
-const questionBank = mongoose.model("questionBank", questionBankSchema);
+const QuestionBank = mongoose.model("questionBank", questionBankSchema);
 
 
 
@@ -34,4 +34,4 @@ const checkQuestionsAnswer = (inputQuestion, answeSelected)=>{
         return false;
 }
 
-module.exports = {generateQuestion, questionBank, checkQuestionsAnswer};
+module.exports = {generateQuestion, QuestionBank, checkQuestionsAnswer};
