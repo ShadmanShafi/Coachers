@@ -316,6 +316,7 @@ const getAddQuestion = (req, res) => {
             }
         })
 
+        console.log("Sending:", subjectTouple.topics);
         res.render("admin/addQuestionPage.ejs", {
               error: req.flash('error'),
               SubjectList: SubjectList,
