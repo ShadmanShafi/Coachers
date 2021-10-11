@@ -231,9 +231,46 @@ const unregisterCourse = (req, res) => {
 }
 
 const getQuizInfoPage = (req, res) => {
-  
-    res.render("users/quizInfoPage.ejs", { user: req.user,  subjectsList: []});   
+  const subjectChosen = req.params.subject;
+  var SubjectList = [];
+  Subjects.find().then((data) => {
+    SubjectList = data;
+      if(subjectChosen == '--'){
+        res.render("users/quizInfoPage.ejs", {
+          user: req.user,
+          SubjectList: SubjectList,
+          chosenSubject: subjectChosen,
+          topicsList: []
+        });
+        return;
+      }
+      let subjectTouple;
+        SubjectList.forEach(subject=>{
+          if(subject.name == subjectChosen){
+              subjectTouple = subject;
+          }
+        })
+        res.render("users/quizInfoPage.ejs", {
+          error: req.flash('error'),
+          user: req.user,
+          SubjectList: SubjectList,
+          chosenSubject: subjectChosen,
+          topicsList: subjectTouple.topics
+    });
 
+  }).catch(() => {
+    res.render("users/quizInfoPage.ejs", {
+      user: req.user,
+      SubjectList: SubjectList,
+      chosenSubject: [],
+      topicsList: []
+    });
+});
+}
+
+const postQuizInfoPage = (req, res) => {
+  res.redirect('/users/quizInfoPage/')
+  
 }
 
 const getQuiz = (req, res) => {
@@ -291,6 +328,7 @@ module.exports = {
     getEnrolledCoursesPage,
     unregisterCourse,
     getQuizInfoPage,
+    postQuizInfoPage,
     getQuiz,
     getuserInfoUpdate
 
