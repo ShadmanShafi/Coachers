@@ -8,7 +8,7 @@
 
   <meta name="copyright" content="MACode ID, https://macodeid.com/">
 
-  <title>COACHERS - Dashboard</title>
+  <title>COACHERS - Quiz</title>
 
   <link rel="stylesheet" href="/seogram/assets/css/maicons.css">
 
@@ -27,24 +27,25 @@
   <!-- Header -->
   <%- include('./userPartials/headerNavbar.ejs') %>
   <!-- header end -->
+    <div class="page-section bg-light">
+      <div style="padding-left: 10%;">
+          <% var i = 1 %>
+          <% questionsList.forEach(question=>{   %>
+          
+            <div class="quizpanel">
+                <div id="question<%=i%>" name="question<%=i%>" style="font-weight: bold;"><span><%=i%></span>. <%=question.question %></div>
+                  <div><input type="radio" id="option<%=i%>" name="options<%=i%>" value="A"><span id="optt1"><span style="font-weight: bold;">A: </span> <%= question.A %> </span></div>
+                  <div><input type="radio" id="option<%=i%>" name="options<%=i%>" value="B"><span id="optt2"><span style="font-weight: bold;">B: </span><%= question.B %></span></div>
+                  <div><input type="radio" id="option<%=i%>" name="options<%=i%>" value="C"><span id="optt3"><span style="font-weight: bold;">C: </span><%= question.C %></span></div>
+                  <div><input type="radio" id="option<%=i%>" name="options<%=i%>" value="D"><span id="optt4"><span style="font-weight: bold;">D: </span><%= question.D %></span></div>
+                  <div id="CorrectAnswer<%=i%>" value="<%=question.correctAnser%>"></div>
+            </div>
+          </br>
+          <% i++ %>
+        <% }) %>
+      </div>
+      <button class="nxtBtn" onclick="checkAnswer()">Submit</button>
 
-  <div class="page-section bg-light">
-    <div style="padding-left: 10%;">
-        <% var i = 1 %>
-        <% questionsList.forEach(question=>{   %>
-        
-          <div class="quizpanel">
-              <div id="question" style="font-weight: bold;"><span><%=i%></span>. <%=question.question %></div>
-
-                <div><input type="radio" id="option1" name="options<%=i%>"><span id="optt1"><span style="font-weight: bold;">A: </span> <%= question.A %> </span></div>
-                <div><input type="radio" id="option2" name="options<%=i%>"><span id="optt2"><span style="font-weight: bold;">B: </span><%= question.B %></span></div>
-                <div><input type="radio" id="option3" name="options<%=i%>"><span id="optt3"><span style="font-weight: bold;">C: </span><%= question.C %></span></div>
-                <div><input type="radio" id="option4" name="options<%=i%>"><span id="optt4"><span style="font-weight: bold;">D: </span><%= question.D %></span></div>
-          </div>
-        </br>
-        <% i++ %>
-      <% }) %>
-    </div>
     <div class="container">
      
 
@@ -65,6 +66,32 @@
 <script src="/seogram/assets/vendor/wow/wow.min.js"></script>
 
 <script src="/seogram/assets/js/theme.js"></script>
-  
+
+<script>
+  function checkAnswer() {
+    let results = [];
+    var ele = document.getElementsByTagName('input');
+    var notCheckedCounter = 0;
+    for(var i = 0; i < ele.length; i++) {
+        if(ele[i].type="radio") {
+            if(ele[i].checked){
+              results.push(ele[i].value);
+              notCheckedCounter = 0
+            }
+            else{
+              notCheckedCounter++;
+              if(notCheckedCounter > 4){
+                results.push('X');
+                notCheckedCounter = 0;
+              }
+                
+            }
+        }
+    }
+    alert(results);
+  }
+
+
+</script>
 </body>
 </html>
