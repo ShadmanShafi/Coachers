@@ -53,12 +53,20 @@
               <p class="mb-6">Please enter your Admin information.</p>
             </div>
             <!-- Form -->
-            <form action="/admin/addsubject" method="POST">
+            <form action="/users/updateuser" method="POST">
               <!-- Username -->
               <div class="mb-3">
                 
-                <label for="Subjectname" class="form-label">Subjectname</label>
-                <input type="text" id="text" class="form-control" name="subjectname" placeholder="subject" required="">
+                <label for="name" class="form-label">name</label>
+                <input type="text" id="text" class="form-control" name="name" placeholder="user name" required="">
+                <label for="email" class="form-label">email</label>
+                <input type="text" id="text" class="form-control" name="email" placeholder="email" required="">
+                <label for="Current Password" class="form-label">Current Password</label>
+                <input type="text" id="text" class="form-control" name="Current Password" placeholder="Current Password" required="">
+                <label for="New Password" class="form-label">New Password</label>
+                <input type="text" id="text" class="form-control" name="New Password" placeholder="New Password" required="">
+                <label for="Re-Type New Password" class="form-label">Re-Type New Password</label>
+                <input type="text" id="text" class="form-control" name="Re-Type New Password" placeholder="Re-Type New Password" required="">
 
                  
             </div>
@@ -77,7 +85,7 @@
               <div>
                 <!-- Button -->
                 <div class="d-grid">
-                  <button type="submit" class="btn btn-primary">Add Subject
+                  <button type="submit" class="btn btn-primary">Update
                     </button>
                 </div>
 
