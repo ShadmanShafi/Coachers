@@ -349,6 +349,12 @@ const getuserInfoUpdate = (req, res) => {
 
 }
 
+const getCheckQuiz = (req, res) => {
+  
+  res.render("users/CheckQuizPage.ejs");   
+
+}
+
 
 
 
@@ -367,5 +373,6 @@ module.exports = {
     postQuizInfoPage,
     getQuiz,
     getuserInfoUpdate,
+    getCheckQuiz
 
 };
