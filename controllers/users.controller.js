@@ -268,15 +268,51 @@ const getQuizInfoPage = (req, res) => {
 });
 }
 
+
 const postQuizInfoPage = (req, res) => {
-  res.redirect('/users/quizInfoPage/')
+  const {subjectname, topicname} = req.body;
+  console.log({subjectname, topicname});
+
+  res.redirect('/users/quizapp/' + subjectname + '&' + topicname);
   
 }
 
 const getQuiz = (req, res) => {
-     const subjectname = 'Math'; 
+    const subjectname = req.params.subject;
+    const topicname = req.params.topic;
 
-     QuestionBank.find({subject:subjectname}).then((data,error)=>{
+    if(topicname == 'All Topics'){
+      QuestionBank.find({subject:subjectname}).then((data,error)=>{
+        if(error){
+           console.log('error while fetching')
+           res.render("users/giveQuizPage.ejs", {
+             user: req.user,
+             questionsList: []
+           });   
+        }
+        else{
+           console.log('question fetching')
+           let questionsList = [];
+ 
+           data.forEach(element=>{
+             questionsList.push(element.questions);
+           })
+           
+           // Covenrt to 1D array
+           questionsList = [].concat(...questionsList);;
+ 
+           console.log("questions:", questionsList);
+ 
+           res.render("users/giveQuizPage.ejs", {
+               user: req.user,
+               questionsList: questionsList
+           });
+        }
+      })
+      return;
+    }
+
+     QuestionBank.find({subject:subjectname, topic: topicname}).then((data,error)=>{
        if(error){
           console.log('error while fetching')
           res.render("users/giveQuizPage.ejs", {
@@ -295,7 +331,7 @@ const getQuiz = (req, res) => {
           // Covenrt to 1D array
           questionsList = [].concat(...questionsList);;
 
-          console.log("questions:",questionsList);
+          console.log("questions:", questionsList);
 
           res.render("users/giveQuizPage.ejs", {
               user: req.user,
@@ -330,6 +366,6 @@ module.exports = {
     getQuizInfoPage,
     postQuizInfoPage,
     getQuiz,
-    getuserInfoUpdate
+    getuserInfoUpdate,
 
 };
