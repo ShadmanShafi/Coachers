@@ -1,163 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-  <meta name="copyright" content="MACode ID, https://macodeid.com/">
+    <meta name="copyright" content="MACode ID, https://macodeid.com/" />
 
-  <title>COACHERS - Dashboard</title>
+    <title>COACHERS - Dashboard</title>
 
-  <link rel="stylesheet" href="../seogram/assets/css/maicons.css">
+    <link rel="stylesheet" href="../seogram/assets/css/maicons.css" />
 
-  <link rel="stylesheet" href="../seogram/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../seogram/assets/css/bootstrap.css" />
 
-  <link rel="stylesheet" href="../seogram/assets/vendor/animate/animate.css">
+    <link
+      rel="stylesheet"
+      href="../seogram/assets/vendor/animate/animate.css"
+    />
 
-  <link rel="stylesheet" href="../seogram/assets/css/theme.css">
+    <link rel="stylesheet" href="../seogram/assets/css/theme.css" />
+  </head>
+  <body>
+    <!-- Back to top button -->
+    <div class="back-to-top"></div>
 
-</head>
-<body>
+    <!-- Header -->
+    <%- include('./userPartials/headerNavbar.ejs') %>
+    <!-- header end -->
 
-  <!-- Back to top button -->
-  <div class="back-to-top"></div>
-
-  <!-- Header -->
-  <%- include('./userPartials/headerNavbar.ejs') %>
-  <!-- header end -->
-
-  <div class="page-section bg-light">
-    <div style="padding-left: 10%;">
-      <h4>Welcome <%= user.name %>, </h4>
-    </div>
-    <div class="container">
-           <!-- container -->
-  <div class="container d-flex flex-column">
-    <div class="row align-items-center justify-content-center g-0
-        min-vh-100">
-      <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0">
-        <!-- Card -->
-        <div class="card-header text-center">
-          <a href="/" class="h1"><b>Coachers || Admin</b></a>
-        </div>
-
-        <div class="card smooth-shadow-md">
-
-         
-          <!-- Card body -->
-          <div class="card-body p-6">
-            <div class="mb-4">
-              <!--<a href="../index.html"><img src="../v1Build/assets/images/brand/logo/logo-primary.svg" class="mb-2" alt=""></a>-->
-              <p class="mb-6">Please enter your Admin information.</p>
-            </div>
-            <!-- Form -->
-            <form action="/users/updateuser" method="POST">
-              <!-- Username -->
-              <div class="mb-3">
-                
-                <label for="name" class="form-label">name</label>
-                <input type="text" id="text" class="form-control" name="name" placeholder="user name" required="">
-                <label for="email" class="form-label">email</label>
-                <input type="text" id="text" class="form-control" name="email" placeholder="email" required="">
-                <label for="Current Password" class="form-label">Current Password</label>
-                <input type="text" id="text" class="form-control" name="Current Password" placeholder="Current Password" required="">
-                <label for="New Password" class="form-label">New Password</label>
-                <input type="text" id="text" class="form-control" name="New Password" placeholder="New Password" required="">
-                <label for="Re-Type New Password" class="form-label">Re-Type New Password</label>
-                <input type="text" id="text" class="form-control" name="Re-Type New Password" placeholder="Re-Type New Password" required="">
-
-                 
-            </div>
-              <!-- Password -->
-              
-              <!-- Checkbox -->
-              <div class="d-lg-flex justify-content-between align-items-center
-                  mb-4">
-                <!--<div class="form-check custom-checkbox">
-                  <input type="checkbox" class="form-check-input" id="rememberme">
-                  <label class="form-check-label" for="rememberme">Remember
-                      me</label>
-                </div>-->
-
+    <div class="page-section bg-light">
+      <div style="padding-left: 10%">
+        <h4>Welcome <%= user.name %>,</h4>
+      </div>
+      <div class="container">
+        <!-- container -->
+        <div class="container d-flex flex-column">
+          <div class="row align-items-center justify-content-center g-0">
+            <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0">
+              <!-- Card -->
+              <div class="card-header text-center">
+                <h1><b>Coachers || User Info</b></h1>
               </div>
-              <div>
-                <!-- Button -->
-                <div class="d-grid">
-                  <button type="submit" class="btn btn-primary">Update
-                    </button>
+              <div class="card smooth-shadow-md">
+                <!-- Card body -->
+                <div class="card-body p-6">
+                  <!-- Form -->
+                  <form action="/users/updateuser" method="POST">
+                    <div class="mb-3">
+                      <label for="name"></label>
+                      <input
+                        type="text"
+                        id="text"
+                        class="form-control"
+                        name="name"
+                        placeholder="User Name"
+                        required=""
+                      />
+                      <label for="email"></label>
+                      <input
+                        type="text"
+                        id="text"
+                        class="form-control"
+                        name="email"
+                        placeholder="Email"
+                        required=""
+                      />
+                      <label for="Current Password"></label>
+                      <input
+                        type="text"
+                        id="text"
+                        class="form-control"
+                        name="Current Password"
+                        placeholder="Current Password"
+                        required=""
+                      />
+                      <label for="New Password"></label>
+                      <input
+                        type="text"
+                        id="text"
+                        class="form-control"
+                        name="New Password"
+                        placeholder="New Password"
+                        required=""
+                      />
+                      <label for="Re-Type New Password"></label>
+                      <input
+                        type="text"
+                        id="text"
+                        class="form-control"
+                        name="Re-Type New Password"
+                        placeholder="Re-Type New Password"
+                        required=""
+                      />
+                    </div>
+                    <div>
+                      <!-- Button -->
+                      <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                          Update
+                        </button>
+                      </div>
+                      <div class="d-md-flex justify-content-between mt-4">
+                        <div>
+                          <a href="/admin/dashboard" class="text-inherit fs-5"
+                            >Home</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-
-                <div class="d-md-flex justify-content-between mt-4">
-                  
-                  <!--<div>
-                    <a href="forget-password.html" class="text-inherit
-                        fs-5">Forgot your password?</a>
-                  </div>-->
-                  <div>
-                    <a href="/admin/dashboard" class="text-inherit
-                        fs-5">Home</a>
-                  </div>
-                </div>
-                
-
               </div>
-
-
-            </form>
+            </div>
           </div>
         </div>
+        <!-- Scripts -->
+        <!-- Libs JS -->
+        <script src="../v1Build/assets/libs/jquery/dist/jquery.min.js"></script>
+        <script src="../v1Build/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="../v1Build/assets/libs/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <script src="../v1Build/assets/libs/feather-icons/dist/feather.min.js"></script>
+        <script src="../v1Build/assets/libs/prismjs/components/prism-core.min.js"></script>
+        <script src="../v1Build/assets/libs/prismjs/components/prism-markup.min.js"></script>
+        <script src="../v1Build/assets/libs/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
+        <script src="../v1Build/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+        <script src="../v1Build/assets/libs/dropzone/dist/min/dropzone.min.js"></script>
+
+        <!-- clipboard -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
+
+        <!-- Theme JS -->
+        <script src="../v1Build/assets/js/theme.min.js"></script>
       </div>
+      <!-- .container -->
     </div>
-  </div>
-  <!-- Scripts -->
-  <!-- Libs JS -->
-<script src="../v1Build/assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="../v1Build/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../v1Build/assets/libs/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<script src="../v1Build/assets/libs/feather-icons/dist/feather.min.js"></script>
-<script src="../v1Build/assets/libs/prismjs/components/prism-core.min.js"></script>
-<script src="../v1Build/assets/libs/prismjs/components/prism-markup.min.js"></script>
-<script src="../v1Build/assets/libs/prismjs/plugins/line-numbers/prism-line-numbers.min.js"></script>
-<script src="../v1Build/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-<script src="../v1Build/assets/libs/dropzone/dist/min/dropzone.min.js"></script>
+    <!-- .page-section -->
 
+    <%- include('./userPartials/footer.ejs') %>
 
+    <script src="../seogram/assets/js/jquery-3.5.1.min.js"></script>
 
+    <script src="../seogram/assets/js/bootstrap.bundle.min.js"></script>
 
+    <script src="../seogram/assets/js/google-maps.js"></script>
 
+    <script src="../seogram/assets/vendor/wow/wow.min.js"></script>
 
-
-
-
-
-<!-- clipboard -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
-
-
-
-<!-- Theme JS -->
-<script src="../v1Build/assets/js/theme.min.js"></script>
-
-      </div>
-    </div> <!-- .container -->
-  </div> <!-- .page-section -->
-
- 
-  
-
-  <%- include('./userPartials/footer.ejs') %>
-
-<script src="../seogram/assets/js/jquery-3.5.1.min.js"></script>
-
-<script src="../seogram/assets/js/bootstrap.bundle.min.js"></script>
-
-<script src="../seogram/assets/js/google-maps.js"></script>
-
-<script src="../seogram/assets/vendor/wow/wow.min.js"></script>
-
-<script src="../seogram/assets/js/theme.js"></script>
-  
-</body>
+    <script src="../seogram/assets/js/theme.js"></script>
+  </body>
 </html>
