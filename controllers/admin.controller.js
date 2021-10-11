@@ -3,6 +3,7 @@ const User = require('../models/User.model');
 const {Subjects, createTopic} = require('../models/subjects.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
+const {generateQuestion, questionBank, checkQuestionsAnswer} = require('../models/Questions/questions.model')
 const { render } = require('ejs');
 
 
