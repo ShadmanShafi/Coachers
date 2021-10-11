@@ -258,7 +258,7 @@ const getQuiz = (req, res) => {
           // Covenrt to 1D array
           questionsList = [].concat(...questionsList);;
 
-          console.log(questionsList);
+          console.log("questions:",questionsList);
 
           res.render("users/giveQuizPage.ejs", {
               user: req.user,

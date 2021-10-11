@@ -31,13 +31,18 @@
   <div class="page-section bg-light">
     <div style="padding-left: 10%;">
         <h1>this is quiz page</h1>
-        <div class="quizpanel">
-            <div id="question">question?</div>
-            <div><input type="radio" id="option1" name="options"><span id="optt1">option 1</span></div>
-            <div><input type="radio" id="option2" name="options"><span id="optt2">option 2</span></div>
-            <div><input type="radio" id="option3" name="options"><span id="optt3">option 3</span></div>
-            <div><input type="radio" id="option4" name="options"><span id="optt4">option 4</span></div>
-        </div>
+
+        <% questionsList.forEach(question=>{   %>
+        
+          <div class="quizpanel">
+              <div id="question" style="font-weight: bold;"><%= question.question %></div>
+              <div><input type="radio" id="option1" name="options"><span id="optt1"><span style="font-weight: bold;">A: </span> <%= question.A %> </span></div>
+              <div><input type="radio" id="option2" name="options"><span id="optt2"><span style="font-weight: bold;">B: </span><%= question.B %></span></div>
+              <div><input type="radio" id="option3" name="options"><span id="optt3"><span style="font-weight: bold;">C: </span><%= question.C %></span></div>
+              <div><input type="radio" id="option4" name="options"><span id="optt4"><span style="font-weight: bold;">D: </span><%= question.D %></span></div>
+          </div>
+        </br>
+      <% }) %>
     </div>
     <div class="container">
      
