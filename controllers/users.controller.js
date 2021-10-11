@@ -237,25 +237,41 @@ const getQuizInfoPage = (req, res) => {
 }
 
 const getQuiz = (req, res) => {
-
-     const topics =[];
      const subjectname = 'Math'; 
 
      QuestionBank.find({subject:subjectname}).then((data,error)=>{
-       if(error)
-       {
-         console.log('error while fetching')
+       if(error){
+          console.log('error while fetching')
+          res.render("users/giveQuizPage.ejs", {
+            user: req.user,
+            questionsList: []
+          });   
        }
        else{
-        console.log('question fetching')
-        console.log(data[0].questions[0])
+          console.log('question fetching')
+          let questionsList = [];
+
+          data.forEach(element=>{
+            questionsList.push(element.questions);
+          })
+          
+          // Covenrt to 1D array
+          questionsList = [].concat(...questionsList);;
+
+          console.log(questionsList);
+
+          res.render("users/giveQuizPage.ejs", {
+              user: req.user,
+              questionsList: questionsList
+          });
 
        }
+
 
      })
   
   
-  res.render("users/giveQuizPage.ejs");   
+  
 
 }
 
