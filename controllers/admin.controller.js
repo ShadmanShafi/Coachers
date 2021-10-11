@@ -294,7 +294,56 @@ const postDeleteSubject = (req, res) => {
     res.redirect('/admin/deletesubject')
   });
 
+}
 
+const getAddQuestion = (req, res) => {
+  const subjectChosen = req.params.subject;
+  var SubjectList = [];
+  Subjects.find().then((data) => {
+        SubjectList = data;
+        if(subjectChosen == '--'){
+          res.render("admin/addQuestionPage.ejs", {
+            SubjectList: SubjectList,
+            chosenSubject: subjectChosen,
+            topicsList: []
+          });
+          return;
+        }
+        let subjectTouple;
+        SubjectList.forEach(subject=>{
+            if(subject.name == subjectChosen){
+                subjectTouple = subject;
+            }
+        })
+
+        res.render("admin/addQuestionPage.ejs", {
+              error: req.flash('error'),
+              SubjectList: SubjectList,
+              chosenSubject: subjectChosen,
+              topicsList: subjectTouple.topics
+        });
+
+  }).catch(() => {
+        res.render("admin/addQuestionPage.ejs", {
+          SubjectList: SubjectList,
+          chosenSubject: [],
+          topicsList: []
+        });
+  });
+}
+
+const postAddQuestion = (req, res) => {
+  const {subjectname} = req.body;
+  console.log(subjectname);
+  Subjects.findOneAndDelete({name: subjectname}).then((success, error)=>{
+    if(error){
+      console.log("Delete Failed");
+    }
+    else{
+      console.log("Delete Successful");
+    }
+    res.redirect('/admin/deletesubject')
+  });
 }
 
 
@@ -315,5 +364,7 @@ module.exports = {
     deleteUser,
     deleteTopic,
     getDeleteSubjectPage,
-    postDeleteSubject
+    postDeleteSubject,
+    getAddQuestion,
+    postAddQuestion
 };
