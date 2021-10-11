@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const passport = require("passport");
 const {outerUnion, innerUnion} = require('../utilities/getUnionFunctions.js');
 const { create } = require('../models/User.model');
+const  {generateQuestion, QuestionBank, checkQuestionsAnswer}= require('../models/Questions/questions.model');
 
 const getLogin = (req, res)=>{
     res.render("users/login.ejs", {error: req.flash("error")});
@@ -235,6 +236,31 @@ const getQuizInfoPage = (req, res) => {
 
 }
 
+const getQuiz = (req, res) => {
+
+     const topics =[];
+     const subjectname = 'Math'; 
+
+     QuestionBank.find({subject:subjectname}).then((data,error)=>{
+       if(error)
+       {
+         console.log('error while fetching')
+       }
+       else{
+        console.log('question fetching')
+        console.log(data[0].questions[0])
+
+       }
+
+     })
+  
+  
+  res.render("users/giveQuizPage.ejs");   
+
+}
+
+
+
 
 module.exports = {
     getLogin,
@@ -247,6 +273,7 @@ module.exports = {
     enrollUser,
     getEnrolledCoursesPage,
     unregisterCourse,
-    getQuizInfoPage
+    getQuizInfoPage,
+    getQuiz
 
 };
