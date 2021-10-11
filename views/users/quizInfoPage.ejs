@@ -22,7 +22,7 @@
     function getTopics(){
         const subjectChosen = document.getElementById('subjectname').value;
         if(subjectChosen != '--'){
-            window.location.replace("/admin/addquestion/" + subjectChosen);
+            window.location.replace("/users/quiz/" + subjectChosen);
         }
     }
 </script>
@@ -83,6 +83,7 @@
                             </option>
                         
                         <% })   %>
+                        <option>All Topics</option>
                     <% } %>
                   </select>
                 

@@ -18,10 +18,10 @@ router.get("/coursepage/:subject&:week", ensureAuthenticated, getCoursePage);
 router.get("/enrolledcourselist", ensureAuthenticated, getEnrolledCoursesPage);
 router.get("/enroll/:useremail&:subject", ensureAuthenticated, enrollUser);
 router.get("/unregistercourse/:subject", ensureAuthenticated, unregisterCourse);
+router.get("/userInfoUpdate", ensureAuthenticated,getuserInfoUpdate );
 
 router.get("/quizapp", ensureAuthenticated, getQuiz);
-router.get("/userInfoUpdate", ensureAuthenticated,getuserInfoUpdate );
-router.get("/quiz/", ensureAuthenticated, getQuizInfoPage);
+router.get("/quiz/:subject", ensureAuthenticated, getQuizInfoPage);
 
 
 module.exports = router;

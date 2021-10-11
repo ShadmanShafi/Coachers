@@ -234,7 +234,7 @@ const getQuizInfoPage = (req, res) => {
   const subjectChosen = req.params.subject;
   var SubjectList = [];
   Subjects.find().then((data) => {
-    SubjectList = data;
+      SubjectList = data;
       if(subjectChosen == '--'){
         res.render("users/quizInfoPage.ejs", {
           user: req.user,
