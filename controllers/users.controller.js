@@ -264,15 +264,8 @@ const getQuiz = (req, res) => {
               user: req.user,
               questionsList: questionsList
           });
-
        }
-
-
      })
-  
-  
-  
-
 }
 
 
