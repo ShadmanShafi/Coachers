@@ -342,6 +342,16 @@ const postAddQuestion = (req, res) => {
     }
     else if(data){
       console.log("Data Found");
+      QuestionBank.findOneAndUpdate({subject: subjectname, topic: topicname}, {$push: {questions: toAdd}}, (error,success)=>{
+          if(error){
+            if (error) {
+              console.log(error);
+              res.redirect('/admin/addquestion/--')
+            } else {
+              res.redirect('/admin/addquestion/--')
+            }
+          }
+      })
     }
     else{
       const newEntry = new QuestionBank();
@@ -350,15 +360,17 @@ const postAddQuestion = (req, res) => {
       newEntry.questions.push(questionToAdd);
       newEntry.save().then((error)=>{
           console.log("New Question Entry Saved");
+          res.redirect('/admin/addquestion/--')
       }).catch((e)=>{
           console.log("New Question Entry Error:", e);
+          res.redirect('/admin/addquestion/--')
       })
     }
 
   })
 
   
-  res.redirect('/admin/addquestion/--')
+  
 }
 
 
