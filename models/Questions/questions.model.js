@@ -16,14 +16,16 @@ const QuestionBank = mongoose.model("questionBank", questionBankSchema);
 
 
 
-const generateQuestion = (inputQuestion, optionA, optionB, optionC, optionD, correctOption) => {
+const generateQuestion = (inputQuestion, optionA, optionB, optionC, optionD, correctOption, subjectName, topicName) => {
     return {
         question: inputQuestion,
         A: optionA,
         B: optionB,
         C: optionC,
         D: optionD,
-        correctOption: correctOption
+        correctOption: correctOption,
+        subject: subjectName,
+        topic: topicName
     }
 }
 

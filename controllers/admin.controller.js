@@ -335,7 +335,7 @@ const getAddQuestion = (req, res) => {
 const postAddQuestion = (req, res) => {
   const {subjectname, topicname, question, optionA, optionB, optionC, optionD, correctOption} = req.body;
   console.log( {subjectname, topicname, question, optionA, optionB, optionC, optionD, correctOption} );
-  const questionToAdd = generateQuestion(question, optionA, optionB, optionC, optionD, correctOption);
+  const questionToAdd = generateQuestion(question, optionA, optionB, optionC, optionD, correctOption, subjectname, topicname);
   QuestionBank.findOne({subject: subjectname, topic: topicname}).then((data,error)=>{
     if(error){
       console.log("Data Error");
