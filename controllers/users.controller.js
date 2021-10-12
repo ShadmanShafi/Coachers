@@ -271,7 +271,6 @@ const getQuizInfoPage = (req, res) => {
 
 const postQuizInfoPage = (req, res) => {
   const {subjectname, topicname} = req.body;
-  console.log(req.body);
 
   res.redirect('/users/quizapp/' + subjectname + '&' + topicname);
   
@@ -291,7 +290,6 @@ const getQuiz = (req, res) => {
            });   
         }
         else{
-           
            let questionsList = [];
  
            data.forEach(element=>{
@@ -303,7 +301,6 @@ const getQuiz = (req, res) => {
            
            questionsList = questionsList.sort((a, b) => 0.5 - Math.random()).slice(0,10);
 
-         
            
            res.render("users/giveQuizPage.ejs", {
                user: req.user,
@@ -323,7 +320,6 @@ const getQuiz = (req, res) => {
           });   
        }
        else{
-          console.log('question fetching')
           let questionsList = [];
 
           data.forEach(element=>{
@@ -333,7 +329,6 @@ const getQuiz = (req, res) => {
           // Covenrt to 1D array
           questionsList = [].concat(...questionsList);;
 
-        
 
           res.render("users/giveQuizPage.ejs", {
               user: req.user,
@@ -351,9 +346,9 @@ const getuserInfoUpdate = (req, res) => {
 
 }
 
-const getCheckQuiz = (req, res) => {
-  
-  res.render("users/CheckQuizPage.ejs");   
+const postCheckQuiz = (req, res) => {
+  console.log('Result From Post:', req.body);
+  return;
 
 }
 
@@ -375,6 +370,6 @@ module.exports = {
     postQuizInfoPage,
     getQuiz,
     getuserInfoUpdate,
-    getCheckQuiz
+    postCheckQuiz
 
 };

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getLogin,getQuiz,getCheckQuiz,getuserInfoUpdate ,getRegister, postLogin, postRegister, getDashboard, getSearchPage, getCoursePage, enrollUser, getEnrolledCoursesPage, unregisterCourse, getQuizInfoPage, postQuizInfoPage } = require('./../controllers/users.controller');
+const { getLogin,getQuiz, postCheckQuiz,getuserInfoUpdate ,getRegister, postLogin, postRegister, getDashboard, getSearchPage, getCoursePage, enrollUser, getEnrolledCoursesPage, unregisterCourse, getQuizInfoPage, postQuizInfoPage } = require('./../controllers/users.controller');
 const ensureAuthenticated = require('./../middlewares/auth.middleware');
 
 router.get("/login",getLogin);
@@ -26,7 +26,7 @@ router.get("/quiz/:subject", ensureAuthenticated, getQuizInfoPage);
 router.post("/quiz", ensureAuthenticated, postQuizInfoPage);
 
 router.get("/quizapp/:subject&:topic", ensureAuthenticated, getQuiz);
-router.get("/checkquiz/:questionarray&:resultarray", ensureAuthenticated, getCheckQuiz);
+router.post("/checkquiz", ensureAuthenticated, postCheckQuiz);
 
 
 module.exports = router;
