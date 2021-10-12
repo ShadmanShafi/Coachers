@@ -271,7 +271,7 @@ const getQuizInfoPage = (req, res) => {
 
 const postQuizInfoPage = (req, res) => {
   const {subjectname, topicname} = req.body;
-  console.log({subjectname, topicname});
+  console.log(req.body);
 
   res.redirect('/users/quizapp/' + subjectname + '&' + topicname);
   
@@ -291,7 +291,7 @@ const getQuiz = (req, res) => {
            });   
         }
         else{
-           console.log('question fetching')
+           
            let questionsList = [];
  
            data.forEach(element=>{
@@ -303,7 +303,7 @@ const getQuiz = (req, res) => {
            
            questionsList = questionsList.sort((a, b) => 0.5 - Math.random()).slice(0,10);
 
-           console.log("questions:", questionsList);
+         
            
            res.render("users/giveQuizPage.ejs", {
                user: req.user,
@@ -333,7 +333,7 @@ const getQuiz = (req, res) => {
           // Covenrt to 1D array
           questionsList = [].concat(...questionsList);;
 
-          console.log("questions:", questionsList);
+        
 
           res.render("users/giveQuizPage.ejs", {
               user: req.user,
