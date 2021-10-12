@@ -21,6 +21,8 @@ router.get("/unregistercourse/:subject", ensureAuthenticated, unregisterCourse);
 router.get("/userInfoUpdate", ensureAuthenticated,getuserInfoUpdate );
 
 router.get("/quiz/:subject", ensureAuthenticated, getQuizInfoPage);
+
+
 router.post("/quiz", ensureAuthenticated, postQuizInfoPage);
 
 router.get("/quizapp/:subject&:topic", ensureAuthenticated, getQuiz);

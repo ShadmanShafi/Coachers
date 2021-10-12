@@ -33,12 +33,14 @@
           <% questionsList.forEach(question=>{   %>
           
             <div class="quizpanel">
-                <div id="question<%=i%>" name="question<%=i%>" style="font-weight: bold;"><span><%=i%></span>. <%=question.question %></div>
-                  <div><input type="radio" id="option<%=i%>" name="options<%=i%>" value="A"><span id="optt1"><span style="font-weight: bold;">A: </span> <%= question.A %> </span></div>
-                  <div><input type="radio" id="option<%=i%>" name="options<%=i%>" value="B"><span id="optt2"><span style="font-weight: bold;">B: </span><%= question.B %></span></div>
-                  <div><input type="radio" id="option<%=i%>" name="options<%=i%>" value="C"><span id="optt3"><span style="font-weight: bold;">C: </span><%= question.C %></span></div>
-                  <div><input type="radio" id="option<%=i%>" name="options<%=i%>" value="D"><span id="optt4"><span style="font-weight: bold;">D: </span><%= question.D %></span></div>
-                  
+                <div id="question<%=i%>" name="question<%=i%>" value="<%=question.question%>" style="font-weight: bold;"><span><%=i%></span>. <%= question.question %></div>
+                  <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="A" textValue="<%= question.A %>"><span id="optt1"><span style="font-weight: bold;">A: </span> <%= question.A %> </span></div>
+                  <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="B" textValue="<%= question.B %>"><span id="optt2"><span style="font-weight: bold;">B: </span><%= question.B %></span></div>
+                  <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="C" textValue="<%= question.C %>"><span id="optt3"><span style="font-weight: bold;">C: </span><%= question.C %></span></div>
+                  <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="D" textValue="<%= question.D %>"><span id="optt4"><span style="font-weight: bold;">D: </span><%= question.D %></span></div>
+                  <div id="CorrectAnswer<%=i%>" value="<%=question.correctOption%>" hidden></div>
+                  <div id="subject<%=i%>" value="<%=question.subject%>" hidden></div>
+                  <div id="topic<%=i%>" value="<%=question.topic%>" hidden></div>
             </div>
           </br>
           <% i++ %>
@@ -67,6 +69,73 @@
 
 <script src="/seogram/assets/js/theme.js"></script>
 
+<script>
 
+  function createJsonTouple(question, A, B, C, D, correctAnswer, optionChosen, subject, topic){
+    return {
+        question: question,
+        A: A,
+        B: B,
+        C: C,
+        D: D,
+        correctAnswer: correctAnswer,
+        optionChosen: optionChosen,
+        subject: subject,
+        topic: topic
+    }
+  }
+
+  function checkAnswer() {
+    let results = [];
+    var ele = document.getElementsByTagName('input');
+    for(var j = 0; j < ele.length; j++) {
+        var radioButtons = document.getElementsByName("option"+(j+1));
+        let options = []
+
+        for(var i = 0; i < radioButtons.length; i++){
+            options.push(radioButtons[i].getAttribute('textValue'));
+        }
+
+        for(var i = 0; i < radioButtons.length; i++){
+            if(radioButtons[i].checked == true){
+                chosenAnswer = radioButtons[i];
+                results.push(createJsonTouple(
+                  document.getElementById('question'+(j+1)).getAttribute('value'),
+                  options[0],
+                  options[1],
+                  options[2],
+                  options[3],
+                  document.getElementById('CorrectAnswer'+(j+1)).getAttribute('value'),
+                  radioButtons[i].value,
+                  document.getElementById('subject'+(j+1)).getAttribute('value'),
+                  document.getElementById('topic'+(j+1)).getAttribute('value'),
+                ));
+                break;
+            }
+            if(i == radioButtons.length-1){
+              results.push(createJsonTouple(
+                  document.getElementById('question'+(j+1)).getAttribute('value'),
+                  options[0],
+                  options[1],
+                  options[2],
+                  options[3],
+                  document.getElementById('CorrectAnswer'+(j+1)).getAttribute('value'),
+                  'X',
+                  document.getElementById('subject'+(j+1)).getAttribute('value'),
+                  document.getElementById('topic'+(j+1)).getAttribute('value'),
+                ));
+            }
+        }
+
+        
+    }
+    console.log('results', results)
+
+    
+    
+  }
+
+
+</script>
 </body>
 </html>
