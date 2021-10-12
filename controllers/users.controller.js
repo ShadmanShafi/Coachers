@@ -347,7 +347,9 @@ const getuserInfoUpdate = (req, res) => {
 }
 
 const postCheckQuiz = (req, res) => {
-  console.log('Result From Post:', req.body);
+  
+  let data = JSON.stringify(req.body)
+  console.log('Result From Post:', data);
   return;
 
 }

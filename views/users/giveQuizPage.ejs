@@ -140,12 +140,15 @@
 
 function sendjson(result){
   console.log('i am from json')
+  console.log(result)
 let xhr = new XMLHttpRequest();
  let url = "/users/checkquiz";
  xhr.open("POST", url, true);
  xhr.setRequestHeader("Content-Type", "application/json");
  var data = JSON.stringify(result);
  xhr.send(data);
+
+
 }
 
 
