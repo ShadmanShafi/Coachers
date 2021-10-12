@@ -33,12 +33,14 @@
           <% questionsList.forEach(question=>{   %>
           
             <div class="quizpanel">
-                <div id="question<%=i%>" name="question<%=i%>" style="font-weight: bold;"><span><%=i%></span>. <%=question.question %></div>
-                  <div><input type="radio" id="option<%=i%>" name="options<%=i%>" value="A"><span id="optt1"><span style="font-weight: bold;">A: </span> <%= question.A %> </span></div>
-                  <div><input type="radio" id="option<%=i%>" name="options<%=i%>" value="B"><span id="optt2"><span style="font-weight: bold;">B: </span><%= question.B %></span></div>
-                  <div><input type="radio" id="option<%=i%>" name="options<%=i%>" value="C"><span id="optt3"><span style="font-weight: bold;">C: </span><%= question.C %></span></div>
-                  <div><input type="radio" id="option<%=i%>" name="options<%=i%>" value="D"><span id="optt4"><span style="font-weight: bold;">D: </span><%= question.D %></span></div>
-                  <div id="CorrectAnswer<%=i%>" value="<%=question.correctAnser%>"></div>
+                <div id="question<%=i%>" name="question<%=i%>" style="font-weight: bold;" value="<%=question.question %>"><span><%=i%></span>. <%=question.question %></div>
+                  <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="A"><span id="optt1"><span style="font-weight: bold;">A: </span> <%= question.A %> </span></div>
+                  <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="B"><span id="optt2"><span style="font-weight: bold;">B: </span><%= question.B %></span></div>
+                  <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="C"><span id="optt3"><span style="font-weight: bold;">C: </span><%= question.C %></span></div>
+                  <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="D"><span id="optt4"><span style="font-weight: bold;">D: </span><%= question.D %></span></div>
+                  <div id="CorrectAnswer<%=i%>" value="<%=question.correctAnser%>" hidden></div>
+                  <div id="subject<%=i%>" value="<%=question.correctAnser%>" hidden></div>
+                  <div id="topic<%=i%>" value="<%=question.correctAnser%>" hidden></div>
             </div>
           </br>
           <% i++ %>
@@ -68,27 +70,38 @@
 <script src="/seogram/assets/js/theme.js"></script>
 
 <script>
+
+  function createJsonTouple(question, correctAnswer, optionChosen, subject, topic){
+    return {
+        question: question,
+        correctAnswer: correctAnswer,
+        optionChosen: optionChosen,
+        subject: subject,
+        topic: topic
+    }
+  }
+
   function checkAnswer() {
-    let answers = [];
     let results = [];
     var ele = document.getElementsByTagName('input');
-    var notCheckedCounter = 0;
-    for(var i = 0; i < ele.length; i++) {
-        if(ele[i].type="radio") {
-            if(ele[i].checked){
-              results.push(ele[i].value);
-              notCheckedCounter = 0
-            }
-            else{
-              notCheckedCounter++;
-              if(notCheckedCounter > 4){
-                results.push('X');
-                notCheckedCounter = 0;
-              }
+    for(var j = 0; j < ele.length; j++) {
+        var radioButtons = document.getElementsByName("option"+(j+1));
+        for(var i = 0; i < radioButtons.length; i++)
+        {
+            if(radioButtons[i].checked == true){
+                results.push(createJsonTouple(
+                  document.getElementById('question'+(j+1)).value,
+                  document.getElementById('CorrectAnswer'+(j+1)).value,
+                  radioButtons[i].value,
+                  document.getElementById('subject'+(j+1)).value,
+                  document.getElementById('topic'+(j+1)).value,
+                ));
             }
         }
     }
-    alert(results);
+    console.log('results', results)
+    console.log(document.getElementById('question'+(1)).value)
+    
     
   }
 
