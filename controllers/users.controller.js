@@ -300,9 +300,11 @@ const getQuiz = (req, res) => {
            
            // Covenrt to 1D array
            questionsList = [].concat(...questionsList);;
- 
+           
+           questionsList = questionsList.sort((a, b) => 0.5 - Math.random()).slice(0,10);
+
            console.log("questions:", questionsList);
- 
+           
            res.render("users/giveQuizPage.ejs", {
                user: req.user,
                questionsList: questionsList
