@@ -33,14 +33,14 @@
           <% questionsList.forEach(question=>{   %>
           
             <div class="quizpanel">
-                <div id="question<%=i%>" name="question<%=i%>" style="font-weight: bold;" value="<%=question.question %>"><span><%=i%></span>. <%=question.question %></div>
+                <div id="question<%=i%>" name="question<%=i%>" value="<%=question.question%>" style="font-weight: bold;"><span><%=i%></span>. <%= question.question %></div>
                   <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="A"><span id="optt1"><span style="font-weight: bold;">A: </span> <%= question.A %> </span></div>
                   <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="B"><span id="optt2"><span style="font-weight: bold;">B: </span><%= question.B %></span></div>
                   <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="C"><span id="optt3"><span style="font-weight: bold;">C: </span><%= question.C %></span></div>
                   <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="D"><span id="optt4"><span style="font-weight: bold;">D: </span><%= question.D %></span></div>
-                  <div id="CorrectAnswer<%=i%>" value="<%=question.correctAnser%>" hidden></div>
-                  <div id="subject<%=i%>" value="<%=question.correctAnser%>" hidden></div>
-                  <div id="topic<%=i%>" value="<%=question.correctAnser%>" hidden></div>
+                  <div id="CorrectAnswer<%=i%>" value="<%=question.correctOption%>" hidden></div>
+                  <div id="subject<%=i%>" value="<%=question.subject%>" hidden></div>
+                  <div id="topic<%=i%>" value="<%=question.topic%>" hidden></div>
             </div>
           </br>
           <% i++ %>
@@ -90,17 +90,17 @@
         {
             if(radioButtons[i].checked == true){
                 results.push(createJsonTouple(
-                  document.getElementById('question'+(j+1)).value,
-                  document.getElementById('CorrectAnswer'+(j+1)).value,
+                  document.getElementById('question'+(j+1)).getAttribute('value'),
+                  document.getElementById('CorrectAnswer'+(j+1)).getAttribute('value'),
                   radioButtons[i].value,
-                  document.getElementById('subject'+(j+1)).value,
-                  document.getElementById('topic'+(j+1)).value,
+                  document.getElementById('subject'+(j+1)).getAttribute('value'),
+                  document.getElementById('topic'+(j+1)).getAttribute('value'),
                 ));
             }
         }
     }
     console.log('results', results)
-    console.log(document.getElementById('question'+(1)).value)
+
     
     
   }
