@@ -6,6 +6,8 @@ const passport = require("passport");
 const {outerUnion, innerUnion} = require('../utilities/getUnionFunctions.js');
 const { create } = require('../models/User.model');
 const  {generateQuestion, QuestionBank, checkQuestionsAnswer}= require('../models/Questions/questions.model');
+const {quizData} = require('../models/Questions/users_quiz.model.js');
+
 
 const getLogin = (req, res)=>{
     res.render("users/login.ejs", {error: req.flash("error")});
@@ -338,8 +340,6 @@ const getQuiz = (req, res) => {
      })
 }
 
-
-
 const getuserInfoUpdate = (req, res) => {
   
   res.render("users/userInfoUpdate.ejs",{ user: req.user});   
@@ -348,11 +348,53 @@ const getuserInfoUpdate = (req, res) => {
 
 const postCheckQuiz = (req, res) => {
   
-  let data = JSON.stringify(req.body)
-  let data2 = JSON.parse(data)
-  console.log('Result From Post:', data);
-  console.log('Result From Post:', data2);
-  return;
+  
+  
+
+
+  let questionsList = JSON.parse(JSON.stringify(req.body))
+  const email = req.user.email;
+
+  quizData.findOne({email: email}).then((data, error)=>{
+      if(error){
+        console.log("Data Error");
+      }
+      else if(data){
+        quizData.updateOne({email: email}, {$push: {quiz: [questionsList]}}).then((data,error)=>{
+          if (error) {
+            console.log(error, 'Quiz Info could not be saved');
+          } else {
+            console.log("Quiz Entry made");
+          }
+        })
+      }
+      else{
+        const newEntry = new quizData();
+        newEntry.email = email;
+        newEntry.quiz.push(questionsList);
+        newEntry.save().then((success, error)=>{
+          if(error)
+            console.log("Error When saving new Entry");
+          else
+            console.log('Saved New Entry');
+        })
+      }
+  })
+  
+  // registeredSubjects.findOneAndUpdate({email: userEmail}, {$push: {subjects: toAdd}}, (error,success)=>{
+  //   if (error) {
+  //     console.log(error);
+  //     res.redirect("/users/dashboard");
+  //   } else {
+  //     res.redirect("/users/searchpage");
+  //   }
+  // })
+
+  // res.render("users/CheckQuizPage.ejs", {
+  //     user: req.user,
+  //     questionsList: questionsList
+  // });
+  
 
 }
 
