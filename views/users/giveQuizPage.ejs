@@ -32,7 +32,7 @@
           <% var i = 1 %>
           <% questionsList.forEach(question=>{   %>
           
-            <div class="quizpanel">
+            <div class="quizpanel" id="quizpanel<%=i%>" style="width: 60%;">
                 <div id="question<%=i%>" name="question<%=i%>" value="<%=question.question%>" style="font-weight: bold;"><span><%=i%></span>. <%= question.question %></div>
                   <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="A" textValue="<%= question.A %>"><span id="optt1"><span style="font-weight: bold;">A: </span> <%= question.A %> </span></div>
                   <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="B" textValue="<%= question.B %>"><span id="optt2"><span style="font-weight: bold;">B: </span><%= question.B %></span></div>
@@ -107,7 +107,7 @@
                   options[2],
                   options[3],
                   document.getElementById('CorrectAnswer'+(j+1)).getAttribute('value'),
-                  radioButtons[i].value,
+                  chosenAnswer.value,
                   document.getElementById('subject'+(j+1)).getAttribute('value'),
                   document.getElementById('topic'+(j+1)).getAttribute('value'),
                 ));
@@ -132,17 +132,47 @@
     }
     console.log('results', results)
     sendjson(results);
-    updateDocument()
+    showAnswers()
   }
 
 
-  function updateDocument(){
-    
+  function showAnswers(){
+    var ele = document.getElementsByTagName('input');
+    for(var j = 0; j < ele.length; j++) {
+        var radioButtons = document.getElementsByName("option"+(j+1));
+
+        var correctOptionValue = (document.getElementById('CorrectAnswer'+(j+1))).getAttribute('value');
+
+        for(var i = 0; i < radioButtons.length; i++){
+            if(radioButtons[i].checked == true){
+                var chosenOption = radioButtons[i];
+                if(chosenOption.value == correctOptionValue){
+                    document.getElementById('quizpanel' + (j+1)).style.border  = '3px solid limegreen'
+                }
+                else{
+                  document.getElementById('quizpanel' + (j+1)).style.border  = '3px solid red'
+                }
+                
+                break;
+            }
+            // if(i == radioButtons.length-1){
+            //   results.push(createJsonTouple(
+            //       document.getElementById('question'+(j+1)).getAttribute('value'),
+            //       options[0],
+            //       options[1],
+            //       options[2],
+            //       options[3],
+            //       document.getElementById('CorrectAnswer'+(j+1)).getAttribute('value'),
+            //       'X',
+            //       document.getElementById('subject'+(j+1)).getAttribute('value'),
+            //       document.getElementById('topic'+(j+1)).getAttribute('value'),
+            //     ));
+            // }
+        }    
+    }
   }
 
   function sendjson(result){
-    console.log('i am from json')
-    console.log(result)
     let xhr = new XMLHttpRequest();
     let url = "/users/checkquiz";
     xhr.open("POST", url, true);
