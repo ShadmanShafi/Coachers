@@ -34,14 +34,15 @@
           <% questionsList.forEach(question=>{   %>
           
             <div class="quizpanel" id="quizpanel<%=i%>" style="width: 60%;">
+                <div id="subject<%=i%>" value="<%=question.subject%>" hidden></div>
+                <div id="topic<%=i%>" value="<%=question.topic%>" style="font-weight: bold; text-align: right ;" hidden><%=question.topic%></div>
                 <div id="question<%=i%>" name="question<%=i%>" value="<%=question.question%>" style="font-weight: bold;"><span><%=i%></span>. <%= question.question %></div>
                   <div id="option<%=i%>div1"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="A" textValue="<%= question.A %>"><span id="optt1"><span style="font-weight: bold;">A: </span> <%= question.A %> </span></div>
                   <div id="option<%=i%>div2"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="B" textValue="<%= question.B %>"><span id="optt2"><span style="font-weight: bold;">B: </span><%= question.B %></span></div>
                   <div id="option<%=i%>div3"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="C" textValue="<%= question.C %>"><span id="optt3"><span style="font-weight: bold;">C: </span><%= question.C %></span></div>
                   <div id="option<%=i%>div4"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="D" textValue="<%= question.D %>"><span id="optt4"><span style="font-weight: bold;">D: </span><%= question.D %></span></div>
                   <div id="CorrectAnswer<%=i%>" value="<%=question.correctOption%>" hidden></div>
-                  <div id="subject<%=i%>" value="<%=question.subject%>" hidden></div>
-                  <div id="topic<%=i%>" value="<%=question.topic%>" hidden></div>
+                  
             </div>
           </br>
           <% i++ %>
@@ -181,6 +182,10 @@
               correctOptionDiv.style.border = '3px solid limegreen';
             }
         }
+
+        console.log(document.getElementById('topic' + (j+1)));
+        document.getElementById('topic' + (j+1)).removeAttribute("hidden");
+
         document.getElementById('marks').innerHTML = 'Marks: ' + marksObtained + '/' + totalMarks;   
     }
     
