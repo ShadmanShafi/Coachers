@@ -346,6 +346,12 @@ const getuserInfoUpdate = (req, res) => {
 
 }
 
+const getReviewForm = (req, res) => {
+  
+  res.render("users/reviewFormPage.ejs",{ user: req.user});   
+
+}
+
 const postCheckQuiz = (req, res) => {
 
   let questionsList = JSON.parse(JSON.stringify(req.body))
@@ -461,6 +467,7 @@ module.exports = {
     getQuiz,
     getuserInfoUpdate,
     postCheckQuiz,
-    postUpdateUser
+    postUpdateUser,
+    getReviewForm
 
 };
