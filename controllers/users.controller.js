@@ -301,6 +301,7 @@ const getQuiz = (req, res) => {
            // Covenrt to 1D array
            questionsList = [].concat(...questionsList);;
            
+           // Randomise and get 10 questions
            questionsList = questionsList.sort((a, b) => 0.5 - Math.random()).slice(0,10);
 
            
