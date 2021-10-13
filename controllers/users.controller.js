@@ -395,6 +395,53 @@ const postCheckQuiz = (req, res) => {
 }
 
 
+const postUpdateUser =  (req, res)=>{
+  const {name, email,CurrentPassword,NewPassword,ReTypeNewPassword} = req.body;
+  var useremail ={email:email};
+  User.findOne({ email: email })
+        .then((user) => {
+          if (!user) {
+            return done(null, false, {
+              message: "This email is not registered",
+            });
+          } else {
+              
+            //Match Password
+            bcrypt.compare(CurrentPassword, user.password, (err, isMatch) => {
+              if (err) throw err;
+              if (isMatch) {
+                console.log('user found for updating');
+                const datas =  User.findOneAndUpdate(useremail,{name:name,password:NewPassword} 
+                 
+                ).then((data)=>{
+                   console.log(data);  
+                   datas=data
+                 console.log('user found for updating');
+
+                });
+                
+                if (data) {
+                
+                  res.redirect("/users/dashboard");
+                }
+                return null;
+              } else {
+                console.log('wrong current password')
+                return null;
+              }
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  
+  
+};
+
+
+
+
 
 
 module.exports = {
@@ -412,6 +459,7 @@ module.exports = {
     postQuizInfoPage,
     getQuiz,
     getuserInfoUpdate,
-    postCheckQuiz
+    postCheckQuiz,
+    postUpdateUser
 
 };
