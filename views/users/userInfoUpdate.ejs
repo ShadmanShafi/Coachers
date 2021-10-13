@@ -48,49 +48,46 @@
                   <!-- Form -->
                   <form action="/users/updateuser" method="POST">
                     <div class="mb-3">
-                      <label for="name"></label>
+                      <label for="name">Username</label>
                       <input
                         type="text"
                         id="text"
                         class="form-control"
                         name="name"
-                        placeholder="User Name"
+                        placeholder="<%= user.name%>"
                         required=""
                       />
-                      <label for="email"></label>
+                      <label for="email"><br>Email</label>
                       <input
                         type="text"
                         id="text"
                         class="form-control"
                         name="email"
-                        placeholder="Email"
+                        placeholder="<%= user.email%>"
                         required=""
                       />
-                      <label for="Current Password"></label>
+                      <label for="Current Password"><br>Current Password</label>
                       <input
                         type="text"
                         id="text"
                         class="form-control"
                         name="Current Password"
-                        placeholder="Current Password"
                         required=""
                       />
-                      <label for="New Password"></label>
+                      <label for="New Password"><br>New Password</label>
                       <input
                         type="text"
                         id="text"
                         class="form-control"
                         name="New Password"
-                        placeholder="New Password"
                         required=""
                       />
-                      <label for="Re-Type New Password"></label>
+                      <label for="Re-Type New Password"><br>Confirm Password</label>
                       <input
                         type="text"
                         id="text"
                         class="form-control"
                         name="Re-Type New Password"
-                        placeholder="Re-Type New Password"
                         required=""
                       />
                     </div>
