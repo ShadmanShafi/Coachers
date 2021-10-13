@@ -163,19 +163,12 @@
                 }                
                 break;
             }
-            // if(i == radioButtons.length-1){
-            //   results.push(createJsonTouple(
-            //       document.getElementById('question'+(j+1)).getAttribute('value'),
-            //       options[0],
-            //       options[1],
-            //       options[2],
-            //       options[3],
-            //       document.getElementById('CorrectAnswer'+(j+1)).getAttribute('value'),
-            //       'X',
-            //       document.getElementById('subject'+(j+1)).getAttribute('value'),
-            //       document.getElementById('topic'+(j+1)).getAttribute('value'),
-            //     ));
-            // }
+            
+            // No option selected for this question
+            if(i == radioButtons.length-1){
+              document.getElementById('quizpanel' + (j+1)).style.border  = '3px solid red';
+              correctOptionDiv.style.border = '3px solid limegreen';
+            }
         }    
     }
   }
