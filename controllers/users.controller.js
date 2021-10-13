@@ -347,10 +347,6 @@ const getuserInfoUpdate = (req, res) => {
 }
 
 const postCheckQuiz = (req, res) => {
-  
-  
-  
-
 
   let questionsList = JSON.parse(JSON.stringify(req.body))
   const email = req.user.email;
@@ -362,7 +358,7 @@ const postCheckQuiz = (req, res) => {
       else if(data){
         quizData.updateOne({email: email}, {$push: {quiz: [questionsList]}}).then((data,error)=>{
           if (error) {
-            console.log(error, 'Quiz Info could not be saved');
+            console.log(error, 'Quiz Info could not    saved');
           } else {
             console.log("Quiz Entry made");
           }
