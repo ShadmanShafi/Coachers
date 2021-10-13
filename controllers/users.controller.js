@@ -412,51 +412,43 @@ const postUpdateUser =  (req, res)=>{
     return;
   }
 
+  User.findOne({ email: email })
+        .then((user) => {
+          if (!user) {
+            return done(null, false, {
+              message: "This email is not registered",
+            });
+          } else {
+           
+            bcrypt.genSalt(10, (err, salt) => {
+              if (err) {
+                res.redirect("/users/register");
+              } else {
+                bcrypt.hash(NewPassword, salt, (err, hash) => {
+                  if (err) {
+                    res.redirect("/users/register");   
+                  } 
+
+                  //Match Password
+                  else {
+                      User.findOneAndUpdate({email: email}, {name: name, password: hash}).then((data)=>{
+                        if(data){
+                          console.log("SuccessFul Update", data);
+                          res.redirect("/users/userInfoUpdate"); 
+                        }
+                        else{
+                          console.log("UnsuccessFul Update", data);
+                          res.redirect("/users/userInfoUpdate"); 
+                        }
+                      })
+                  }
+                });
+              }
+            });
+          }
   
-
-
-  // var useremail ={email:email};
-  // User.findOne({ email: email })
-  //       .then((user) => {
-  //         if (!user) {
-  //           return done(null, false, {
-  //             message: "This email is not registered",
-  //           });
-  //         } else {
-              
-  //           //Match Password
-  //           bcrypt.compare(CurrentPassword, user.password, (err, isMatch) => {
-  //             if (err) throw err;
-  //             if (isMatch) {
-  //               console.log('user found for updating');
-  //               const datas =  User.findOneAndUpdate(useremail,{name:name,password:NewPassword} 
-                 
-  //               ).then((data)=>{
-  //                  console.log(data);  
-  //                  datas=data
-  //                console.log('user found for updating');
-
-  //               });
-                
-  //               if (data) {
-                
-  //                 res.redirect("/users/dashboard");
-  //               }
-  //               return null;
-  //             } else {
-  //               console.log('wrong current password')
-  //               return null;
-  //             }
-  //           });
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  
-  
-};
-
+  });
+}
 
 
 
