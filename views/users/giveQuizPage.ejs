@@ -29,6 +29,7 @@
   <!-- header end -->
     <div class="page-section bg-light">
       <div style="padding-left: 10%;">
+        
           <% var i = 1 %>
           <% questionsList.forEach(question=>{   %>
           
@@ -45,9 +46,13 @@
           </br>
           <% i++ %>
         <% }) %>
+        <div id = "marks" style="font-size: 110%;font-weight: bold; padding: 10%; height: 5px;"></div>
         <button type="submit" class="btn btn-primary" onclick="checkAnswer()">Submit</button>
       </div>
       
+      
+
+      </div>
 
     <div class="container">
      
@@ -137,11 +142,12 @@
 
 
   function showAnswers(){
+    var totalMarks = 0, marksObtained = 0;
     var ele = document.getElementsByTagName('input');
     for(var j = 0; j < ele.length; j++) {
+        totalMarks++;
         var correctOptionValue = (document.getElementById('CorrectAnswer'+(j+1))).getAttribute('value');
         var radioButtons = document.getElementsByName("option"+(j+1));
-
 
         var correctOptionDiv;
         for(var i = 0; i < radioButtons.length; i++){
@@ -154,9 +160,14 @@
         for(var i = 0; i < radioButtons.length; i++){
             if(radioButtons[i].checked == true){
                 var chosenOption = radioButtons[i];
+
+                // Correct Answer
                 if(chosenOption.value == correctOptionValue){
                     document.getElementById('quizpanel' + (j+1)).style.border  = '3px solid limegreen';
+                    marksObtained++;
                 }
+
+                // Incorrect Answer
                 else{
                     document.getElementById('quizpanel' + (j+1)).style.border  = '3px solid red';
                     correctOptionDiv.style.border = '3px solid limegreen';
@@ -169,8 +180,10 @@
               document.getElementById('quizpanel' + (j+1)).style.border  = '3px solid red';
               correctOptionDiv.style.border = '3px solid limegreen';
             }
-        }    
+        }
+        document.getElementById('marks').innerHTML = 'Marks: ' + marksObtained + '/' + totalMarks;   
     }
+    
   }
 
   function sendjson(result){
