@@ -48,7 +48,8 @@
           <% i++ %>
         <% }) %>
         <div id = "marks" style="font-size: 110%;font-weight: bold; padding: 10%; height: 5px;"></div>
-        <button type="submit" class="btn btn-primary" onclick="checkAnswer()">Submit</button>
+        <button id="submitButton" type="submit" class="btn btn-primary" onclick="checkAnswer()">Submit</button>
+        <button id="goBackButton" type="submit" class="btn btn-primary" style="width: 70%; height: 70%;" hidden><a href="/users/quiz/--" style="color: white;">Go Back</a></button>
       </div>
       
       
@@ -185,6 +186,9 @@
 
         console.log(document.getElementById('topic' + (j+1)));
         document.getElementById('topic' + (j+1)).removeAttribute("hidden");
+
+        document.getElementById('goBackButton').removeAttribute("hidden");
+        document.getElementById('submitButton').hidden = true;
 
         document.getElementById('marks').innerHTML = 'Marks: ' + marksObtained + '/' + totalMarks;   
     }
