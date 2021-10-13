@@ -46,16 +46,6 @@
                   <!-- Form -->
                   <form action="/users/updateuser" method="POST">
                     <div class="mb-3">
-                      <label for="name">Username</label>
-                      <input
-                        type="text"
-                        id="name"
-                        class="form-control"
-                        name="name"
-                        placeholder="<%=user.name%>"
-                        required=""
-                        value = "<%=user.name%>"
-                      />
                       <label for="email"><br>Email</label>
                       <input
                         readonly
@@ -66,6 +56,16 @@
                         value="<%=user.email%>"
                         required=""
                       ></div>
+                      <label for="name">Username</label>
+                      <input
+                        type="text"
+                        id="name"
+                        class="form-control"
+                        name="name"
+                        placeholder="<%=user.name%>"
+                        required=""
+                        value = "<%=user.name%>"
+                      />
                       <label for="Current Password"><br>Current Password</label>
                       <input
                         type="text"
