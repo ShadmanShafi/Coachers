@@ -404,6 +404,17 @@ const postCheckQuiz = (req, res) => {
 const postUpdateUser =  (req, res)=>{
   const {name, email,CurrentPassword,NewPassword,ReTypeNewPassword} = req.body;
   console.log({name, email,CurrentPassword,NewPassword,ReTypeNewPassword});
+
+
+
+  if(NewPassword != ReTypeNewPassword){
+    res.redirect('users/userInfoUpdate');
+    return;
+  }
+
+  
+
+
   // var useremail ={email:email};
   // User.findOne({ email: email })
   //       .then((user) => {
