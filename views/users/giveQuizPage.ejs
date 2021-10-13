@@ -34,10 +34,10 @@
           
             <div class="quizpanel" id="quizpanel<%=i%>" style="width: 60%;">
                 <div id="question<%=i%>" name="question<%=i%>" value="<%=question.question%>" style="font-weight: bold;"><span><%=i%></span>. <%= question.question %></div>
-                  <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="A" textValue="<%= question.A %>"><span id="optt1"><span style="font-weight: bold;">A: </span> <%= question.A %> </span></div>
-                  <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="B" textValue="<%= question.B %>"><span id="optt2"><span style="font-weight: bold;">B: </span><%= question.B %></span></div>
-                  <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="C" textValue="<%= question.C %>"><span id="optt3"><span style="font-weight: bold;">C: </span><%= question.C %></span></div>
-                  <div><input type="radio" id="option<%=i%>" name="option<%=i%>" value="D" textValue="<%= question.D %>"><span id="optt4"><span style="font-weight: bold;">D: </span><%= question.D %></span></div>
+                  <div id="option<%=i%>div"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="A" textValue="<%= question.A %>"><span id="optt1"><span style="font-weight: bold;">A: </span> <%= question.A %> </span></div>
+                  <div id="option<%=i%>div"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="B" textValue="<%= question.B %>"><span id="optt2"><span style="font-weight: bold;">B: </span><%= question.B %></span></div>
+                  <div id="option<%=i%>div"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="C" textValue="<%= question.C %>"><span id="optt3"><span style="font-weight: bold;">C: </span><%= question.C %></span></div>
+                  <div id="option<%=i%>div"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="D" textValue="<%= question.D %>"><span id="optt4"><span style="font-weight: bold;">D: </span><%= question.D %></span></div>
                   <div id="CorrectAnswer<%=i%>" value="<%=question.correctOption%>" hidden></div>
                   <div id="subject<%=i%>" value="<%=question.subject%>" hidden></div>
                   <div id="topic<%=i%>" value="<%=question.topic%>" hidden></div>
@@ -139,20 +139,28 @@
   function showAnswers(){
     var ele = document.getElementsByTagName('input');
     for(var j = 0; j < ele.length; j++) {
+        var correctOptionValue = (document.getElementById('CorrectAnswer'+(j+1))).getAttribute('value');
         var radioButtons = document.getElementsByName("option"+(j+1));
 
-        var correctOptionValue = (document.getElementById('CorrectAnswer'+(j+1))).getAttribute('value');
+
+        var correctOptionDiv;
+        for(var i = 0; i < radioButtons.length; i++){
+            if(radioButtons[i].value == correctOptionValue){
+              correctOptionDiv = document.getElementById('option' + (j+1) + 'div');
+            }
+        }
+        
 
         for(var i = 0; i < radioButtons.length; i++){
             if(radioButtons[i].checked == true){
                 var chosenOption = radioButtons[i];
                 if(chosenOption.value == correctOptionValue){
-                    document.getElementById('quizpanel' + (j+1)).style.border  = '3px solid limegreen'
+                    document.getElementById('quizpanel' + (j+1)).style.border  = '3px solid limegreen';
                 }
                 else{
-                  document.getElementById('quizpanel' + (j+1)).style.border  = '3px solid red'
-                }
-                
+                    document.getElementById('quizpanel' + (j+1)).style.border  = '3px solid red';
+                    correctOptionDiv.style.border = '3px solid limegreen';
+                }                
                 break;
             }
             // if(i == radioButtons.length-1){
