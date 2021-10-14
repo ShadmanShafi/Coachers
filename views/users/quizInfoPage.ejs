@@ -55,7 +55,7 @@
                 <label for="Subjectname" class="form-label">Choose Subject:</label>
                 <!-- <input type="text" id="text" class="form-control" name="subjectname" placeholder="subject" required=""> -->
   
-                  <select id="subjectname" name="subjectname" onchange="getTopics()" style="border-radius: 10%; width: 100px;">
+                  <select id="subjectname" name="subjectname" onchange="getTopics()" style="width: 300px;">
                    
                     <% if(SubjectList.length>0){ %>
                          <% SubjectList.forEach(subject => { %>
@@ -80,7 +80,7 @@
                 <label for="Topicname" class="form-label">Choose Topic</label>
                 <!-- <input type="text" id="text" class="form-control" name="subjectname" placeholder="subject" required=""> -->
   
-                  <select id="topicname" name="topicname" style="width: 100px;">
+                  <select id="topicname" name="topicname" style="width: 300px;">
                   
                     <% if(topicsList.length>0){ %>
                          <% topicsList.forEach(topic => { %>
@@ -92,7 +92,9 @@
                         
                         <% })   %>
                         <option >All Topics</option>
-                    <% } %>
+                    <% } else { %>
+                        <option>No Topics Covered Yet</option>
+                    <% }  %>
                   </select>
                 
               </div>
