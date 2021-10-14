@@ -62,7 +62,7 @@
                     
                         <div class="visit" style="padding-left: 10%; padding-right: 15%;"><%= subject.topicsCovered.length %></div>
                       <div class="percentage">
-                        <% totalTopics = subjectTopicMap.get(subject.name); %>
+                        <% totalTopics = subjectTopicMap.get(subject.name).length; %>
                         <% percentage = (parseFloat(subject.topicsCovered.length)/totalTopics)*100 %>
                         <div class="progress">
                           <div class="progress-bar" role="progressbar" style="width: <%= percentage %>%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"> </div>
