@@ -1,8 +1,0 @@
-   <!-- <% for(var i=0;i < options.length; i++) {   %>
-                  
-                  <option value="<%options[i].subjectname%>"><%options[i].subjectname%></option>
-                  
-                  <%
-                  }
-                  %>
-                   -->

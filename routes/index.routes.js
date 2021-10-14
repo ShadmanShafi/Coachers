@@ -4,12 +4,9 @@ const ensureAuthenticated = require('./../middlewares/auth.middleware');
 const generateQuestionList = require('./../models/Questions/questions.model.js');
 
 router.get("/",(req, res)=>{
-    res.sendFile('landingpage.html',{root:"./landingpage"})
+    res.render('landingpage.ejs')
 });
 
-router.get("/dashboard", ensureAuthenticated, (req, res) => {
-    res.render("dashboard.ejs", { user: req.user });
-});
 
 router.get("/aptitude", ensureAuthenticated, (req, res) => {
     res.render("aptitude.ejs", { user: req.user });
@@ -44,7 +41,22 @@ router.get("/test", (req, res) => {
 
 router.get('/demovideo', (req,res) => {
   res.sendFile('videopage.html',{root:"./videopage"});
+});
+
+
+router.get('/about', (req, res) => {
+  res.render('aboutUsPage.ejs')
 })
+
+router.get('/contactus', (req, res) => {
+  res.render('contactUsPage.ejs')
+})
+
+router.get('/reviews', (req, res) => {
+  res.render('reviewsPage.ejs')
+})
+
+
 
 
 module.exports = router; 

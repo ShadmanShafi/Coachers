@@ -6,6 +6,7 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const bodyparser = require('body-parser');
 
 //Passport Strategy
 require("./config/passport")(passport);
@@ -25,6 +26,8 @@ mongoose
 
 //Static Resources
 app.use(express.static("public"));
+
+app.use(bodyparser.json({limit:'50mb'}));
 
 //View Engine
 app.set("view engine", "ejs");

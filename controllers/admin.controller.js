@@ -1,9 +1,9 @@
 const Admin = require('../models/Admin.model');
 const User = require('../models/User.model');
-const Subjects = require('../models/subjects.model');
+const {Subjects, createTopic} = require('../models/subjects.model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
-const Topics = require('../models/Topics.model');
+const {generateQuestion, QuestionBank, checkQuestionsAnswer} = require('../models/Questions/questions.model')
 const { render } = require('ejs');
 
 
@@ -11,24 +11,6 @@ const getDashboard = (req,res) => {
     res.render("admin/dashboard.ejs");
 }
 
-const getaddtopics = (req,res) => {
-  var SubjectList = [];
-  Subjects.find().then((data) => {
-        SubjectList = data;
-        console.log("Data found\n");
-        res.render("admin/addtopicspage.ejs", {
-          SubjectList: SubjectList,
-          size: SubjectList.legnth
-        });
-  }).catch(() => {
-        res.render("admin/addtopicspage.ejs", {
-          SubjectList: SubjectList,
-          size: SubjectList.legnth
-        });
-  })
-  // res.render("admin/addtopicspage.ejs", {SubjectList})
-
-}
 const getLogin = (req, res)=>{
     res.render("admin/login.ejs", {error: req.flash("error")});
 };
@@ -39,7 +21,7 @@ const getaddsubject = (req, res)=>{
 
 const postLogin = (req, res, next) => {
     console.log("Admin Logging In");
-    passport.authenticate("local", {
+    passport.authenticate("adminLocal", {
       successRedirect: "/admin/dashboard",
       failureRedirect: "/admin/login",
       failureFlash: true,
@@ -49,61 +31,62 @@ const postLogin = (req, res, next) => {
 const postaddsubject = (req, res) => {
   const { subjectname } = req.body;
   const errors = [];
-  Subjects.findOne({ subjectname: subjectname }).then((subject) => {
+  Subjects.findOne({ name: subjectname }).then((subject) => {
     if (subject) {
       errors.push("Subject already exists with this email!");
       req.flash("errors", errors);
       res.redirect("/admin/addsubject");
     } else {
-      const newSubject = new Subjects({
-        subjectname,
-
-      });
+      const newSubject = new Subjects();
+      newSubject.name = subjectname;
       newSubject
         .save()
         .then(() => {
+          console.log("Saving Subject Success");
           res.redirect("/admin/addsubject");
         })
         .catch(() => {
           errors.push("Saving subject to the database failed!");
           req.flash("errors", errors);
           res.redirect("/admin/addsubject");
+          console.log("Saving Subject Failed");
         });
     };
 })};
+
+const getaddtopics = (req,res) => {
+  var SubjectList = [];
+  Subjects.find().then((data) => {
+        SubjectList = data;
+        res.render("admin/addtopicspage.ejs", {
+          SubjectList: SubjectList,
+        });
+  }).catch(() => {
+        res.render("admin/addtopicspage.ejs", {
+          SubjectList: SubjectList,
+        });
+  })
+  // res.render("admin/addtopicspage.ejs", {SubjectList})
+
+}
 
 const postaddtopics = (req, res) => {
-  const { subjectname, topic  } = req.body;
-  console.log({ subjectname, topic  });
-  const errors = [];
-  Topics.findOne({ topic: topic, subjectname: subjectname }).then((element) => {
-    if (element) {
-      errors.push("topic already exists!");
-      console.log("topic already exists!");
-      req.flash("errors", errors);
+  const { subjectname, topic, week, link, description } = req.body;
+  console.log({ subjectname, topic, week, link, description });
+
+  const toAdd = createTopic(topic, week, link, description);
+  Subjects.findOneAndUpdate({name: subjectname}, {$push: {topics: toAdd}}, (error,success)=>{
+    if (error) {
+      console.log(error);
       res.redirect("/admin/addtopics");
     } else {
-      const newtopic = new Topics({
-        subjectname: subjectname,
-        topic: topic
-
-      });
-      newtopic
-        .save()
-        .then(() => {
-          console.log('Saving topic to the database Successful!');
-          res.redirect("/admin/addtopics");
-        })
-        .catch((e) => {
-          errors.push("Saving topic to the database failed!");
-          console.log(errors);
-          console.log(e);
-          req.flash("errors", errors);
-          res.redirect("/admin/addtopics");
-        });
-    };
-})};
-
+      console.log(success);
+      res.redirect("/admin/addtopics");
+    }
+  });
+  
+  
+}
 const getRegister = (req, res)=>{
     res.render("admin/register.ejs", {errors:req.flash('errors')});
 };
@@ -213,40 +196,175 @@ const deleteUser = (req, res) => {
 
 
 const gettopiclist = (req, res) => {
-  let alltopics = [];
-  Topics.find().then((data) => {
-    alltopics = data;
-    console.log(alltopics);
+  let SubjectList = [];
+
+  let subjectName = req.params.subject;
+
+  Subjects.find().then((data) => {
+    SubjectList = data;
+    if(subjectName == '--'){
+      res.render('admin/viewtopicspage.ejs', {
+        error: req.flash('error'),
+        SubjectList: SubjectList,
+        chosenSubject: [],
+        topicsList: []
+      })
+      return;
+    }
+    let subjectTouple;
+    SubjectList.forEach(subject=>{
+        if(subject.name == subjectName){
+            subjectTouple = subject;
+        }
+    })
+
+    console.log(subjectTouple.topics);
+
     res.render("admin/viewtopicspage.ejs", {
           error: req.flash('error'),
-          participants: alltopics
+          SubjectList: SubjectList,
+          chosenSubject: subjectName,
+          topicsList: subjectTouple.topics
     });
   }).catch(() => {
     error = 'Failed to fetch data';
-    console.log(alltopics);
     res.render("admin/viewtopicspage.ejs", {
           error: req.flash('error', error),
-          participants: alltopics
+          SubjectList: SubjectList,
+          topicsList: [],
+          chosenSubject: null,
     });
   })
   
 }
 
+
+
+
 const deleteTopic = (req, res) => {
-  const id = req.params.id;
-  Topics.deleteOne({_id:id}, (err)=>{
-      if(err){
-          error = "failed to delete data";
-          req.flash('error', error);
-          res.redirect('/admin/topiclist');
-      }else{
-          error = "Data Deleted Successfully.";
-          req.flash('error', error);
-          res.redirect('/admin/topiclist');
-      }
+  const topicName = req.params.topic;
+  const subjectName = req.params.subject;
+
+  console.log(req.params.id);
+  Subjects.findOneAndUpdate({name: subjectName}, {$pull: {topics: {topicName:topicName}}}, (error,success)=>{
+    if(error){
+      console.log(error);
+      error = "Data Delete unsuccessful.";
+      console.log(error);
+      req.flash('error', error);
+      res.redirect('/admin/topiclist/'+subjectName);
+    }
+    else{
+      console.log(success);
+      error = "Data Deleted Successfully.";
+      console.log(error);
+      req.flash('error', error);
+      res.redirect('/admin/topiclist/'+subjectName);
+    }
   });
 }
 
+
+const getDeleteSubjectPage = (req, res) => {
+  var SubjectList = [];
+  Subjects.find().then((data) => {
+        SubjectList = data;
+        res.render("admin/deleteSubjectPage.ejs", {
+          SubjectList: SubjectList,
+        });
+  }).catch(() => {
+        res.render("admin/deleteSubjectPage.ejs", {
+          SubjectList: SubjectList,
+        });
+  })
+  // res.render("admin/addtopicspage.ejs", {SubjectList})
+
+}
+
+
+const postDeleteSubject = (req, res) => {
+  const {subjectname} = req.body;
+  console.log(subjectname);
+  Subjects.findOneAndDelete({name: subjectname}).then((success, error)=>{
+    if(error){
+      console.log("Delete Failed");
+    }
+    else{
+      console.log("Delete Successful");
+    }
+    res.redirect('/admin/deletesubject')
+  });
+
+}
+
+const getAddQuestion = (req, res) => {
+  const subjectChosen = req.params.subject;
+  var SubjectList = [];
+  Subjects.find().then((data) => {
+        SubjectList = data;
+        if(subjectChosen == '--'){
+          res.render("admin/addQuestionPage.ejs", {
+            SubjectList: SubjectList,
+            chosenSubject: subjectChosen,
+            topicsList: []
+          });
+          return;
+        }
+        let subjectTouple;
+        SubjectList.forEach(subject=>{
+            if(subject.name == subjectChosen){
+                subjectTouple = subject;
+            }
+        })
+        res.render("admin/addQuestionPage.ejs", {
+              error: req.flash('error'),
+              SubjectList: SubjectList,
+              chosenSubject: subjectChosen,
+              topicsList: subjectTouple.topics
+        });
+
+  }).catch(() => {
+        res.render("admin/addQuestionPage.ejs", {
+          SubjectList: SubjectList,
+          chosenSubject: [],
+          topicsList: []
+        });
+  });
+}
+
+const postAddQuestion = (req, res) => {
+  const {subjectname, topicname, question, optionA, optionB, optionC, optionD, correctOption} = req.body;
+  console.log( {subjectname, topicname, question, optionA, optionB, optionC, optionD, correctOption} );
+  const questionToAdd = generateQuestion(question, optionA, optionB, optionC, optionD, correctOption, subjectname, topicname);
+  QuestionBank.findOne({subject: subjectname, topic: topicname}).then((data,error)=>{
+    if(error){
+      console.log("Data Error");
+    }
+    else if(data){
+      console.log("Data Found");
+      QuestionBank.findOneAndUpdate({subject: subjectname, topic: topicname}, {$push: {questions: questionToAdd}}, (error,success)=>{
+          if(error){
+            console.log('Error When updating');
+          }
+      })
+    }
+    else{
+      const newEntry = new QuestionBank();
+      newEntry.subject = subjectname;
+      newEntry.topic= topicname;
+      newEntry.questions.push(questionToAdd);
+      newEntry.save().then((error)=>{
+          console.log("New Question Entry Saved");
+      }).catch((e)=>{
+          console.log("New Question Entry Error:", e);
+      })
+    }
+
+  })
+
+  
+  res.redirect('/admin/addquestion/--')
+}
 
 
 module.exports = {
@@ -264,5 +382,9 @@ module.exports = {
     getUserList,
     registerNewUser,
     deleteUser,
-    deleteTopic
+    deleteTopic,
+    getDeleteSubjectPage,
+    postDeleteSubject,
+    getAddQuestion,
+    postAddQuestion
 };
