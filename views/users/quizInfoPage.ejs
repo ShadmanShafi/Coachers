@@ -41,7 +41,7 @@
     <!--row align-items-center justify-content-center g-0 min-vh-100-->
     <div class="page-section bg-light">
       <div class="row text-center align-items-center">
-        <div class="col-lg-5"> <!--Give Quiz Container-->
+        <div class="col-lg-3"> <!--Give Quiz Container-->
           <div class="page-section bg-light row" style="padding-left: 10%;">
             <div>
               <div class="container" >
@@ -52,9 +52,9 @@
                     <form action="/users/quiz" method="POST" style="align-items: center;">
                       <!-- Username -->
                       <div class="mb-3">
-                        <label for="Subjectname" class="form-label">Choose Subject:</label>
+                        <label for="Subjectname" class="form-label">Choose Subject</label>
                         <!-- <input type="text" id="text" class="form-control" name="subjectname" placeholder="subject" required=""> -->
-                        <select id="subjectname" name="subjectname" onchange="getTopics()" style="width: 300px;">
+                        <select id="subjectname" name="subjectname" onchange="getTopics()" style="width: 87.5%;">
                           
                           <% if(SubjectList.length>0){ %>
                                 <% SubjectList.forEach(subject => { %>
@@ -75,7 +75,7 @@
                       </div>
                       <div class="mb-3">
                         <label for="Topicname" class="form-label">Choose Topic</label>
-                          <select id="topicname" name="topicname" style="width: 300px;">
+                          <select id="topicname" name="topicname" style="width: 87.5%;">
                           
                             <% if(topicsList.length>0){ %>
                                 <% topicsList.forEach(topic => { %>
@@ -104,8 +104,22 @@
             </div> <!-- .page-section -->
           </div>
         </div>
-        <div class="col-lg-7 align-items-center"> <!--Quiz Info Container-->
-          <div class="page-section bg-light row" style="padding-right: 10%;">
+        <div class="col-lg-4 align-items-center"> <!--Quiz Info Container-->
+          <div class="page-section bg-light">
+            <div>
+              <div class="container" >
+                <div class="card smooth-shadow-md" style=" text-align: center; border-radius: 10px; box-shadow: 2px 3px 10px rgb(146, 128, 196);  text-align:center;" >
+                  <!-- Card body -->
+                  <div class="card-body p-6" style="text-align: center;">
+                    <span>show quiz info here</span> <!--Rafsan ei span er jaygay code koris-->
+                  </div>
+                </div> <!-- .container -->
+              </div>
+            </div> <!-- .page-section -->
+          </div>
+        </div>
+        <div class="col-lg-5 align-items-center"> <!--Quiz Info Container-->
+          <div class="page-section bg-light" style="padding-right: 5%;">
             <div>
               <div class="container" >
                 <div class="card smooth-shadow-md" style=" text-align: center; border-radius: 10px; box-shadow: 2px 3px 10px rgb(146, 128, 196);  text-align:center;" >
