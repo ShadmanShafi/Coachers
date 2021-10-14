@@ -235,8 +235,8 @@ const unregisterCourse = (req, res) => {
 const getQuizInfoPage = (req, res) => {
   const subjectChosen = req.params.subject;
   var SubjectList = [];
-  Subjects.find().then((data) => {
-      SubjectList = data;
+  registeredSubjects.findOne({email: req.user.email}).then((data) => {
+      SubjectList = data.subjects;
       if(subjectChosen == '--'){
         res.render("users/quizInfoPage.ejs", {
           user: req.user,
@@ -247,17 +247,17 @@ const getQuizInfoPage = (req, res) => {
         return;
       }
       let subjectTouple;
-        SubjectList.forEach(subject=>{
-          if(subject.name == subjectChosen){
-              subjectTouple = subject;
-          }
-        })
-        res.render("users/quizInfoPage.ejs", {
-          error: req.flash('error'),
-          user: req.user,
-          SubjectList: SubjectList,
-          chosenSubject: subjectChosen,
-          topicsList: subjectTouple.topics
+      SubjectList.forEach(subject=>{
+        if(subject.name == subjectChosen){
+            subjectTouple = subject;
+        }
+      })
+      res.render("users/quizInfoPage.ejs", {
+        error: req.flash('error'),
+        user: req.user,
+        SubjectList: SubjectList,
+        chosenSubject: subjectChosen,
+        topicsList: subjectTouple.topicsCovered
     });
 
   }).catch(() => {
