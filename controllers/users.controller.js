@@ -7,6 +7,7 @@ const {outerUnion, innerUnion} = require('../utilities/getUnionFunctions.js');
 const { create } = require('../models/User.model');
 const  {generateQuestion, QuestionBank, checkQuestionsAnswer}= require('../models/Questions/questions.model');
 const {quizData} = require('../models/Questions/users_quiz.model.js');
+const {Reviews} = require('../models/reviews.model.js');
 
 
 const getLogin = (req, res)=>{
@@ -452,7 +453,36 @@ const postUpdateUser =  (req, res)=>{
 }
 
 
+const postReview = (req, res) => {
+    const {message} = req.body;
+    console.log(message);
+    Reviews.findOne({email: req.user.email}).then((data, error)=>{
+      if(error){
+          console.log("Error when finding Data", error);
+          res.redirect('/users/dashboard');
+      }
+      else if(data){
+        console.log('User Already has a review so we are replacing');
+        Reviews.findOneAndUpdate({email: req.user.email}, {text: message}).then(()=>{res.redirect('/users/dashboard')}).catch((error)=>{
+            console.log(error);
+        });
 
+      }
+      else{
+        const newEntry = new Reviews();
+        newEntry.email = req.user.email;
+        newEntry.text = message;
+        newEntry.save().then((data, error)=>{
+          if(error){
+            console.log("Could not save new data");
+          }else{
+            console.log('Data Saved');
+          }
+          res.redirect('/users/dashboard');
+        })
+      }
+    });
+}
 
 
 module.exports = {
@@ -472,6 +502,6 @@ module.exports = {
     getuserInfoUpdate,
     postCheckQuiz,
     postUpdateUser,
-    getReviewForm
-
+    getReviewForm,
+    postReview,
 };
