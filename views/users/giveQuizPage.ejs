@@ -38,10 +38,11 @@
           <% questionsList.forEach(question=>{   %>
           
             <div class="quizpanel card smooth-shadow-md" id="quizpanel<%=i%>" style="width: 60%; border-radius: 10px">
-              <div style="padding: 5%">
+              <span style="padding-left: 3%; padding-top: 4%; font-weight: bold;"><%=i%>.</span>
+              <div style="padding-left: 10%; padding-right: 5%; padding-bottom: 5%; ">
                 <div id="subject<%=i%>" value="<%=question.subject%>" hidden></div>
                 <div id="topic<%=i%>" value="<%=question.topic%>" style="font-weight: bold; text-align: right ;" hidden><%=question.topic%></div>
-                <div id="question<%=i%>" name="question<%=i%>" value="<%=question.question%>" style="font-weight: bold;"><span><%=i%></span>. <%= question.question %></div>
+                <div id="question<%=i%>" name="question<%=i%>" value="<%=question.question%>" style="font-weight: bold;"><%= question.question %></div>
                   <div id="option<%=i%>div1"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="A" textValue="<%= question.A %>"><span id="optt1"><span style="font-weight: bold;">A: </span> <%= question.A %> </span></div>
                   <div id="option<%=i%>div2"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="B" textValue="<%= question.B %>"><span id="optt2"><span style="font-weight: bold;">B: </span><%= question.B %></span></div>
                   <div id="option<%=i%>div3"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="C" textValue="<%= question.C %>"><span id="optt3"><span style="font-weight: bold;">C: </span><%= question.C %></span></div>
@@ -170,13 +171,13 @@
                 // Correct Answer
                 if(chosenOption.value == correctOptionValue){
                  
-                    document.getElementById('quizpanel' + (j+1)).style.boxShadow  = '2px 3px  10px green';
+                    document.getElementById('quizpanel' + (j+1)).style.border  = '2px solid limegreen';
                     marksObtained++;
                 }
 
                 // Incorrect Answer
                 else{
-                    document.getElementById('quizpanel' + (j+1)).style.boxShadow  = '2px 3px  10px #8b0000';
+                    document.getElementById('quizpanel' + (j+1)).style.border  = '2px solid red';
                     correctOptionDiv.style.border = '3px solid limegreen';
                     correctOptionDiv.style.borderRadius = '5px ';
                 }                
