@@ -178,7 +178,7 @@
                 // Incorrect Answer
                 else{
                     document.getElementById('quizpanel' + (j+1)).style.border  = '2px solid red';
-                    correctOptionDiv.style.border = '3px solid limegreen';
+                    correctOptionDiv.style.background = 'limegreen';
                     correctOptionDiv.style.borderRadius = '5px ';
                 }                
                 break;
@@ -187,7 +187,7 @@
             // No option selected for this question
             if(i == radioButtons.length-1){
               document.getElementById('quizpanel' + (j+1)).style.border  = '3px solid red';
-              correctOptionDiv.style.border = '3px solid limegreen';
+              correctOptionDiv.style.background = 'limegreen';
               correctOptionDiv.style.borderRadius = '5px ';
             }
         }
