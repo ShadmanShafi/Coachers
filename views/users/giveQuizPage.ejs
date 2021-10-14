@@ -37,7 +37,7 @@
           <% var i = 1 %>
           <% questionsList.forEach(question=>{   %>
           
-            <div class="quizpanel" id="quizpanel<%=i%>" style="width: 60%;">
+            <div class="quizpanel card smooth-shadow-md" id="quizpanel<%=i%>" style="width: 60%; border-radius: 10px">
                 <div id="subject<%=i%>" value="<%=question.subject%>" hidden></div>
                 <div id="topic<%=i%>" value="<%=question.topic%>" style="font-weight: bold; text-align: right ;" hidden><%=question.topic%></div>
                 <div id="question<%=i%>" name="question<%=i%>" value="<%=question.question%>" style="font-weight: bold;"><span><%=i%></span>. <%= question.question %></div>
