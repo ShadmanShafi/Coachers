@@ -38,6 +38,7 @@
           <% questionsList.forEach(question=>{   %>
           
             <div class="quizpanel card smooth-shadow-md" id="quizpanel<%=i%>" style="width: 60%; border-radius: 10px">
+              <div style="padding: 5%">
                 <div id="subject<%=i%>" value="<%=question.subject%>" hidden></div>
                 <div id="topic<%=i%>" value="<%=question.topic%>" style="font-weight: bold; text-align: right ;" hidden><%=question.topic%></div>
                 <div id="question<%=i%>" name="question<%=i%>" value="<%=question.question%>" style="font-weight: bold;"><span><%=i%></span>. <%= question.question %></div>
@@ -46,7 +47,7 @@
                   <div id="option<%=i%>div3"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="C" textValue="<%= question.C %>"><span id="optt3"><span style="font-weight: bold;">C: </span><%= question.C %></span></div>
                   <div id="option<%=i%>div4"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="D" textValue="<%= question.D %>"><span id="optt4"><span style="font-weight: bold;">D: </span><%= question.D %></span></div>
                   <div id="CorrectAnswer<%=i%>" value="<%=question.correctOption%>" hidden></div>
-                  
+              </div>
             </div>
           </br>
           <% i++ %>
@@ -168,15 +169,16 @@
 
                 // Correct Answer
                 if(chosenOption.value == correctOptionValue){
-                  document.getElementById('quizpanel' + (j+1)).style.border  = '5px  green';
+                 
                     document.getElementById('quizpanel' + (j+1)).style.boxShadow  = '2px 3px  10px green';
                     marksObtained++;
                 }
 
                 // Incorrect Answer
                 else{
-                    document.getElementById('quizpanel' + (j+1)).style.border  = '3px solid red';
+                    document.getElementById('quizpanel' + (j+1)).style.boxShadow  = '2px 3px  10px #8b0000';
                     correctOptionDiv.style.border = '3px solid limegreen';
+                    correctOptionDiv.style.borderRadius = '5px ';
                 }                
                 break;
             }
@@ -185,6 +187,7 @@
             if(i == radioButtons.length-1){
               document.getElementById('quizpanel' + (j+1)).style.border  = '3px solid red';
               correctOptionDiv.style.border = '3px solid limegreen';
+              correctOptionDiv.style.borderRadius = '5px ';
             }
         }
 
