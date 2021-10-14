@@ -168,15 +168,16 @@
 
                 // Correct Answer
                 if(chosenOption.value == correctOptionValue){
-                  document.getElementById('quizpanel' + (j+1)).style.border  = '5px  green';
+                 
                     document.getElementById('quizpanel' + (j+1)).style.boxShadow  = '2px 3px  10px green';
                     marksObtained++;
                 }
 
                 // Incorrect Answer
                 else{
-                    document.getElementById('quizpanel' + (j+1)).style.border  = '3px solid red';
+                    document.getElementById('quizpanel' + (j+1)).style.boxShadow  = '2px 3px  10px #8b0000';
                     correctOptionDiv.style.border = '3px solid limegreen';
+                    correctOptionDiv.style.borderRadius = '5px ';
                 }                
                 break;
             }
@@ -185,6 +186,7 @@
             if(i == radioButtons.length-1){
               document.getElementById('quizpanel' + (j+1)).style.border  = '3px solid red';
               correctOptionDiv.style.border = '3px solid limegreen';
+              correctOptionDiv.style.borderRadius = '5px ';
             }
         }
 
