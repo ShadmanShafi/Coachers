@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ensureAuthenticated = require('./../middlewares/auth.middleware');
 const generateQuestionList = require('./../models/Questions/questions.model.js');
+const {Reviews} = require('../models/reviews.model.js');
 
 router.get("/",(req, res)=>{
     res.render('landingpage.ejs')
@@ -53,7 +54,17 @@ router.get('/contactus', (req, res) => {
 })
 
 router.get('/reviews', (req, res) => {
-  res.render('reviewsPage.ejs')
+  Reviews.find().then((data, error)=>{
+      if(error){
+        res.redirect('/');
+        console.log("Unable to Load Reviews");
+      }
+      else{
+        console.log(data);
+        res.render('reviewsPage.ejs', {reviews: data});
+      }
+  })
+  
 })
 
 

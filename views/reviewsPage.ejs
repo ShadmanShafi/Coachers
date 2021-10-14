@@ -33,7 +33,20 @@
         
         <div class="comment-form-wrap pt-5">
             <h2 class="mb-5">Reviews</h2>
-            <!--Enter something here to show all given reviews-->
+
+            <% if(reviews.length > 0){  %>
+              <% reviews.forEach(review => {  %>
+                <div class="card" style="width: 18rem; box-shadow: 2px 3px 10px rgb(66, 69, 124);">
+                  <div class="card-body">
+                    
+                    <p class="card-text"> <%= review.text %></p>
+
+                    <h5 class="card-title" style="text-align: right;"><%= review.name %></h5>
+                  </div>
+                </div>
+              <%  })  %>
+            
+            <% }  %>
           </div>
 
         </div>

@@ -479,6 +479,7 @@ const postReview = (req, res) => {
       else{
         const newEntry = new Reviews();
         newEntry.email = req.user.email;
+        newEntry.name = req.user.name;
         newEntry.text = message;
         newEntry.save().then((data, error)=>{
           if(error){
