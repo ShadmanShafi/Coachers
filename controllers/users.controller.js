@@ -196,9 +196,17 @@ const getEnrolledCoursesPage = (req, res) => {
           const registeredSubjectsList = registeredSubjectsListData.subjects;
 
           const subjectsToDisplay = innerUnion(allSubjects, registeredSubjectsList);
+          const subjectsList = innerUnion(registeredSubjectsList, allSubjects);
 
+          var subjectTopicMap = new Map();
+
+          subjectsList.forEach(subject=>{
+            subjectTopicMap.set(subject.name, subject.topics);
+          })
+
+          console.log(subjectsToDisplay, subjectsList)
          
-          res.render("users/enrolledCoursesListPage.ejs", { user: req.user,  subjectsList: subjectsToDisplay});        
+          res.render("users/enrolledCoursesListPage.ejs", { user: req.user,  subjectsToDisplay: subjectsToDisplay, subjectTopicMap: subjectTopicMap});        
         }
     })
     
