@@ -20,13 +20,14 @@ const createSchedular = (weekMap) => {
   return list;
 }
 
-const createSubjectInstanceForEnrolling = (subjectName, weekMap) => {
+const createSubjectInstanceForEnrolling = (subjectName, weekMap, deadline) => {
   
   const schedule = createSchedular(weekMap);
   return {
     name: subjectName,
     topicsCovered: [],
-    schedule: schedule
+    schedule: schedule,
+    deadline: deadline
   }
 }
 

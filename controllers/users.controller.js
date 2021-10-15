@@ -200,7 +200,7 @@ const enrollPostUser = (req, res) => {
 
       console.log(weekMap);
 
-      const toAdd = createSubjectInstanceForEnrolling(subject, weekMap)
+      const toAdd = createSubjectInstanceForEnrolling(subject, weekMap, deadline)
       registeredSubjects.findOneAndUpdate({email: userEmail}, {$push: {subjects: toAdd}}, (error, success)=>{
         if (error) {
           console.log(error);
