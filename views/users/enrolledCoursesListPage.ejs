@@ -70,7 +70,7 @@
 
                         </div>
                       </div>
-                      <div class="country" style="padding-left: 0%; font-size: 130%;"><%= subject.deadline.toLocaleString('default', { month: 'long' })  %> <%= subject.deadline.getFullYear()  %></div>
+                      <div class="country" style="padding-left: 0%; font-size: 130%;"><%= subject.deadline.getDate()%> <%= subject.deadline.toLocaleString('default', { month: 'long' })  %> <%= subject.deadline.getFullYear()  %></div>
                           
                       <div style="padding: 1%;">
                         <% const URL = '/users/unregistercourse/'+subject.name %>
