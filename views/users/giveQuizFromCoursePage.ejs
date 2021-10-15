@@ -40,7 +40,7 @@
             <div class="quizpanel card smooth-shadow-md" id="quizpanel<%=i%>" style="width: 60%; border-radius: 10px">
               <span style="padding-left: 3%; padding-top: 4%; font-weight: bold;"><%=i%>.</span>
               <div style="padding-left: 10%; padding-right: 5%; padding-bottom: 5%; ">
-                <div id="subject<%=i%>" value="<%=question.subject%>" hidden></div>
+                <div id="subject<%=i%>"value="<%=question.subject%>" hidden><%=question.subject%></div>
                 <div id="topic<%=i%>" value="<%=question.topic%>" style="font-weight: bold; text-align: right ;" hidden><%=question.topic%></div>
                 <div id="question<%=i%>" name="question<%=i%>" value="<%=question.question%>" style="padding: 2%;padding-left: 0%; font-weight: bold;"><%= question.question %></div>
                   <div id="option<%=i%>div1" style="padding: 0.5%;padding-left: 0%;"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="A" textValue="<%= question.A %>"><span id="optt1"><span style="font-weight: bold;"> A: </span> <%= question.A %> </span></div>
@@ -48,14 +48,14 @@
                   <div id="option<%=i%>div3" style="padding: 0.5%;padding-left: 0%;"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="C" textValue="<%= question.C %>"><span id="optt3"><span style="font-weight: bold;"> C: </span><%= question.C %></span></div>
                   <div id="option<%=i%>div4" style="padding: 0.5%;padding-left: 0%;"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="D" textValue="<%= question.D %>"><span id="optt4"><span style="font-weight: bold;"> D: </span><%= question.D %></span></div>
                   <div id="CorrectAnswer<%=i%>" value="<%=question.correctOption%>" hidden></div>
+                  <div id="weekNo<%=i%>" value="<%=weekNo%>" hidden></div>
               </div>
             </div>
           </br>
           <% i++ %>
         <% }) %>
         <button id="submitButton" type="submit" class="btn btn-primary" onclick="checkAnswer()">Submit</button>
-        <% const goBackURL = '/users/coursepage/' + subject + '&' + weekNo + '&' + ; %>
-        <a href="<%= goBackURL %>" class="btn btn-primary btn-sm" tabindex="-1" role="button" aria-disabled="false" id="goBackButton" hidden>Go Back</a>
+        <button type="button" id="goBackButton" class="btn btn-secondary btn-sm" onClick="goBackToCoursePage()" hidden>Go Back</button>
       </div>
       
       
@@ -89,6 +89,8 @@
 
 
 <script>
+
+  var score, total;
 
   function createJsonTouple(question, A, B, C, D, correctAnswer, optionChosen, subject, topic){
     return {
@@ -148,7 +150,6 @@
 
         
     }
-    console.log('results', results)
     sendjson(results);
     showAnswers()
   }
@@ -199,13 +200,14 @@
             }
         }
 
-        console.log(document.getElementById('topic' + (j+1)));
         document.getElementById('topic' + (j+1)).removeAttribute("hidden");
 
         document.getElementById('goBackButton').removeAttribute("hidden");
         document.getElementById('submitButton').hidden = true;
 
-        document.getElementById('marks').innerHTML = 'Score: ' + marksObtained + '/' + totalMarks;   
+        document.getElementById('marks').innerHTML = 'Score: ' + marksObtained + '/' + totalMarks;  
+        score = marksObtained;
+        total = totalMarks;
     }
     
   }
@@ -218,6 +220,24 @@
     var data = JSON.stringify(result);
     xhr.send(data);
 
+  }
+
+  function goBackToCoursePage(){
+    const subjectName = document.getElementById("subject1").getAttribute('value');
+    const weekNo = document.getElementById("weekNo1").getAttribute('value');
+    const topicName = document.getElementById('topic1').getAttribute('value');
+    console.log({score, total});
+    console.log({subjectName, weekNo, topicName});
+
+    var report;
+
+    if(parseFloat(score)/total * 100 < 80){
+      report = 'Failed';
+    }
+    else{
+      report = 'Passed';
+    }
+    window.location.href = '/users/coursepage/' + subjectName + '&' + weekNo + '&' + report + '&' + score + '&' + total;
   }
 
 

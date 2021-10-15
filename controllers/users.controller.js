@@ -225,12 +225,12 @@ const enrollPostUser = (req, res) => {
 const getCoursePage = (req, res) => {
   const subject = req.params.subject;
   const weekSelected = parseInt(req.params.week);
-  const report = req.params.failreport;
-  const reportTopic = req.params.reporttopic;
+
+  const report = req.params.report;
+
+  console.log('report:', report);
   
   if(report == undefined){
-    report = [];
-    reportTopic = [];
     registeredSubjects.findOne({email: req.user.email}).then((data, error)=>{
         if(error){
           console.log("Data retrival Failed");
@@ -258,11 +258,17 @@ const getCoursePage = (req, res) => {
           const topicsList = map.get(weekSelected);
           console.log('Map',map);
           console.log('For', weekSelected, 'Topics Are', topicsList[0].topics);
-          res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList[0].topics, totalWeeks: totalWeeks, report: report, reportTopic: reportTopic  });
+          res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList[0].topics, totalWeeks: totalWeeks, report: [], reportTopic: [] });
         }
     });
     return;
   }
+
+  const reportTopic = req.params.reporttopic;
+
+  const score = parseInt(req.params.score);
+  const total = parseInt(req.params.total);
+
   registeredSubjects.findOne({email: req.user.email}).then((data, error)=>{
     if(error){
       console.log("Data retrival Failed");
@@ -290,7 +296,15 @@ const getCoursePage = (req, res) => {
       const topicsList = map.get(weekSelected);
       console.log('Map',map);
       console.log('For', weekSelected, 'Topics Are', topicsList[0].topics);
-      res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList[0].topics, totalWeeks: totalWeeks, report: report, reportTopic: reportTopic  });
+
+      let message;
+      if(reports == 'Failed')
+        message = 'You Did not do well on the Tes. We recommend trying again.';
+      else{
+        message = 'Excellent Work. You have done well';
+      }
+      console.log({report, reportTopic});
+      res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList[0].topics, totalWeeks: totalWeeks, report: report, reportTopic: reportTopic, score: score, total: total });
     }
 });
 }
