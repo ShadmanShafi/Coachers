@@ -252,7 +252,35 @@ const getCoursePage = (req, res) => {
 }
 
 const getQuizFromCoursePage = (req, res)=>{
+    const subjectName = req.params.subject;
+    const topicName = req.params.topic;
+    const weekNo = req.params.week;
 
+    QuestionBank.find({subject:subjectName, topic: topicName}).then((data,error)=>{
+      if(error){
+        console.log('error while fetching')
+        res.redirect('users/coursepage/' + subjectName + '&' + weekNo);
+      }
+      else{
+        let questionsList = [];
+
+        data.forEach(element=>{
+          questionsList.push(element.questions);
+        })
+        
+        // Covenrt to 1D array
+        questionsList = [].concat(...questionsList);;
+
+
+        res.render("users/giveQuizFromCoursePage.ejs", {
+            user: req.user,
+            questionsList: questionsList,
+            subject: subjectName,
+            topic: topicName,
+            weekNo: weekNo
+        });
+      }
+    });
 }
 
 
@@ -396,31 +424,31 @@ const getQuiz = (req, res) => {
       return;
     }
 
-     QuestionBank.find({subject:subjectname, topic: topicname}).then((data,error)=>{
-       if(error){
-          console.log('error while fetching')
-          res.render("users/giveQuizPage.ejs", {
+    QuestionBank.find({subject:subjectname, topic: topicname}).then((data,error)=>{
+      if(error){
+        console.log('error while fetching')
+        res.render("users/giveQuizPage.ejs", {
+          user: req.user,
+          questionsList: []
+        });   
+      }
+      else{
+        let questionsList = [];
+
+        data.forEach(element=>{
+          questionsList.push(element.questions);
+        })
+        
+        // Covenrt to 1D array
+        questionsList = [].concat(...questionsList);;
+
+
+        res.render("users/giveQuizPage.ejs", {
             user: req.user,
-            questionsList: []
-          });   
-       }
-       else{
-          let questionsList = [];
-
-          data.forEach(element=>{
-            questionsList.push(element.questions);
-          })
-          
-          // Covenrt to 1D array
-          questionsList = [].concat(...questionsList);;
-
-
-          res.render("users/giveQuizPage.ejs", {
-              user: req.user,
-              questionsList: questionsList
-          });
-       }
-     })
+            questionsList: questionsList
+        });
+      }
+    })
 }
 
 const getuserInfoUpdate = (req, res) => {
