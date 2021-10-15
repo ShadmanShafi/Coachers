@@ -371,9 +371,21 @@ const postAddintroQuestion = (req, res)=>{
 }
 
 const getAddintroQuestion = (req, res)=>{
-    res.render("admin/addIntoQuestionsPage.ejs", {
-      SubjectList: []
+    Subjects.find().then((data)=>{
+      if(data){
+        const subjectsList = data;
+
+        res.render("admin/addIntoQuestionsPage.ejs", {
+          SubjectList: subjectsList
+        });
+      }
+      else{
+        res.render("admin/addIntoQuestionsPage.ejs", {
+          SubjectList: []
+        });
+      }
     });
+    
 }
 
 

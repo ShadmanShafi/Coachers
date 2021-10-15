@@ -34,14 +34,6 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
 
-<script>
-    function getTopics(){
-        const subjectChosen = document.getElementById('subjectname').value;
-        if(subjectChosen != '--'){
-            window.location.replace("/admin/addquestion/" + subjectChosen);
-        }
-    }
-</script>
 
 
 
@@ -123,15 +115,9 @@
                     <option>--</option>
                     <% if(SubjectList.length>0){ %>
                          <% SubjectList.forEach(subject => { %>
-                            <% if(chosenSubject != subject.name){   %>
                                 <option>
                                     <%= subject.name %>
                                 </option>
-                            <% }else{   %>
-                                <option selected="selected">
-                                    <%= subject.name %>
-                                </option>
-                            <% }    %>
                         
                         <% })   %>
                     <% } %>
