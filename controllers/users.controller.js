@@ -154,24 +154,32 @@ const enrollUser = (req, res) => {
 const enrollPostUser = (req, res) => {
   const userEmail = req.user.email;
     const subject = req.body.subjectToEnroll;
-    const deadline = Date.parse(req.body.deadline);
+    const deadline = new Date(req.body.deadline);
+    console.log(deadline);
     console.log("Enrolling");
     // console.log('email:', userEmail, 'subject:', subject, 'deadline:', deadline);
 
     Subjects.findOne({name: subject}).then((data)=>{
       const numberOfTopics = data.topics.length;
+      const weeksLeft = Math.round((deadline.getTime() - new Date().getTime())/(7*24*60*60*1000));
+      if(weeksLeft < numberOfTopics/2){
+        res.redirect('/users/searchpage')
+        return;
+      }
+
+      const toAdd = createSubjectInstanceForEnrolling(subject)
+      registeredSubjects.findOneAndUpdate({email: userEmail}, {$push: {subjects: toAdd}}, (error,success)=>{
+        if (error) {
+          console.log(error);
+          res.redirect("/users/dashboard");
+        } else {
+          res.redirect("/users/searchpage");
+        }
+      })
 
     });
 
-    // const toAdd = createSubjectInstanceForEnrolling(subject)
-    // registeredSubjects.findOneAndUpdate({email: userEmail}, {$push: {subjects: toAdd}}, (error,success)=>{
-    //   if (error) {
-    //     console.log(error);
-    //     res.redirect("/users/dashboard");
-    //   } else {
-    //     res.redirect("/users/searchpage");
-    //   }
-    // })
+    
 }
 
 const getCoursePage = (req, res) => {
