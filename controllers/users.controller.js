@@ -206,7 +206,7 @@ const enrollPostUser = (req, res) => {
           console.log(error);
           res.redirect("/users/searchpage");
         } else {
-          res.redirect("/users/searchpage");
+          res.redirect("/users/coursepage/" + subject + '&1');
         }
       })
 
