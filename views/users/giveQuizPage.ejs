@@ -54,7 +54,9 @@
           <% i++ %>
         <% }) %>
         <button id="submitButton" type="submit" class="btn btn-primary" onclick="checkAnswer()">Submit</button>
-        <button id="goBackButton" type="submit" class="btn btn-primary" style="width: 70%; height: 70%;" hidden><a href="/users/quiz/--" style="color: white;">Go Back</a></button>
+
+        <a href="/users/quiz/--" class="btn btn-primary btn-sm" tabindex="-1" role="button" aria-disabled="false" id="goBackButton" hidden>Go Back</a>
+
       </div>
       
       
