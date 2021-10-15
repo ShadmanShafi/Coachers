@@ -221,30 +221,34 @@ const getCoursePage = (req, res) => {
   const subject = req.params.subject;
   const weekSelected = parseInt(req.params.week);
 
-  Subjects.findOne({name: subject}).then((data, error)=>{
+  registeredSubjects.findOne({email: req.user.email}).then((data, error)=>{
       if(error){
         console.log("Data retrival Failed");
         console.log(error);
         res.redirect('/users/dashboard');
       }
       else{
-        let topicsList = data.topics;
+        let subjectsList = data.subjects;
+        let schedule = [];
+        for(var i=0; i<subjectsList.length; i++){
+            if(subjectsList[i].name == subject)
+            schedule = subjectsList[i].schedule;
+        }
         
         // Map the topics to their corresponding weeks
         const map = new Map();
-
-        topicsList.forEach(element=>{
-            const elementsWeek = parseInt(element.weekNumber);
+        schedule.forEach(element=>{
+            const elementsWeek = parseInt(element.week);
             if(map.get(elementsWeek) == undefined){
               map.set(elementsWeek, new Array());
             }
             map.get(elementsWeek).push(element);
         })
         const totalWeeks = map.size;
-        topicsList = map.get(weekSelected);
+        const topicsList = map.get(weekSelected);
         console.log('Map',map);
-        console.log('For', weekSelected, 'Topics Are', topicsList);
-        res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList, totalWeeks: totalWeeks  });
+        console.log('For', weekSelected, 'Topics Are', topicsList[0].topics);
+        res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList[0].topics, totalWeeks: totalWeeks  });
       }
   });
 }

@@ -22,11 +22,11 @@ const createSchedular = (weekMap) => {
 
 const createSubjectInstanceForEnrolling = (subjectName, weekMap) => {
   
-  const scheule = createSchedular(weekMap);
+  const schedule = createSchedular(weekMap);
   return {
     name: subjectName,
     topicsCovered: [],
-    schedule: scheule
+    schedule: schedule
   }
 }
 
