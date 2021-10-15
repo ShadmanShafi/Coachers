@@ -254,17 +254,28 @@ const getCoursePage = (req, res) => {
         const totalWeeks = map.size;
         const topicsList = map.get(weekSelected);
 
-        console.log('Map',map);
-        
-        res.render('users/coursePage.ejs', {
-          user: req.user, 
-          subject: subject, 
-          weekSelected: weekSelected, 
-          topicsList: topicsList[0].topics, 
-          totalWeeks: totalWeeks,
-          report: 'Test yourself with a Short Quiz',
 
+        console.log('TopicsList:', topicsList[0].topics);
+        
+        registeredSubjects.findOne({email: req.user.email}).then((result, error)=>{
+            let topicsCovered = [];
+            result.subjects.forEach(element=>{
+                if(element.name == subject){
+                    topicsCovered = element.topicsCovered;
+                }
+            })
+            res.render('users/coursePage.ejs', {
+              user: req.user, 
+              subject: subject, 
+              weekSelected: weekSelected, 
+              topicsList: topicsList[0].topics, 
+              totalWeeks: totalWeeks,
+              topicsCovered: topicsCovered,
+              report: 'If you are done with the video, try a short quiz to see how well you have grasped the concepts',
+            });
         });
+
+        
       }
   });
 

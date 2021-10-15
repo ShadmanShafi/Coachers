@@ -86,9 +86,11 @@
         <p>
           <button style="display: block; margin-left: auto; margin-right: auto; width: 100%;"class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample<%=i%>" aria-expanded="false" aria-controls="collapseExample">
             Chapter <%= i+1 %>: <%= topicsList[i].topicName  %> 
-            <span class="material-icons">
-              task_alt
-            </span>
+            <%  if(topicsCovered.includes(topicsList[i].topicName)){   %>
+              <span class="material-icons">
+                task_alt
+              </span>
+            <%  }   %>
           </button>
         </p>
         <div class="collapse" id="collapseExample<%=i%>">
