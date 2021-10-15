@@ -26,71 +26,78 @@ const getRegister = (req, res)=>{
     res.render("users/register.ejs", {errors:req.flash('errors')});
 };
 
-const postRegister = (req, res)=>{
-    const { name, email, password, confirm_password } = req.body;
+const postRegister = (req, res, next)=>{
+  const { name, email, password, confirm_password } = req.body;
 
 //Data Validation
-    const errors = [];
-    if (!name || !email || !password || !confirm_password) {
-        errors.push("All fields are required!");
-    }
-    if (password.length < 6) {
-        errors.push("Password must be at least 6 characters!");
-    }
-    if (password !== confirm_password) {
-        errors.push("Passwords do not match!");
-    }
-    if (errors.length > 0) {
-        req.flash("errors", errors);
-        res.redirect("/users/register");
-    } else {
-
-//Create New User
-User.findOne({ email: email }).then((user) => {
-    if (user) {
-      errors.push("User already exists with this email!");
+  const errors = [];
+  if (!name || !email || !password || !confirm_password) {
+      errors.push("All fields are required!");
+  }
+  if (password.length < 6) {
+      errors.push("Password must be at least 6 characters!");
+  }
+  if (password !== confirm_password) {
+      errors.push("Passwords do not match!");
+  }
+  if (errors.length > 0) {
       req.flash("errors", errors);
       res.redirect("/users/register");
-    } else {
-      bcrypt.genSalt(10, (err, salt) => {
-        if (err) {
-          errors.push(err);
-          req.flash("errors", errors);
-          res.redirect("/users/register");
-        } else {
-          bcrypt.hash(password, salt, (err, hash) => {
-            if (err) {
-              errors.push(err);
-              req.flash("errors", errors);
-              res.redirect("/users/register");
-            } else {
-              const newUser = new User({
-                name,
-                email,
-                password: hash,
-              });
-              newUser
-                .save()
-                .then(() => {
-                  let newEntry = new registeredSubjects();
-                  newEntry.email = newUser.email;
-                  newEntry.subjects = [];
-                  newEntry.save().then(()=>{res.redirect("/users/login");})
-                  
-                })
-                .catch((e) => {
-                  errors.push("Saving User to the database failed!");
-                  console.log(e);
-                  req.flash("errors", errors);
-                  res.redirect("/users/register");
+  } 
+  else {
+
+//Create New User
+    User.findOne({ email: email }).then((user) => {
+      if (user) {
+        errors.push("User already exists with this email!");
+        req.flash("errors", errors);
+        res.redirect("/users/register");
+      } else {
+        bcrypt.genSalt(10, (err, salt) => {
+          if (err) {
+            errors.push(err);
+            req.flash("errors", errors);
+            res.redirect("/users/register");
+          } else {
+            bcrypt.hash(password, salt, (err, hash) => {
+              if (err) {
+                errors.push(err);
+                req.flash("errors", errors);
+                res.redirect("/users/register");
+              } else {
+                const newUser = new User({
+                  name,
+                  email,
+                  password: hash,
                 });
-            }
-          });
-        }
-      });
-    }
-  });
+                newUser
+                  .save()
+                  .then(() => {
+                    let newEntry = new registeredSubjects();
+                    newEntry.email = newUser.email;
+                    newEntry.subjects = [];
+                    newEntry.save().then(()=>{
+                      passport.authenticate("userLocal", {
+                        successRedirect: "/users/recommendationQuizPage",
+                        failureRedirect: "/users/register",
+                        failureFlash: true,
+                      })(req, res, next);
+                    })
+                  })
+                  .catch((e) => {
+                    errors.push("Saving User to the database failed!");
+                    console.log(e);
+                    req.flash("errors", errors);
+                    res.redirect("/users/register");
+                  });
+              }
+            });
+          }
+        });
+      }
+    });
   }
+  
 };
 
 const getDashboard = (req, res) => {
@@ -425,6 +432,13 @@ const postQuizInfoPage = (req, res) => {
   
 }
 
+const getRecommendationQuizPage = (req,res) => {
+  res.render("users/recommendationQuizPage.ejs", {
+    user: req.user,
+    questionList: []
+  })
+}
+
 const getQuiz = (req, res) => {
     const subjectname = req.params.subject;
     const topicname = req.params.topic;
@@ -653,4 +667,5 @@ module.exports = {
     postUpdateUser,
     getReviewForm,
     postReview,
+    getRecommendationQuizPage
 };
