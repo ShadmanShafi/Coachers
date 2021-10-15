@@ -8,6 +8,7 @@ const { create } = require('../models/User.model');
 const  {generateQuestion, QuestionBank, checkQuestionsAnswer}= require('../models/Questions/questions.model');
 const {quizData} = require('../models/Questions/users_quiz.model.js');
 const {Reviews} = require('../models/reviews.model.js');
+const questionBank_IntroQuestions = require('../models/Questions/introQuestions.js');
 
 
 const getLogin = (req, res)=>{
@@ -78,7 +79,7 @@ const postRegister = (req, res, next)=>{
                     newEntry.subjects = [];
                     newEntry.save().then(()=>{
                       passport.authenticate("userLocal", {
-                        successRedirect: "/users/recommendationQuizPage",
+                        successRedirect: "/users/recommendatisonQuizPage",
                         failureRedirect: "/users/register",
                         failureFlash: true,
                       })(req, res, next);
@@ -531,10 +532,20 @@ const postQuizInfoPage = (req, res) => {
 }
 
 const getRecommendationQuizPage = (req,res) => {
-  res.render("users/recommendationQuizPage.ejs", {
-    user: req.user,
-    questionList: []
+  questionBank_IntroQuestions.find().then((data, err)=>{
+    if(err){
+      console.log("Data Error");
+      res.redirect('/');
+    }
+    else{
+      res.render("users/recommendationQuizPage.ejs", {
+        user: req.user,
+        questionList: data
+      });
+    }
+    
   })
+  
 }
 
 const getQuiz = (req, res) => {

@@ -29,6 +29,10 @@
   <!-- header end -->
   
     <div class="page-section bg-light">
+
+      <div style="padding-left:10%;">
+        <h4>Please answer the Questions below. Try to be as accurate as possibel. This data will be used to recommend courses to you</h4>
+      </div>
       
 
       <div style="padding-left: 10%;">
@@ -41,7 +45,6 @@
               <span style="padding-left: 3%; padding-top: 4%; font-weight: bold;"><%=i%>.</span>
               <div style="padding-left: 10%; padding-right: 5%; padding-bottom: 5%; ">
                 <div id="subject<%=i%>" value="<%=question.subject%>" hidden></div>
-                <div id="topic<%=i%>" value="<%=question.topic%>" style="font-weight: bold; text-align: right ;" hidden><%=question.topic%></div>
                 <div id="question<%=i%>" name="question<%=i%>" value="<%=question.question%>" style="padding: 2%;padding-left: 0%; font-weight: bold;"><%= question.question %></div>
                   <div id="option<%=i%>div1" style="padding: 0.5%;padding-left: 0%;"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="A" textValue="<%= question.A %>"><span id="optt1"><span style="font-weight: bold;"> A: </span> <%= question.A %> </span></div>
                   <div id="option<%=i%>div2" style="padding: 0.5%;padding-left: 0%;"><input type="radio" id="option<%=i%>" name="option<%=i%>" value="B" textValue="<%= question.B %>"><span id="optt2"><span style="font-weight: bold;"> B: </span><%= question.B %></span></div>
@@ -53,8 +56,6 @@
           </br>
           <% i++ %>
         <% }) %>
-        <button id="submitButton" type="submit" class="btn btn-primary" onclick="checkAnswer()">Submit</button>
-        <button id="goBackButton" type="submit" class="btn btn-primary" style="width: 70%; height: 70%;" hidden><a href="/users/quiz/--" style="color: white;">Go Back</a></button>
       </div>
       
       
