@@ -132,7 +132,6 @@ const getSearchPage = (req, res) => {
   )
 }
 
-
 const enrollUser = (req, res) => {
     const userEmail = req.params.useremail;
     const subject = req.params.subject;
@@ -162,16 +161,52 @@ const enrollPostUser = (req, res) => {
     Subjects.findOne({name: subject}).then((data)=>{
       const numberOfTopics = data.topics.length;
       const weeksLeft = Math.round((deadline.getTime() - new Date().getTime())/(7*24*60*60*1000));
-      if(weeksLeft < numberOfTopics/2){
-        res.redirect('/users/searchpage')
+      const MaxTopicsPerWeek = 4;
+      if(weeksLeft < numberOfTopics/MaxTopicsPerWeek){
+        res.redirect('/users/searchpage/')
         return;
       }
 
-      const toAdd = createSubjectInstanceForEnrolling(subject)
-      registeredSubjects.findOneAndUpdate({email: userEmail}, {$push: {subjects: toAdd}}, (error,success)=>{
+
+      var topicsPerWeek = Math.trunc(Math.floor(parseFloat(numberOfTopics)/weeksLeft));
+      if(topicsPerWeek == 0)
+        topicsPerWeek = 1;
+      var topicsList = [];
+
+      data.topics.forEach(element=>{
+        topicsList.push(element);
+      })
+
+      console.log({topicsList, topicsPerWeek});
+
+      const weekMap = new Map();
+      
+      for(var j=0; ; j++){
+        const thisWeek = parseInt(j+1);
+        for(var i=0; i<topicsPerWeek; i++){
+          if(weekMap.get(thisWeek) == undefined){
+            weekMap.set(thisWeek, new Array());
+          }
+          weekMap.get(thisWeek).push(topicsList[0]);
+          console.log("Size:", topicsList.length);
+          topicsList.shift();
+          console.log("after Popping, Size:", topicsList.length);
+
+          if(topicsList.length <= 0)
+            break;
+          
+        }
+        if(topicsList.length <= 0)
+          break;
+      }
+
+      console.log(weekMap);
+
+      const toAdd = createSubjectInstanceForEnrolling(subject, weekMap)
+      registeredSubjects.findOneAndUpdate({email: userEmail}, {$push: {subjects: toAdd}}, (error, success)=>{
         if (error) {
           console.log(error);
-          res.redirect("/users/dashboard");
+          res.redirect("/users/searchpage");
         } else {
           res.redirect("/users/searchpage");
         }

@@ -9,11 +9,24 @@ const UserSubjectsSchema = new mongoose.Schema({
 
 const registeredSubjects = mongoose.model("user_subjects", UserSubjectsSchema);
 
+const createSchedular = (weekMap) => {
+  var list = [];
+  weekMap.forEach((value,key)=>{
+    list.push({
+      week: key,
+      topics: value
+    });
+  })
+  return list;
+}
 
-const createSubjectInstanceForEnrolling = (subjectName) => {
+const createSubjectInstanceForEnrolling = (subjectName, weekMap) => {
+  
+  const scheule = createSchedular(weekMap);
   return {
     name: subjectName,
-    topicsCovered: []
+    topicsCovered: [],
+    schedule: scheule
   }
 }
 
