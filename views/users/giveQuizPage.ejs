@@ -32,7 +32,7 @@
       
 
       <div style="padding-left: 10%;">
-          <div id = "marks" style="font-size: 110%;font-weight: bold; padding: 5%; height: 5px;"></div> 
+          <div id = "marks" style="font-size: 110%;font-weight: bold; padding: 3%; height: 5px; width: 60%; text-align: right;"></div> 
         
           <% var i = 1 %>
           <% questionsList.forEach(question=>{   %>
@@ -58,7 +58,10 @@
         <a href="/users/quiz/--" class="btn btn-primary btn-sm" tabindex="-1" role="button" aria-disabled="false" id="goBackButton" hidden>Go Back</a>
 
       </div>
-      
+      <div style="padding-left: 10%; padding-top: 2%;">
+        <label id="discourager" style="color: rgb(136, 28, 28);"" hidden>Your score can be alot better. Review the material and try again </label>
+        <label id="encourager" style="color: rgb(53, 100, 73);" hidden >Nicely Done. Keep up the hard work. </label>
+      </div>
       
 
       </div>
@@ -200,7 +203,12 @@
             }
         }
 
-        console.log(document.getElementById('topic' + (j+1)));
+
+        if(parseFloat(marksObtained)/totalMarks * 100 >= 80)
+          document.getElementById("encourager").removeAttribute("hidden");
+        else
+          document.getElementById("discourager").removeAttribute("hidden");
+
         document.getElementById('topic' + (j+1)).removeAttribute("hidden");
 
         document.getElementById('goBackButton').removeAttribute("hidden");
