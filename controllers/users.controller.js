@@ -115,11 +115,7 @@ const getSearchPage = (req, res) => {
         else{
           const registeredSubjectsList = registeredSubjectsListData.subjects;
 
-          console.log("registeredSubjectsList:", registeredSubjectsList);
-
           const subjectsToDisplay = outerUnion(registeredSubjectsList, allSubjects);
-
-          console.log("subjectsToDisplay", subjectsToDisplay);
          
           res.render("users/searchPage.ejs", { user: req.user,  subjectsList: subjectsToDisplay});
         }
@@ -161,16 +157,18 @@ const enrollPostUser = (req, res) => {
     Subjects.findOne({name: subject}).then((data)=>{
       const numberOfTopics = data.topics.length;
       const weeksLeft = Math.round((deadline.getTime() - new Date().getTime())/(7*24*60*60*1000));
-      const MaxTopicsPerWeek = 4;
-      if(weeksLeft < numberOfTopics/MaxTopicsPerWeek){
+      const MaxTopicsPerWeek = 3;
+      var topicsPerWeek = Math.trunc(Math.floor(parseFloat(numberOfTopics)/weeksLeft));
+      console.log('Topics per week:', topicsPerWeek);
+      if(topicsPerWeek > MaxTopicsPerWeek){
         res.redirect('/users/searchpage/')
+        console.log("Topics Per Week Exceeded Max value of", MaxTopicsPerWeek);
         return;
       }
 
-
-      var topicsPerWeek = Math.trunc(Math.floor(parseFloat(numberOfTopics)/weeksLeft));
       if(topicsPerWeek == 0)
         topicsPerWeek = 1;
+
       var topicsList = [];
 
       data.topics.forEach(element=>{
