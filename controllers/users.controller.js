@@ -136,6 +136,7 @@ const getSearchPage = (req, res) => {
 const enrollUser = (req, res) => {
     const userEmail = req.params.useremail;
     const subject = req.params.subject;
+    const deadline = req.params.deadline;
     console.log("Enrolling");
     console.log(userEmail, subject);
 
@@ -148,6 +149,29 @@ const enrollUser = (req, res) => {
         res.redirect("/users/searchpage");
       }
     })
+}
+
+const enrollPostUser = (req, res) => {
+  const userEmail = req.user.email;
+    const subject = req.body.subjectToEnroll;
+    const deadline = Date.parse(req.body.deadline);
+    console.log("Enrolling");
+    // console.log('email:', userEmail, 'subject:', subject, 'deadline:', deadline);
+
+    Subjects.findOne({name: subject}).then((data)=>{
+      const numberOfTopics = data.topics.length;
+
+    });
+
+    // const toAdd = createSubjectInstanceForEnrolling(subject)
+    // registeredSubjects.findOneAndUpdate({email: userEmail}, {$push: {subjects: toAdd}}, (error,success)=>{
+    //   if (error) {
+    //     console.log(error);
+    //     res.redirect("/users/dashboard");
+    //   } else {
+    //     res.redirect("/users/searchpage");
+    //   }
+    // })
 }
 
 const getCoursePage = (req, res) => {
@@ -503,6 +527,7 @@ module.exports = {
     getSearchPage,
     getCoursePage,
     enrollUser,
+    enrollPostUser,
     getEnrolledCoursesPage,
     unregisterCourse,
     getQuizInfoPage,

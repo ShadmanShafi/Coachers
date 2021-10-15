@@ -6,7 +6,6 @@ const outerUnion = (array1, array2)=>{
     const resArray = [];
     array2.forEach(element => {
         if(!set.has(element.name)){
-            console.log("Does not exit", element.name);
             resArray.push(element);
         }
     })

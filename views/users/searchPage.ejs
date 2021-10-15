@@ -10,13 +10,25 @@
 
   <title>COACHERS - Dashboard</title>
 
-  <link rel="stylesheet" href="../seogram/assets/css/maicons.css">
+  <link rel="stylesheet" href="/seogram/assets/css/maicons.css">
 
-  <link rel="stylesheet" href="../seogram/assets/css/bootstrap.css">
+  <link rel="stylesheet" href="/seogram/assets/css/bootstrap.css">
 
-  <link rel="stylesheet" href="../seogram/assets/vendor/animate/animate.css">
+  <link rel="stylesheet" href="/seogram/assets/vendor/animate/animate.css">
 
-  <link rel="stylesheet" href="../seogram/assets/css/theme.css">
+  <link rel="stylesheet" href="/seogram/assets/css/theme.css">
+
+
+
+  <!--  jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+<!-- Bootstrap Date-Picker Plugin -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
 </head>
 <body>
@@ -52,31 +64,66 @@
                  
                 </div>
                 <div class="footer">
-                  <% const enrollurl = '/users/enroll/'+user.email+'&'+subject.name;  %>
-                  <a href="<%= enrollurl %>" class="btn btn-pricing btn-block">Enroll</a>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#enrollFormModal<%=subject.name%>" data-bs-whatever="">Enroll</button>
                 </div>
               </div>
             </div>
+
+            <div class="modal fade" id="enrollFormModal<%=subject.name%>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="padding-top: 5%;">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <form action='\users\enroll' method="POST">
+                    
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Enroll - <%= subject.name %></h5>
+                    </div>
+  
+                    <div class="modal-body">
+                        <label for="deadline">The date by which you wish to finish this Course. We recomend a date 2-3 weeks before your actual exam.</label>
+                        <div class="input-group date" data-provide="datepicker">
+                          <input type="text" class="form-control" id="deadline" name="deadline">
+                          <div class="input-group-addon">
+                              <span class="glyphicon glyphicon-th"></span>
+                          </div>
+                          
+                       </div>
+                       <input type="hidden" id="subjectToEnroll" name="subjectToEnroll" value="<%= subject.name %>"></input>
+                    </div>
+                    
+                    <div class="modal-footer">
+                      <% const enrollurl = '/users/enroll/'+user.email+'&'+subject.name+'&';  %>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Enroll</button>
+                    </div>
+                  </form>
+                  
+                </div>
+              </div>
+            </div>
+
           <% }) %>
     
           </div>
     </div> <!-- .container -->
   </div> <!-- .page-section -->
 
+
+  
+
  
   
 
   <%- include('./userPartials/footer.ejs') %>
 
-<script src="../seogram/assets/js/jquery-3.5.1.min.js"></script>
+<script src="/seogram/assets/js/jquery-3.5.1.min.js"></script>
 
-<script src="../seogram/assets/js/bootstrap.bundle.min.js"></script>
+<script src="/seogram/assets/js/bootstrap.bundle.min.js"></script>
 
-<script src="../seogram/assets/js/google-maps.js"></script>
+<script src="/seogram/assets/js/google-maps.js"></script>
 
-<script src="../seogram/assets/vendor/wow/wow.min.js"></script>
+<script src="/seogram/assets/vendor/wow/wow.min.js"></script>
 
-<script src="../seogram/assets/js/theme.js"></script>
+<script src=" /seogram/assets/js/theme.js"></script>
   
 </body>
 </html>
