@@ -250,9 +250,12 @@ const getCoursePage = (req, res) => {
             }
             map.get(elementsWeek).push(element);
         })
+        
         const totalWeeks = map.size;
         const topicsList = map.get(weekSelected);
+
         console.log('Map',map);
+        
         res.render('users/coursePage.ejs', {
           user: req.user, 
           subject: subject, 
@@ -323,7 +326,7 @@ const postQuizFromCoursePage = (req, res)=>{
             console.log(error, 'Quiz Info could not    saved');
           } else {
             console.log("Quiz Entry made");
-            
+
             // Topic is Done
             if(parseFloat(obtainedScore)/totalScore * 100 > 80){
               console.log("Topic Is now Done");

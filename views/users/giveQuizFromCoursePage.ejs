@@ -55,7 +55,12 @@
           <% i++ %>
         <% }) %>
         <button id="submitButton" type="submit" class="btn btn-primary" onclick="checkAnswer()">Submit</button>
+        
         <button type="button" id="goBackButton" class="btn btn-secondary btn-sm" onClick="goBackToCoursePage()" hidden>Go Back</button>
+      </div>
+      <div style="padding-left: 10%; padding-top: 2%;">
+        <label id="discourager" style="color: rgb(136, 28, 28);"" hidden>Your score can be alot better. Review the material and try again </label>
+        <label id="encourager" style="color: rgb(53, 100, 73);" hidden >Well Done. With this you have successfully completed this Topic. </label>
       </div>
       
       
@@ -89,9 +94,6 @@
 
 
 <script>
-
-  var score, total;
-
   function createJsonTouple(question, A, B, C, D, correctAnswer, optionChosen, subject, topic){
     return {
         question: question,
@@ -200,19 +202,23 @@
             }
         }
 
+        if(parseFloat(marksObtained)/totalMarks * 100 >= 80)
+          document.getElementById("encourager").removeAttribute("hidden");
+        else
+          document.getElementById("discourager").removeAttribute("hidden");
+        
         document.getElementById('topic' + (j+1)).removeAttribute("hidden");
 
         document.getElementById('goBackButton').removeAttribute("hidden");
         document.getElementById('submitButton').hidden = true;
 
         document.getElementById('marks').innerHTML = 'Score: ' + marksObtained + '/' + totalMarks;  
-        score = marksObtained;
-        total = totalMarks;
     }
     
   }
 
   function sendjson(result){
+
     let xhr = new XMLHttpRequest();
     let url = "/users/coursepage/givequiz";
     xhr.open("POST", url, true);
