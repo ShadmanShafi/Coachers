@@ -55,11 +55,11 @@
                         <label for="Subjectname" class="form-label">Choose Subject</label>
                         <!-- <input type="text" id="text" class="form-control" name="subjectname" placeholder="subject" required=""> -->
                         <select id="subjectname" name="subjectname" onchange="getTopics()" style="width: 87.5%;">
-                          
+                          <option>--</option>
                           <% if(SubjectList.length>0){ %>
                                 <% SubjectList.forEach(subject => { %>
                                   <% if(chosenSubject != subject.name){   %>
-                                    <option>--</option>
+                                    
                                     <option>
                                           <%= subject.name %>
                                       </option>
