@@ -16,7 +16,7 @@ const createSchedular = (weekMap) => {
       week: key,
       topics: value
     });
-  })
+  }) 
   return list;
 }
 

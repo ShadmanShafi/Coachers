@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const questionBankSchema = new mongoose.Schema({
+const questionsSchema = new mongoose.Schema({
     question: {
         type: String, 
         required: true
@@ -37,6 +37,6 @@ const questionBankSchema = new mongoose.Schema({
 
 });
 
-const questionBank_IntroQuestions = mongoose.model("questionBank_IntroQuestions", questionBankSchema);
+const questionBank_IntroQuestions = mongoose.model("introQuestions", questionsSchema);
 
-module.exports = {questionBank_IntroQuestions};
+module.exports = questionBank_IntroQuestions;

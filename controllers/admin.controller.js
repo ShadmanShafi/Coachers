@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const passport = require("passport");
 const {generateQuestion, QuestionBank, checkQuestionsAnswer} = require('../models/Questions/questions.model')
 const { render } = require('ejs');
+const questionBank_IntroQuestions = require('../models/Questions/introQuestions')
 
 
 const getDashboard = (req,res) => {
@@ -367,7 +368,38 @@ const postAddQuestion = (req, res) => {
 }
 
 const postAddintroQuestion = (req, res)=>{
-    res.render("admin/addIntoQuestionsPage.ejs");
+  const {question, optionA, optionB, optionC, optionD, correctOption, subjectname} = req.body;
+  console.log({question, optionA, optionB, optionC, optionD, correctOption, subjectname});
+
+  questionBank_IntroQuestions.find({quesion: question}).then((data, error)=>{
+      if(error){
+        console.log('error');
+        res.redirect('/admin/addintroquestion');
+        console.log(error);
+      }else{
+        const newEntry = new questionBank_IntroQuestions();
+        newEntry.question = question;
+        newEntry.A = optionA;
+        newEntry.B = optionB;
+        newEntry.C = optionC;
+        newEntry.D = optionD;
+        newEntry.correctOption = correctOption;
+        newEntry.subject = subjectname;
+
+        newEntry.save().then((Error)=>{
+          if(Error){
+            console.log(Error);
+            res.redirect('/admin/addintroquestion');
+          }
+          else{
+            console.log('Success in saving new Question');
+            res.redirect('/admin/addintroquestion');
+          }
+        })
+      }
+
+  });
+  
 }
 
 const getAddintroQuestion = (req, res)=>{
