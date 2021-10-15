@@ -158,16 +158,16 @@ const enrollPostUser = (req, res) => {
       const numberOfTopics = data.topics.length;
       const weeksLeft = Math.round((deadline.getTime() - new Date().getTime())/(7*24*60*60*1000));
       const MaxTopicsPerWeek = 3;
-      var topicsPerWeek = Math.trunc(Math.floor(parseFloat(numberOfTopics)/weeksLeft));
-      console.log('Topics per week:', topicsPerWeek);
+      var topicsPerWeek = Math.trunc(Math.ceil(parseFloat(numberOfTopics)/weeksLeft));
+      console.log({weeksLeft, topicsPerWeek});
+      if(topicsPerWeek == 0)
+        topicsPerWeek = 1;
+        
       if(topicsPerWeek > MaxTopicsPerWeek){
         res.redirect('/users/searchpage/')
         console.log("Topics Per Week Exceeded Max value of", MaxTopicsPerWeek);
         return;
       }
-
-      if(topicsPerWeek == 0)
-        topicsPerWeek = 1;
 
       var topicsList = [];
 
