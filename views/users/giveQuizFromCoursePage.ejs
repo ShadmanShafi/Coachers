@@ -214,30 +214,18 @@
 
   function sendjson(result){
     let xhr = new XMLHttpRequest();
-    let url = "/users/checkquiz";
+    let url = "/users/coursepage/givequiz";
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     var data = JSON.stringify(result);
     xhr.send(data);
-
   }
 
   function goBackToCoursePage(){
     const subjectName = document.getElementById("subject1").getAttribute('value');
     const weekNo = document.getElementById("weekNo1").getAttribute('value');
-    const topicName = document.getElementById('topic1').getAttribute('value');
-    console.log({score, total});
-    console.log({subjectName, weekNo, topicName});
 
-    var report;
-
-    if(parseFloat(score)/total * 100 < 80){
-      report = 'Failed';
-    }
-    else{
-      report = 'Passed';
-    }
-    window.location.href = '/users/coursepage/' + subjectName + '&' + weekNo + '&' + report + '&' + score + '&' + total;
+    window.location.replace('/users/coursepage/' + subjectName + '&' + weekNo);
   }
 
 

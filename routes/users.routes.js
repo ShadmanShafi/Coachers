@@ -3,7 +3,7 @@ const router = express.Router();
 const { getLogin,getQuiz,postUpdateUser, postCheckQuiz,getuserInfoUpdate ,getRegister, 
     postLogin, postRegister, getDashboard, getSearchPage, getCoursePage, enrollUser, 
     enrollPostUser, getEnrolledCoursesPage, unregisterCourse, getQuizInfoPage, postQuizInfoPage, 
-    getReviewForm, postReview,  getQuizFromCoursePage, getRecommendationQuizPage
+    getReviewForm, postReview,  getQuizFromCoursePage, postQuizFromCoursePage, getRecommendationQuizPage
 } = require('./../controllers/users.controller');
 const ensureAuthenticated = require('./../middlewares/auth.middleware');
 
@@ -19,8 +19,8 @@ router.get("/logout",(req, res)=>{
 router.get("/dashboard", ensureAuthenticated, getDashboard);
 router.get("/searchpage", ensureAuthenticated, getSearchPage);
 router.get("/coursepage/:subject&:week", ensureAuthenticated, getCoursePage);
-router.get("/coursepage/:subject&:week&:report&:reporttopic&:score&:total", ensureAuthenticated, getCoursePage);
 router.get("/coursepage/givequiz/:subject&:topic&:week", ensureAuthenticated, getQuizFromCoursePage);
+router.post("/coursepage/givequiz", ensureAuthenticated, postQuizFromCoursePage);
 
 router.get("/enrolledcourselist", ensureAuthenticated, getEnrolledCoursesPage);
 router.get("/enroll/:useremail&:subject", ensureAuthenticated, enrollUser);

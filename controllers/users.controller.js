@@ -226,87 +226,45 @@ const getCoursePage = (req, res) => {
   const subject = req.params.subject;
   const weekSelected = parseInt(req.params.week);
 
-  const report = req.params.report;
-
-  console.log('report:', report);
   
-  if(report == undefined){
-    registeredSubjects.findOne({email: req.user.email}).then((data, error)=>{
-        if(error){
-          console.log("Data retrival Failed");
-          console.log(error);
-          res.redirect('/users/dashboard');
-        }
-        else{
-          let subjectsList = data.subjects;
-          let schedule = [];
-          for(var i=0; i<subjectsList.length; i++){
-              if(subjectsList[i].name == subject)
-              schedule = subjectsList[i].schedule;
-          }
-          
-          // Map the topics to their corresponding weeks
-          const map = new Map();
-          schedule.forEach(element=>{
-              const elementsWeek = parseInt(element.week);
-              if(map.get(elementsWeek) == undefined){
-                map.set(elementsWeek, new Array());
-              }
-              map.get(elementsWeek).push(element);
-          })
-          const totalWeeks = map.size;
-          const topicsList = map.get(weekSelected);
-          console.log('Map',map);
-          console.log('For', weekSelected, 'Topics Are', topicsList[0].topics);
-          res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList[0].topics, totalWeeks: totalWeeks, report: [], reportTopic: [] });
-        }
-    });
-    return;
-  }
-
-  const reportTopic = req.params.reporttopic;
-
-  const score = parseInt(req.params.score);
-  const total = parseInt(req.params.total);
-
   registeredSubjects.findOne({email: req.user.email}).then((data, error)=>{
-    if(error){
-      console.log("Data retrival Failed");
-      console.log(error);
-      res.redirect('/users/dashboard');
-    }
-    else{
-      let subjectsList = data.subjects;
-      let schedule = [];
-      for(var i=0; i<subjectsList.length; i++){
-          if(subjectsList[i].name == subject)
-          schedule = subjectsList[i].schedule;
+      if(error){
+        console.log("Data retrival Failed");
+        console.log(error);
+        res.redirect('/users/dashboard');
       }
-      
-      // Map the topics to their corresponding weeks
-      const map = new Map();
-      schedule.forEach(element=>{
-          const elementsWeek = parseInt(element.week);
-          if(map.get(elementsWeek) == undefined){
-            map.set(elementsWeek, new Array());
-          }
-          map.get(elementsWeek).push(element);
-      })
-      const totalWeeks = map.size;
-      const topicsList = map.get(weekSelected);
-      console.log('Map',map);
-      console.log('For', weekSelected, 'Topics Are', topicsList[0].topics);
-
-      let message;
-      if(reports == 'Failed')
-        message = 'You Did not do well on the Tes. We recommend trying again.';
       else{
-        message = 'Excellent Work. You have done well';
+        let subjectsList = data.subjects;
+        let schedule = [];
+        for(var i=0; i<subjectsList.length; i++){
+            if(subjectsList[i].name == subject)
+            schedule = subjectsList[i].schedule;
+        }
+        
+        // Map the topics to their corresponding weeks
+        const map = new Map();
+        schedule.forEach(element=>{
+            const elementsWeek = parseInt(element.week);
+            if(map.get(elementsWeek) == undefined){
+              map.set(elementsWeek, new Array());
+            }
+            map.get(elementsWeek).push(element);
+        })
+        const totalWeeks = map.size;
+        const topicsList = map.get(weekSelected);
+        console.log('Map',map);
+        res.render('users/coursePage.ejs', {
+          user: req.user, 
+          subject: subject, 
+          weekSelected: weekSelected, 
+          topicsList: topicsList[0].topics, 
+          totalWeeks: totalWeeks,
+          report: 'Watch The video and then take a short Quiz',
+
+        });
       }
-      console.log({report, reportTopic});
-      res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList[0].topics, totalWeeks: totalWeeks, report: report, reportTopic: reportTopic, score: score, total: total });
-    }
-});
+  });
+
 }
 
 const getQuizFromCoursePage = (req, res)=>{
@@ -339,6 +297,85 @@ const getQuizFromCoursePage = (req, res)=>{
         });
       }
     });
+}
+
+const postQuizFromCoursePage = (req, res)=>{
+  let questionsList = JSON.parse(JSON.stringify(req.body))
+  const email = req.user.email;
+
+  const subject = questionsList[0].subject;
+  const topic = questionsList[0].topic;
+
+  var totalScore = 0, obtainedScore = 0;
+  questionsList.forEach(question=>{
+      totalScore++;
+      if(question.optionChosen == question.correctAnswer)
+        obtainedScore++;
+  });
+
+  quizData.findOne({email: email}).then((data, error)=>{
+      if(error){
+        console.log("Data Error");
+      }
+      else if(data){
+        quizData.updateOne({email: email}, {$push: {quiz: [questionsList]}}).then((data,error)=>{
+          if (error) {
+            console.log(error, 'Quiz Info could not    saved');
+          } else {
+            console.log("Quiz Entry made");
+            
+          }
+        })
+      }
+      else{
+        const newEntry = new quizData();
+        newEntry.email = email;
+        newEntry.quiz.push(questionsList);
+        newEntry.save().then((success, error)=>{
+          if(error)
+            console.log("Error When saving new Entry");
+          else
+            console.log('Saved New Entry');
+            const questions = success.quiz[0];
+
+            // Topic is Done
+            if(parseFloat(obtainedScore)/totalScore * 100 > 80){
+              console.log("Topic Is now Done");
+              registeredSubjects.findOne({email: email}).then((data)=>{
+                if(data){
+                    const subjectsList = data.subjects;
+                    console.log({subjectsList});
+                    let topicsList = [], subjectToEdit;
+                    subjectsList.forEach(subjectTouple=>{
+                        if(subjectTouple.name == subject){
+                          topicsList = subjectTouple.topicsCovered;
+                          subjectToEdit = subjectTouple;
+                        }
+                    });
+
+                    if(!topicsList.includes(topic)){
+
+                        topicsList.push(topic);
+
+                        subjectToEdit.topicsCovered = topicsList;
+
+                        registeredSubjects.findOneAndUpdate({email: email}, {$pull: {subjects: {name: subject} }}).then((suc)=>{
+                          registeredSubjects.findOneAndUpdate({email: email}, {$push: {subjects: subjectToEdit}}).then((succ)=>{
+                              console.log("Topic Covered");
+                          })
+                        });
+                    }
+
+                }
+                else{
+                  console.log("error")
+                }
+              });
+            }
+            
+        })
+      }
+  })
 }
 
 
@@ -681,5 +718,6 @@ module.exports = {
     postUpdateUser,
     getReviewForm,
     postReview,
-    getRecommendationQuizPage
+    getRecommendationQuizPage,
+    postQuizFromCoursePage
 };
