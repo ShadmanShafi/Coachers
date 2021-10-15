@@ -324,6 +324,40 @@ const postQuizFromCoursePage = (req, res)=>{
           } else {
             console.log("Quiz Entry made");
             
+            // Topic is Done
+            if(parseFloat(obtainedScore)/totalScore * 100 > 80){
+              console.log("Topic Is now Done");
+              registeredSubjects.findOne({email: email}).then((data)=>{
+                if(data){
+                    const subjectsList = data.subjects;
+                    console.log({subjectsList});
+                    let topicsList = [], subjectToEdit;
+                    subjectsList.forEach(subjectTouple=>{
+                        if(subjectTouple.name == subject){
+                          topicsList = subjectTouple.topicsCovered;
+                          subjectToEdit = subjectTouple;
+                        }
+                    });
+
+                    if(!topicsList.includes(topic)){
+
+                        topicsList.push(topic);
+
+                        subjectToEdit.topicsCovered = topicsList;
+
+                        registeredSubjects.findOneAndUpdate({email: email}, {$pull: {subjects: {name: subject} }}).then((suc)=>{
+                          registeredSubjects.findOneAndUpdate({email: email}, {$push: {subjects: subjectToEdit}}).then((succ)=>{
+                              console.log("Topic Covered");
+                          })
+                        });
+                    }
+                }
+                else{
+                  console.log("error")
+                }
+              });
+            }
+            
           }
         })
       }
@@ -334,7 +368,7 @@ const postQuizFromCoursePage = (req, res)=>{
         newEntry.save().then((success, error)=>{
           if(error)
             console.log("Error When saving new Entry");
-          else
+          else{
             console.log('Saved New Entry');
             const questions = success.quiz[0];
 
@@ -365,14 +399,13 @@ const postQuizFromCoursePage = (req, res)=>{
                           })
                         });
                     }
-
                 }
                 else{
                   console.log("error")
                 }
               });
             }
-            
+          }  
         })
       }
   })
