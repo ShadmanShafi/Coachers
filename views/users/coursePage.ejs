@@ -104,6 +104,14 @@
           <div style="align-items: Right;">
 
             <a href="<%= quizURL %>" class="btn btn-primary btn-sm" tabindex="-1" role="button" aria-disabled="false">Give A Quiz</a>
+            <% if(report.length > 0){  %>
+              <% if(reportTopic.length > 0){  %>
+                  <% if(reportTopic == topicsList[i].topicName){ %>
+                    <p> <%= report  %> </p>
+                  <% }  %>
+              <% }  %>
+            <% } %>
+              
           </div>
             
         </div>

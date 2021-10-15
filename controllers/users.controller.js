@@ -218,37 +218,74 @@ const enrollPostUser = (req, res) => {
 const getCoursePage = (req, res) => {
   const subject = req.params.subject;
   const weekSelected = parseInt(req.params.week);
-
-  registeredSubjects.findOne({email: req.user.email}).then((data, error)=>{
-      if(error){
-        console.log("Data retrival Failed");
-        console.log(error);
-        res.redirect('/users/dashboard');
-      }
-      else{
-        let subjectsList = data.subjects;
-        let schedule = [];
-        for(var i=0; i<subjectsList.length; i++){
-            if(subjectsList[i].name == subject)
-            schedule = subjectsList[i].schedule;
+  const report = req.params.failreport;
+  const reportTopic = req.params.reporttopic;
+  
+  if(report == undefined){
+    report = [];
+    reportTopic = [];
+    registeredSubjects.findOne({email: req.user.email}).then((data, error)=>{
+        if(error){
+          console.log("Data retrival Failed");
+          console.log(error);
+          res.redirect('/users/dashboard');
         }
-        
-        // Map the topics to their corresponding weeks
-        const map = new Map();
-        schedule.forEach(element=>{
-            const elementsWeek = parseInt(element.week);
-            if(map.get(elementsWeek) == undefined){
-              map.set(elementsWeek, new Array());
-            }
-            map.get(elementsWeek).push(element);
-        })
-        const totalWeeks = map.size;
-        const topicsList = map.get(weekSelected);
-        console.log('Map',map);
-        console.log('For', weekSelected, 'Topics Are', topicsList[0].topics);
-        res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList[0].topics, totalWeeks: totalWeeks  });
+        else{
+          let subjectsList = data.subjects;
+          let schedule = [];
+          for(var i=0; i<subjectsList.length; i++){
+              if(subjectsList[i].name == subject)
+              schedule = subjectsList[i].schedule;
+          }
+          
+          // Map the topics to their corresponding weeks
+          const map = new Map();
+          schedule.forEach(element=>{
+              const elementsWeek = parseInt(element.week);
+              if(map.get(elementsWeek) == undefined){
+                map.set(elementsWeek, new Array());
+              }
+              map.get(elementsWeek).push(element);
+          })
+          const totalWeeks = map.size;
+          const topicsList = map.get(weekSelected);
+          console.log('Map',map);
+          console.log('For', weekSelected, 'Topics Are', topicsList[0].topics);
+          res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList[0].topics, totalWeeks: totalWeeks, report: report, reportTopic: reportTopic  });
+        }
+    });
+    return;
+  }
+  registeredSubjects.findOne({email: req.user.email}).then((data, error)=>{
+    if(error){
+      console.log("Data retrival Failed");
+      console.log(error);
+      res.redirect('/users/dashboard');
+    }
+    else{
+      let subjectsList = data.subjects;
+      let schedule = [];
+      for(var i=0; i<subjectsList.length; i++){
+          if(subjectsList[i].name == subject)
+          schedule = subjectsList[i].schedule;
       }
-  });
+      
+      // Map the topics to their corresponding weeks
+      const map = new Map();
+      schedule.forEach(element=>{
+          const elementsWeek = parseInt(element.week);
+          if(map.get(elementsWeek) == undefined){
+            map.set(elementsWeek, new Array());
+          }
+          map.get(elementsWeek).push(element);
+      })
+      const totalWeeks = map.size;
+      const topicsList = map.get(weekSelected);
+      console.log('Map',map);
+      console.log('For', weekSelected, 'Topics Are', topicsList[0].topics);
+      res.render('users/coursePage.ejs', {user: req.user, subject: subject, weekSelected: weekSelected, topicsList: topicsList[0].topics, totalWeeks: totalWeeks, report: report, reportTopic: reportTopic  });
+    }
+});
 }
 
 const getQuizFromCoursePage = (req, res)=>{

@@ -54,7 +54,7 @@
           <% i++ %>
         <% }) %>
         <button id="submitButton" type="submit" class="btn btn-primary" onclick="checkAnswer()">Submit</button>
-        <% const goBackURL = '/users/coursepage/' + subject + '&' + weekNo; %>
+        <% const goBackURL = '/users/coursepage/' + subject + '&' + weekNo + '&' + ; %>
         <a href="<%= goBackURL %>" class="btn btn-primary btn-sm" tabindex="-1" role="button" aria-disabled="false" id="goBackButton" hidden>Go Back</a>
       </div>
       
