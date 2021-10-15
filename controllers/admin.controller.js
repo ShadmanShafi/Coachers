@@ -366,6 +366,16 @@ const postAddQuestion = (req, res) => {
   res.redirect('/admin/addquestion/--')
 }
 
+const postAddintroQuestion = (req, res)=>{
+    res.render("admin/addIntoQuestionsPage.ejs");
+}
+
+const getAddintroQuestion = (req, res)=>{
+    res.render("admin/addIntoQuestionsPage.ejs", {
+      SubjectList: []
+    });
+}
+
 
 module.exports = {
     getLogin,
@@ -386,5 +396,7 @@ module.exports = {
     getDeleteSubjectPage,
     postDeleteSubject,
     getAddQuestion,
-    postAddQuestion
+    postAddQuestion,
+    getAddintroQuestion,
+    postAddintroQuestion
 };
