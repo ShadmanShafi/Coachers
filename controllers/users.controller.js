@@ -251,6 +251,10 @@ const getCoursePage = (req, res) => {
   });
 }
 
+const getQuizFromCoursePage = (req, res)=>{
+
+}
+
 
 
 const getEnrolledCoursesPage = (req, res) => {
@@ -577,6 +581,7 @@ module.exports = {
     unregisterCourse,
     getQuizInfoPage,
     postQuizInfoPage,
+    getQuizFromCoursePage,
     getQuiz,
     getuserInfoUpdate,
     postCheckQuiz,

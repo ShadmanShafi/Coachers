@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getLogin,getQuiz,postUpdateUser, postCheckQuiz,getuserInfoUpdate ,getRegister, postLogin, postRegister, getDashboard, getSearchPage, getCoursePage, enrollUser, enrollPostUser, getEnrolledCoursesPage, unregisterCourse, getQuizInfoPage, postQuizInfoPage, getReviewForm, postReview } = require('./../controllers/users.controller');
+const { getLogin,getQuiz,postUpdateUser, postCheckQuiz,getuserInfoUpdate ,getRegister, postLogin, postRegister, getDashboard, getSearchPage, getCoursePage, enrollUser, enrollPostUser, getEnrolledCoursesPage, unregisterCourse, getQuizInfoPage, postQuizInfoPage, getReviewForm, postReview,  getQuizFromCoursePage} = require('./../controllers/users.controller');
 const ensureAuthenticated = require('./../middlewares/auth.middleware');
 
 router.get("/login",getLogin);
@@ -15,6 +15,8 @@ router.get("/logout",(req, res)=>{
 router.get("/dashboard", ensureAuthenticated, getDashboard);
 router.get("/searchpage", ensureAuthenticated, getSearchPage);
 router.get("/coursepage/:subject&:week", ensureAuthenticated, getCoursePage);
+router.get("/coursepage/givequiz/:subject&:topic&:week", ensureAuthenticated, getQuizFromCoursePage);
+
 router.get("/enrolledcourselist", ensureAuthenticated, getEnrolledCoursesPage);
 router.get("/enroll/:useremail&:subject", ensureAuthenticated, enrollUser);
 router.post("/enroll/", ensureAuthenticated, enrollPostUser);
