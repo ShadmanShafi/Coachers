@@ -46,13 +46,14 @@
         
         <div class="section-top-border">
           <h3 class="mb-30 title_color">Subjects Enrolled</h3>
-          <div class="card smooth-shadow-md" style="box-shadow: 2px 3px 10px rgb(146, 128, 196);">
+          <div class="card smooth-shadow-md" style="box-shadow: 2px 3px 10px rgb(146, 128, 196); width: 140%;">
             <div class="progress-table">
               <div class="table-head">
                 <div class="serial"></div>
                 <div class="country">Subject</div>
                 <div class="visit">Topics Done </div>
-                <div class="percentage" style="padding-left: 10%;">Progress</div>
+                <div class="percentage" style="padding-left: 15%;">Progress</div>
+                <div class="visit">Deadline </div>
               </div>
               <% if (subjectsToDisplay.length > 0){ %>
                 <% subjectsToDisplay.forEach(subject=>{ %>
@@ -61,7 +62,7 @@
                       <div class="country" style="padding-left: 6%; font-size: 130%;"><a href="<%=url%>"><%= subject.name %> </a></div>
                     
                         <div class="visit" style="padding-left: 10%; padding-right: 15%;"><%= subject.topicsCovered.length %></div>
-                      <div class="percentage">
+                      <div class="percentage" style="width: 30%;">
                         <% totalTopics = subjectTopicMap.get(subject.name).length; %>
                         <% percentage = (parseFloat(subject.topicsCovered.length)/totalTopics)*100 %>
                         <div class="progress" style="background-color: rgb(212, 209, 228);">
@@ -69,6 +70,8 @@
 
                         </div>
                       </div>
+                      <div class="country" style="padding-left: 0%; font-size: 130%;"><%= subject.deadline.toLocaleString('default', { month: 'long' })  %> <%= subject.deadline.getFullYear()  %></div>
+                          
                       <div style="padding: 1%;">
                         <% const URL = '/users/unregistercourse/'+subject.name %>
                         <a href="<%=URL%>" class="text-inherit

@@ -273,7 +273,7 @@ const getEnrolledCoursesPage = (req, res) => {
             subjectTopicMap.set(subject.name, subject.topics);
           })
 
-          console.log(subjectsToDisplay, subjectsList)
+          console.log({subjectsToDisplay, subjectsList})
          
           res.render("users/enrolledCoursesListPage.ejs", { user: req.user,  subjectsToDisplay: subjectsToDisplay, subjectTopicMap: subjectTopicMap});        
         }
