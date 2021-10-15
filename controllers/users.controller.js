@@ -262,7 +262,7 @@ const getCoursePage = (req, res) => {
           weekSelected: weekSelected, 
           topicsList: topicsList[0].topics, 
           totalWeeks: totalWeeks,
-          report: 'Watch The video and then take a short Quiz',
+          report: 'Test yourself with a Short Quiz',
 
         });
       }
