@@ -46,7 +46,11 @@
             <div class="subhead">Available Subjects</div>
             <h2 class="title-section">Pick out the Subjects you need</h2>
             <div class="divider mx-auto"></div>
+            <%if(errorMessage.length>0){%>
+              <div class="alert alert-danger"><%=errorMessage%></div>
+            <%}%>
         </div>
+        
          <div class="row mt-5">
           <% subjectsList.forEach(subject=>{ %>
 
@@ -59,12 +63,13 @@
                     <h1><%= subject.name %></h1>
                   </div>
                   <% if(recommendedSubjects.includes(subject.name)){  %>
-                    <div style="text-align: center;"> <p>Recommended Course</p> </div>
+                    <div style="text-align: center; color: rgba(41, 7, 41, 0.719)"> <p>Recommended Course</p> </div>
                   <%  } %>
                   <!-- <h5>Per Month</h5> -->
                 </div>
                 <div class="body">
-                  <p style="font-weight: 10;" ><%= subject.topics.length %> <span class="suffix">Topic(s)</span></p>
+                  <p style="font-weight: 10;" ><%= subject.topics.length %> <span class="suffix">Topic(s) - </span><%= subject.topics.length/2 %> <span class="suffix">Weeks(s)</span></p>
+
                  
                 </div>
                 <div class="footer">

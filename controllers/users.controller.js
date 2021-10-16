@@ -163,8 +163,7 @@ const getSearchPage = (req, res) => {
               recommendedSubjects.push(element.subject);
             });
 
-            console.log({recommendedSubjects});
-            res.render("users/searchPage.ejs", { user: req.user,  subjectsList: subjectsToDisplay, recommendedSubjects: recommendedSubjects});
+            res.render("users/searchPage.ejs", { user: req.user,  subjectsList: subjectsToDisplay, recommendedSubjects: recommendedSubjects, errorMessage: req.flash('errorMessage')});
           });
 
           
@@ -201,7 +200,7 @@ const enrollPostUser = (req, res) => {
     const subject = req.body.subjectToEnroll;
     const deadline = new Date(req.body.deadline);
     console.log(deadline);
-    console.log("Enrolling");
+    
     // console.log('email:', userEmail, 'subject:', subject, 'deadline:', deadline);
 
     Subjects.findOne({name: subject}).then((data)=>{
@@ -214,10 +213,14 @@ const enrollPostUser = (req, res) => {
         topicsPerWeek = 1;
         
       if(topicsPerWeek > MaxTopicsPerWeek){
+        const errors = [];
+        errors.push("Cannot enroll with that deadline. It is not enough time to cover the entire syllabus.");
+        req.flash("errorMessage", errors)
         res.redirect('/users/searchpage/')
         console.log("Topics Per Week Exceeded Max value of", MaxTopicsPerWeek);
         return;
       }
+      console.log("Enrolling");
 
       var topicsList = [];
 
