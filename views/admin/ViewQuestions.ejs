@@ -20,17 +20,7 @@
   <link rel="stylesheet" href="/seogram/assets/css/theme.css">
 
 
-  <script>
-      function getTopics(){
-        const subjectChosen = document.getElementById("subjectname").value;
-        if(subjectChosen != '--'){
-          window.location.replace("/admin/topiclist/" + subjectChosen);
-        }
-      }
-  </script>
-
-
-  <title>View Question</title>
+  <title>DashBoard</title>
 </head>
 <body>
   <!-- Back to top button -->
@@ -51,7 +41,7 @@
               
               <div class="row">
                   <div class="col-sm-12">
-                      <div class="card-box table-responsive">
+                      <div class="card-box table-responsive card smooth-shadow-md" style="border-radius: 10px; box-shadow: 2px 3px 10px rgb(146, 128, 196);">
 
                           <table id="datatable-responsive"
                               class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0"
@@ -60,7 +50,6 @@
                                   <tr>
                                       <th>Subject Name</th>
                                       <th>Topic Name</th>
-                                      <th>Question</th>
                                       <th>Option A</th>
                                       <th>Option B</th>
                                       <th>Option C</th>
@@ -72,7 +61,30 @@
                               </thead>
               
                               <tbody>
-                                  
+                                  <% if(questions.length>0){ %>
+                                      <% questions.forEach(question=>{ %>
+                                          <tr></tr>
+                                          <td> <%= question.name %> </td>
+                                      
+                                          <td> <%= question.email %> </td>
+
+                                          <td> <%= question.password %> </td>
+                                          <td> <%= question.password %> </td>
+                                          <td> <%= question.password %> </td>
+                                          <td> <%= question.password %> </td>
+                                          <td> <%= question.password %> </td>
+
+                                          
+                                          
+                                          <td>
+                                              <% const deleteURL = 'deleteuser/' + participant._id %>
+                                              <a href = "<%= deleteURL %>">
+                                                <i class="mai-trash" aria-hidden="true"></i>
+                                              </a>
+                                          </td>
+                                      <% }) %>
+                                  <% } %>
+
                               </tbody>
                           </table>
                       </div>
@@ -80,6 +92,9 @@
               </div>
           </div>
         </br>
+
+         
+
           </br>
           <div>
             <a href="/admin/dashboard" class="text-inherit
@@ -96,15 +111,15 @@
   <%- include('./partials/footer.ejs') %>
 
 
-  <script src="/seogram/assets/js/jquery-3.5.1.min.js"></script>
+  <script src="../seogram/assets/js/jquery-3.5.1.min.js"></script>
 
-  <script src="/seogram/assets/js/bootstrap.bundle.min.js"></script>
+  <script src="../seogram/assets/js/bootstrap.bundle.min.js"></script>
   
-  <script src="/seogram/assets/js/google-maps.js"></script>
+  <script src="../seogram/assets/js/google-maps.js"></script>
   
-  <script src="/seogram/assets/vendor/wow/wow.min.js"></script>
+  <script src="../seogram/assets/vendor/wow/wow.min.js"></script>
   
-  <script src="/seogram/assets/js/theme.js"></script>
+  <script src="../seogram/assets/js/theme.js"></script>
   
   
 </body>
