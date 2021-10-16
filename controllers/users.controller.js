@@ -141,7 +141,27 @@ const getSearchPage = (req, res) => {
 
           const subjectsToDisplay = outerUnion(registeredSubjectsList, allSubjects);
          
-          res.render("users/searchPage.ejs", { user: req.user,  subjectsList: subjectsToDisplay});
+          accuracyRecommendSchema.findOne({email: req.user.email}).then((results)=>{
+            if(!results){
+              res.redirect('/users/logout');
+              return;
+            }
+
+            var accuraciesList = results.accuracies;
+            accuraciesList.sort((a,b)=>{
+                return b.accuracy - a.accuracy;
+            });
+            accuraciesList = accuraciesList.slice(0,3);
+            // accuraciesList = accuraciesList.subject
+
+            let recommendedSubjects = [];
+            
+
+            console.log(accuraciesList);
+            res.render("users/searchPage.ejs", { user: req.user,  subjectsList: subjectsToDisplay, recommendedSubject: accuraciesList});
+          });
+
+          
         }
     })
     
