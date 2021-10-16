@@ -423,17 +423,61 @@ const getAddintroQuestion = (req, res)=>{
 
 const getViewQuestion = (req, res)=>{
 
-  res.render("admin/ViewQuestions.ejs");
+  let allquestion = [];
+  QuestionBank.find().then((data) => {
+    allquestion = data;
+    res.render("admin/ViewQuestions.ejs", {
+          error: req.flash('error'),
+          questions: allquestion
+    });
+  }).catch(() => {
+    error = 'Failed to fetch data';
+    res.render("admin/ViewQuestions.ejs", {
+          error: req.flash('error', error),
+          questions: allquestion
+    });
+  })
+
+ 
   
   
 }
 
 
 const getViewIntroQuestion = (req, res)=>{
+  let allquestion = [];
+  questionBank_IntroQuestions.find().then((data) => {
+    allquestion = data;
+    res.render("admin/ViewIntroQuestion.ejs", {
+          error: req.flash('error'),
+          questions: allquestion
+    });
+  }).catch(() => {
+    error = 'Failed to fetch data';
+    res.render("admin/ViewIntroQuestion.ejs", {
+          error: req.flash('error', error),
+          questions: allquestion
+    });
+  })
 
-  res.render("admin/ViewIntroQuestion.ejs");
+
   
-  
+}
+
+
+const deleteintroquestion = (req, res) => {
+  const id = req.params.id;
+  questionBank_IntroQuestions.deleteOne({_id:id}, (err)=>{
+      if(err){
+          error = "failed to delete data";
+          req.flash('error', error);
+          res.redirect('/admin/viewintroquestion');
+      }else{
+          error = "Data Deleted Successfully.";
+          req.flash('error', error);
+          res.redirect('/admin/viewintroquestion');
+      }
+  });
 }
 
 
@@ -460,5 +504,6 @@ module.exports = {
     getAddintroQuestion,
     postAddintroQuestion,
     getViewQuestion,
-    getViewIntroQuestion
+    getViewIntroQuestion,
+    deleteintroquestion
 };
