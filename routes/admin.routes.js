@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const ensureAuthenticated = require('./../middlewares/auth.middleware');
-const { getLogin,gettopiclist,postaddtopics,getaddtopics,getaddsubject, postaddsubject, getRegister, postLogin, postRegister, getDashboard, getLandingPage, getUserList, registerNewUser, deleteUser, deleteTopic, getDeleteSubjectPage, postDeleteSubject, getAddQuestion, postAddQuestion, getAddintroQuestion, postAddintroQuestion } = require('./../controllers/admin.controller');
+const { getLogin,getViewIntroQuestion,getViewQuestion,gettopiclist,postaddtopics,getaddtopics,getaddsubject, postaddsubject, getRegister, postLogin, postRegister, getDashboard, getLandingPage, getUserList, registerNewUser, deleteUser, deleteTopic, getDeleteSubjectPage, postDeleteSubject, getAddQuestion, postAddQuestion, getAddintroQuestion, postAddintroQuestion } = require('./../controllers/admin.controller');
 
 router.get("/login", getLogin);
 router.get("/addsubject",getaddsubject);
@@ -24,7 +24,11 @@ router.get('/addquestion/:subject', getAddQuestion);
 router.post('/addquestion', postAddQuestion)
 
 router.get('/addintroquestion', getAddintroQuestion);
-router.post('/addintroquestion', postAddintroQuestion)
+router.post('/addintroquestion', postAddintroQuestion);
+router.get('/viewquestion', getViewQuestion);
+router.get('/viewintroquestion', getViewIntroQuestion);
+
+
 
 router.get("/logout",(req, res)=>{
     req.logout();

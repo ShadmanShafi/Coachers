@@ -421,6 +421,22 @@ const getAddintroQuestion = (req, res)=>{
 }
 
 
+const getViewQuestion = (req, res)=>{
+
+  res.render("admin/ViewQuestions.ejs");
+  
+  
+}
+
+
+const getViewIntroQuestion = (req, res)=>{
+
+  res.render("admin/ViewIntroQuestion.ejs");
+  
+  
+}
+
+
 module.exports = {
     getLogin,
     getRegister,
@@ -442,5 +458,7 @@ module.exports = {
     getAddQuestion,
     postAddQuestion,
     getAddintroQuestion,
-    postAddintroQuestion
+    postAddintroQuestion,
+    getViewQuestion,
+    getViewIntroQuestion
 };
