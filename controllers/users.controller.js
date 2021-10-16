@@ -9,6 +9,7 @@ const  {generateQuestion, QuestionBank, checkQuestionsAnswer}= require('../model
 const {quizData} = require('../models/Questions/users_quiz.model.js');
 const {Reviews} = require('../models/reviews.model.js');
 const questionBank_IntroQuestions = require('../models/Questions/introQuestions.js');
+const accuracyRecommendSchema = require('../models/userRecommendedSubjectsAccuracy.model');
 
 
 const getLogin = (req, res)=>{
@@ -580,11 +581,34 @@ const postRecommendationQuizPage = (req,res) => {
   map.forEach((value,key)=>{
     subjectsAccuracyList.push({
       subject: key,
-      accuracy: parseFloat(value.score)/value.total * 100
+      accuracy: Math.round(parseFloat(value.score)/value.total * 100)
     });
   });
   
   console.log({subjectsAccuracyList});
+
+  accuracyRecommendSchema.findOne({email: email}).then((data, error)=>{
+      if(error){
+        console.log(error);
+      }
+      else if(data){
+        accuracyRecommendSchema.findOneAndUpdate({email: email}, {accuracies: subjectsAccuracyList}).then((d, e)=>{
+          if(e){
+            console.log(e);
+          }
+        });
+      }
+      else{
+        const newEntry = new accuracyRecommendSchema();
+        newEntry.email = email;
+        newEntry.accuracies = subjectsAccuracyList;
+        newEntry.save().then((d,e)=>{
+          if(e){
+            console.log(e);
+          }
+        })
+      }
+  })
   
   // questionBank_IntroQuestions.find().then((data, err)=>{
   //   if(err){
