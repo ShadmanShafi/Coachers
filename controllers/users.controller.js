@@ -196,10 +196,18 @@ const enrollUser = (req, res) => {
 }
 
 const enrollPostUser = (req, res) => {
-  const userEmail = req.user.email;
+    const userEmail = req.user.email;
     const subject = req.body.subjectToEnroll;
     const deadline = new Date(req.body.deadline);
     console.log(deadline);
+    if(deadline <= new Date()){
+        const errors = [];
+        errors.push("Cannot enroll with that deadline. Please Choose a valid Deadline.");
+        req.flash("errorMessage", errors)
+        res.redirect('/users/searchpage/')
+        console.log("Topics Per Week Exceeded Max value of", MaxTopicsPerWeek);
+        return;
+    }
     
     // console.log('email:', userEmail, 'subject:', subject, 'deadline:', deadline);
 
