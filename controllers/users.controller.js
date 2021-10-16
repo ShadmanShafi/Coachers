@@ -107,7 +107,7 @@ const getDashboard = (req, res) => {
   registeredSubjects.findOne({email: userEmail}, (err, data)=>{
       accuracyRecommendSchema.findOne({email: userEmail}).then((results)=>{
         if(!results){
-          console.redirect('/users/logout');
+          res.redirect('/users/logout');
           return;
         }
         var accuraciesList = results.accuracies;
