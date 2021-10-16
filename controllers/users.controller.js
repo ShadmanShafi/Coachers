@@ -106,7 +106,11 @@ const getDashboard = (req, res) => {
   const userEmail = req.user.email;
   registeredSubjects.findOne({email: userEmail}, (err, data)=>{
     accuracyRecommendSchema.findOne({email: userEmail}).then((results)=>{
-        const accuraciesList = results;
+        var accuraciesList = results.accuracies;
+        accuraciesList.sort((a,b)=>{
+            return b.accuracy - a.accuracy;
+        });
+        accuraciesList = accuraciesList.slice(0,3);
         console.log({accuraciesList});
         res.render("users/dashboard.ejs", {
           user: req.user,
