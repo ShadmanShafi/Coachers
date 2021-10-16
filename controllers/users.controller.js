@@ -147,18 +147,24 @@ const getSearchPage = (req, res) => {
               return;
             }
 
+
             var accuraciesList = results.accuracies;
             accuraciesList.sort((a,b)=>{
                 return b.accuracy - a.accuracy;
             });
+
             accuraciesList = accuraciesList.slice(0,3);
-            // accuraciesList = accuraciesList.subject
+
+            accuraciesList = Object.values(accuraciesList);
 
             let recommendedSubjects = [];
-            
 
-            console.log(accuraciesList);
-            res.render("users/searchPage.ejs", { user: req.user,  subjectsList: subjectsToDisplay, recommendedSubject: accuraciesList});
+            accuraciesList.forEach(element=>{
+              recommendedSubjects.push(element.subject);
+            });
+
+            console.log({recommendedSubjects});
+            res.render("users/searchPage.ejs", { user: req.user,  subjectsList: subjectsToDisplay, recommendedSubjects: recommendedSubjects});
           });
 
           

@@ -52,11 +52,15 @@
 
             <div class="col-lg-4 py-3 wow zoomIn">
               <div class="card-pricing" style="box-shadow: 2px 3px 10px rgb(146, 128, 196);">
+                
                 <div class="header">
-                  <div class="pricing-type">GCE O'Level</div>
+                  <div class="pricing-type">GCE O'Level</div> 
                   <div class="price">
                     <h1><%= subject.name %></h1>
                   </div>
+                  <% if(recommendedSubjects.includes(subject.name)){  %>
+                    <div style="text-align: center;"> <p>Recommended Course</p> </div>
+                  <%  } %>
                   <!-- <h5>Per Month</h5> -->
                 </div>
                 <div class="body">
