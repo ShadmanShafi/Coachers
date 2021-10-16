@@ -562,21 +562,50 @@ const getQuizInfoPage = (req, res) => {
 
 
             let marksArray = [];
+            let topicMap = new Map();
 
             quizes.forEach(quiz=>{
               let scoreObtained = 0, scoreTotal = 0;
+
               quiz.forEach(question=>{
+
+                if(topicMap.get(question.topic) == undefined){
+                  topicMap.set(question.topic, new Array());
+                }
+
                 if(question.correctAnswer == question.optionChosen)
                   scoreObtained++;
                 scoreTotal++;
-              })
+              });
+
               const percentage = Math.round(parseFloat(scoreObtained)/scoreTotal * 100);
               marksArray.push(percentage);
             });
 
             console.log({marksArray})
 
+            topicMap.forEach((value,key)=>{
+                const thisTopic = key;
+                quizes.forEach(quiz=>{
+                    let scoreObtained = 0, scoreTotal = 0;
+                    quiz.forEach(question=>{
+                      if(question.topic == thisTopic){
+                          if(question.correctAnswer == question.optionChosen){
+                            scoreObtained++;
+                          }
+                          scoreTotal++;
+                      }
+                    })
+                    const percentage = Math.round(parseFloat(scoreObtained)/scoreTotal * 100);
+                    if(!Number.isNaN(percentage))
+                      value.push(percentage);
+                })
+            }) 
             
+            console.log(topicMap);
+
+            
+
 
             res.render("users/quizInfoPage.ejs", {
               error: req.flash('error'),
@@ -584,8 +613,8 @@ const getQuizInfoPage = (req, res) => {
               SubjectList: SubjectList,
               chosenSubject: subjectChosen,
               topicsList: subjectTouple.topicsCovered,
-              subjectWiseScores: [],
-              topicWiseScores: []
+              subjectWiseScores: marksArray,
+              topicWiseScores: topicMap
             });
           }
       })
