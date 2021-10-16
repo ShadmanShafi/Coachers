@@ -105,19 +105,22 @@ const postRegister = (req, res, next)=>{
 const getDashboard = (req, res) => {
   const userEmail = req.user.email;
   registeredSubjects.findOne({email: userEmail}, (err, data)=>{
-    accuracyRecommendSchema.findOne({email: userEmail}).then((results)=>{
+      accuracyRecommendSchema.findOne({email: userEmail}).then((results)=>{
+        if(!results){
+          console.redirect('/users/logout');
+          return;
+        }
         var accuraciesList = results.accuracies;
         accuraciesList.sort((a,b)=>{
             return b.accuracy - a.accuracy;
         });
         accuraciesList = accuraciesList.slice(0,3);
-        console.log({accuraciesList});
         res.render("users/dashboard.ejs", {
           user: req.user,
           subjectsRegistered: data.subjects,
           recommenedSubjectsAccuracies: accuraciesList
         });
-    });
+      });
   }).catch((error)=>{
     console.log(error);
     res.redirect('/logout');
@@ -611,6 +614,7 @@ const postRecommendationQuizPage = (req,res) => {
         });
       }
       else{
+        console.log("Not Found Creating new entry");
         const newEntry = new accuracyRecommendSchema();
         newEntry.email = email;
         newEntry.accuracies = subjectsAccuracyList;
