@@ -92,7 +92,7 @@
 
 <script>
 
-  function createJsonTouple(question, A, B, C, D, correctAnswer, optionChosen, subject, topic){
+  function createJsonTouple(question, A, B, C, D, correctAnswer, optionChosen, subject){
     return {
         question: question,
         A: A,
@@ -102,7 +102,6 @@
         correctAnswer: correctAnswer,
         optionChosen: optionChosen,
         subject: subject,
-        topic: topic
     }
   }
 
@@ -129,7 +128,6 @@
                   document.getElementById('CorrectAnswer'+(j+1)).getAttribute('value'),
                   chosenAnswer.value,
                   document.getElementById('subject'+(j+1)).getAttribute('value'),
-                  document.getElementById('topic'+(j+1)).getAttribute('value'),
                 ));
                 break;
             }
@@ -143,14 +141,13 @@
                   document.getElementById('CorrectAnswer'+(j+1)).getAttribute('value'),
                   'X',
                   document.getElementById('subject'+(j+1)).getAttribute('value'),
-                  document.getElementById('topic'+(j+1)).getAttribute('value'),
                 ));
             }
         }  
     }
     console.log('results', results)
     sendjson(results);
-    window.location.replace('/user/dashboard');
+    window.location.replace('/users/dashboard');
   }
 
 
@@ -209,7 +206,7 @@
 
   function sendjson(result){
     let xhr = new XMLHttpRequest();
-    let url = "/users/checkquiz";
+    let url = "/users/recommendationquiz";
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     var data = JSON.stringify(result);

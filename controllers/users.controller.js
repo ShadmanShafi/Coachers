@@ -551,22 +551,27 @@ const getRecommendationQuizPage = (req,res) => {
 }
 
 const postRecommendationQuizPage = (req,res) => {
-  console.log("RecommendationPage Reached");
-  questionBank_IntroQuestions.find().then((data, err)=>{
-    if(err){
-      console.log("Data Error");
-      res.redirect('/');
-    }
-    else{
-      const questionsList = data.sort((a, b) => 0.5 - Math.random()).slice(0,10);
-      console.log(questionsList)
-      res.render("users/recommendationQuizPage.ejs", {
-        user: req.user,
-        questionsList: questionsList
-      });
-    }
-    
-  })
+  console.log("Post RecommendationPage Reached");
+
+  let questionsList = JSON.parse(JSON.stringify(req.body))
+  const email = req.user.email;
+
+  console.log({questionsList, email});
+  
+  // questionBank_IntroQuestions.find().then((data, err)=>{
+  //   if(err){
+  //     console.log("Data Error");
+  //     res.redirect('/');
+  //   }
+  //   else{
+  //     const questionsList = data.sort((a, b) => 0.5 - Math.random()).slice(0,10);
+  //     console.log(questionsList)
+  //     res.render("users/recommendationQuizPage.ejs", {
+  //       user: req.user,
+  //       questionsList: questionsList
+  //     });
+  //   }
+  // })
 }
 
 const getQuiz = (req, res) => {
