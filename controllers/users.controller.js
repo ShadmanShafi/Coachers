@@ -302,11 +302,14 @@ const getCoursePage = (req, res) => {
         
         registeredSubjects.findOne({email: req.user.email}).then((result, error)=>{
             let topicsCovered = [];
+            let deadline
             result.subjects.forEach(element=>{
                 if(element.name == subject){
-                    topicsCovered = element.topicsCovered;
+                  deadline = element.deadline;
+                  topicsCovered = element.topicsCovered;
                 }
             })
+            
             res.render('users/coursePage.ejs', {
               user: req.user, 
               subject: subject, 
@@ -314,6 +317,7 @@ const getCoursePage = (req, res) => {
               topicsList: topicsList[0].topics, 
               totalWeeks: totalWeeks,
               topicsCovered: topicsCovered,
+              deadline: deadline,
               report: 'If you are done with the video, try a short quiz to see how well you have grasped the concepts',
             });
         });
