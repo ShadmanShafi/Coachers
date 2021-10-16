@@ -56,11 +56,13 @@
           </br>
           <% i++ %>
         <% }) %>
+        <button id="submitButton" type="submit" class="btn btn-primary" onclick="checkAnswer()">Submit</button>
       </div>
+
       
       
 
-      </div>
+    </div>
 
     <div class="container">
      
@@ -144,13 +146,11 @@
                   document.getElementById('topic'+(j+1)).getAttribute('value'),
                 ));
             }
-        }
-
-        
+        }  
     }
     console.log('results', results)
     sendjson(results);
-    showAnswers()
+    window.location.replace('/user/dashboard');
   }
 
 
@@ -199,13 +199,10 @@
             }
         }
 
-        console.log(document.getElementById('topic' + (j+1)));
-        document.getElementById('topic' + (j+1)).removeAttribute("hidden");
 
         document.getElementById('goBackButton').removeAttribute("hidden");
         document.getElementById('submitButton').hidden = true;
 
-        document.getElementById('marks').innerHTML = 'Score: ' + marksObtained + '/' + totalMarks;   
     }
     
   }

@@ -79,7 +79,7 @@ const postRegister = (req, res, next)=>{
                     newEntry.subjects = [];
                     newEntry.save().then(()=>{
                       passport.authenticate("userLocal", {
-                        successRedirect: "/users/recommendatisonQuizPage",
+                        successRedirect: "/users/recommendationquiz",
                         failureRedirect: "/users/register",
                         failureFlash: true,
                       })(req, res, next);
@@ -532,20 +532,41 @@ const postQuizInfoPage = (req, res) => {
 }
 
 const getRecommendationQuizPage = (req,res) => {
+  console.log("RecommendationPage Reached");
   questionBank_IntroQuestions.find().then((data, err)=>{
     if(err){
       console.log("Data Error");
       res.redirect('/');
     }
     else{
+      const questionsList = data.sort((a, b) => 0.5 - Math.random()).slice(0,10);
+      console.log(questionsList)
       res.render("users/recommendationQuizPage.ejs", {
         user: req.user,
-        questionList: data
+        questionsList: questionsList
       });
     }
     
   })
-  
+}
+
+const postRecommendationQuizPage = (req,res) => {
+  console.log("RecommendationPage Reached");
+  questionBank_IntroQuestions.find().then((data, err)=>{
+    if(err){
+      console.log("Data Error");
+      res.redirect('/');
+    }
+    else{
+      const questionsList = data.sort((a, b) => 0.5 - Math.random()).slice(0,10);
+      console.log(questionsList)
+      res.render("users/recommendationQuizPage.ejs", {
+        user: req.user,
+        questionsList: questionsList
+      });
+    }
+    
+  })
 }
 
 const getQuiz = (req, res) => {
@@ -569,7 +590,7 @@ const getQuiz = (req, res) => {
            })
            
            // Covenrt to 1D array
-           questionsList = [].concat(...questionsList);;
+           questionsList = [].concat(...questionsList);
            
            // Randomise and get 10 questions
            questionsList = questionsList.sort((a, b) => 0.5 - Math.random()).slice(0,10);
@@ -777,5 +798,6 @@ module.exports = {
     getReviewForm,
     postReview,
     getRecommendationQuizPage,
+    postRecommendationQuizPage,
     postQuizFromCoursePage
 };
