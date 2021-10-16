@@ -50,6 +50,7 @@
                                   <tr>
                                       <th>Subject Name</th>
                                       <th>Topic Name</th>
+                                      <th>Question</th>
                                       <th>Option A</th>
                                       <th>Option B</th>
                                       <th>Option C</th>
@@ -64,9 +65,9 @@
                                   <% if(questions.length>0){ %>
                                       <% questions.forEach(question=>{ %>
                                           <tr></tr>
-                                          <td> <%= question.name %> </td>
+                                          <td> <%= question.subject %> </td>
                                       
-                                          <td> <%= question.email %> </td>
+                                          <td> <%= question.topic %> </td>
 
                                           <td> <%= question.password %> </td>
                                           <td> <%= question.password %> </td>
