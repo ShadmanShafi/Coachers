@@ -539,7 +539,7 @@ const getRecommendationQuizPage = (req,res) => {
       res.redirect('/');
     }
     else{
-      const questionsList = data.sort((a, b) => 0.5 - Math.random()).slice(0,10);
+      const questionsList = data.sort((a, b) => 0.5 - Math.random()).slice(0,15);
       console.log(questionsList)
       res.render("users/recommendationQuizPage.ejs", {
         user: req.user,
@@ -557,6 +557,34 @@ const postRecommendationQuizPage = (req,res) => {
   const email = req.user.email;
 
   console.log({questionsList, email});
+
+  let map = new Map();
+  questionsList.forEach(question=>{
+    const thisSubject = question.subject;
+    if(map.get(thisSubject) == undefined){
+      map.set(thisSubject, {
+          score: parseInt(0),
+          total: parseInt(0)
+      });      
+    }
+
+    // Correct Answer
+    if(question.optionChosen == question.correctAnswer){
+      map.get(thisSubject).score++;
+    }
+    map.get(thisSubject).total++;
+  });
+  
+
+  var subjectsAccuracyList = [];
+  map.forEach((value,key)=>{
+    subjectsAccuracyList.push({
+      subject: key,
+      accuracy: parseFloat(value.score)/value.total * 100
+    });
+  });
+  
+  console.log({subjectsAccuracyList});
   
   // questionBank_IntroQuestions.find().then((data, err)=>{
   //   if(err){
