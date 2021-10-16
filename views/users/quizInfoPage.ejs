@@ -34,44 +34,83 @@
 
     function drawChart() {
 
-      var data = new google.visualization.DataTable();
-      data.addColumn('number', 'Day');
-      data.addColumn('number', 'Guardians of the Galaxy');
-      data.addColumn('number', 'The Avengers');
-      data.addColumn('number', 'Transformers: Age of Extinction');
+      const subjectQuizLength = parseInt("<%=subjectWiseScores.length%>");
+        if(subjectQuizLength > 0){     
+          let arr = [];
+          
+          <% for(var i=0; i<subjectWiseScores.length; i++){   %>
+              arr.push(<%=subjectWiseScores[i]%>);
+          <%  } %>; 
 
-      data.addRows([
-        [1,  37.8, 80.8, 41.8],
-        [2,  30.9, 69.5, 32.4],
-        [3,  25.4,   57, 25.7],
-        [4,  11.7, 18.8, 10.5],
-        [5,  11.9, 17.6, 10.4],
-        [6,   8.8, 13.6,  7.7],
-        [7,   7.6, 12.3,  9.6],
-        [8,  12.3, 29.2, 10.6],
-        [9,  16.9, 42.9, 14.8],
-        [10, 12.8, 30.9, 11.6],
-        [11,  5.3,  7.9,  4.7],
-        [12,  6.6,  8.4,  5.2],
-        [13,  4.8,  6.3,  3.6],
-        [14,  4.2,  6.2,  3.4]
-      ]);
-
-      var options = {
-        chart: {
-          title: '',
-          subtitle: ''
-        },
-        axes: {
-          x: {
-            0: {side: 'top'}
+          
+          let dataToAdd = [];
+          for(var i=0; i<subjectQuizLength; i++){
+            dataToAdd.push([i+1, arr[i]]);
           }
-        }
-      };
 
-      var chart = new google.charts.Line(document.getElementById('line_top_x'));
+          console.log(dataToAdd);
 
-      chart.draw(data, google.charts.Line.convertOptions(options));
+          var data = new google.visualization.DataTable();
+          data.addColumn('number', '');
+          data.addColumn('number', 'Score in last 10 quizes for <%=chosenSubject%>');
+
+          data.addRows(
+            dataToAdd
+          );
+
+          var options = {
+            chart: {
+              title: '',
+              subtitle: ''
+            },
+            axes: {
+              x: {
+                0: {side: 'top'}
+              }
+            },
+            
+          };
+
+          var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+          chart.draw(data, google.charts.Line.convertOptions(options));
+      }else{
+          var data = new google.visualization.DataTable();
+          data.addColumn('number', '');
+          data.addColumn('number', '% score in last 10 quizes');
+
+          data.addRows([
+            [0,  0],
+            [0,  0],
+            [0,  0],
+            [0,  0],
+            [0,  0],
+            [0,  0],
+            [0,  0],
+            [0,  0],
+            [0,  0],
+            [0, 0],
+
+          ]);
+
+          var options = {
+            chart: {
+              title: '',
+              subtitle: ''
+            },
+            axes: {
+              x: {
+                0: {side: 'top'}
+              }
+            },
+            
+          };
+
+          var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+          chart.draw(data, google.charts.Line.convertOptions(options));
+      }
+  
     }
 </script>
 
@@ -155,29 +194,15 @@
         <div class="col-lg-4 align-items-center"> <!--Quiz Info Container-->
           <div class="page-section bg-light">
             <div>
-              <div class="container" >
+              <div class="container" style="display: flex;">
                 <div class="card smooth-shadow-md" style=" text-align: center; border-radius: 10px; box-shadow: 2px 3px 10px rgb(146, 128, 196);  text-align:center;" >
                   <!-- Card body -->
-                  <div class="card-body p-6" style="text-align: center;">
+                  <div class="card-body p-6" style="text-align: center; overflow: auto; padding-top: 40px; ">
                     
                     <body>
-                      <div id="line_top_x"></div>
+                      <div id="line_top_x" ></div>
                     </body>
 
-                  </div>
-                </div> <!-- .container -->
-              </div>
-            </div> <!-- .page-section -->
-          </div>
-        </div>
-        <div class="col-lg-5 align-items-center"> <!--Quiz Info Container-->
-          <div class="page-section bg-light" style="padding-right: 5%;">
-            <div>
-              <div class="container" >
-                <div class="card smooth-shadow-md" style=" text-align: center; border-radius: 10px; box-shadow: 2px 3px 10px rgb(146, 128, 196);  text-align:center;" >
-                  <!-- Card body -->
-                  <div class="card-body p-6" style="text-align: center;">
-                    <span>show quiz info here</span> <!--Rafsan ei span er jaygay code koris-->
                   </div>
                 </div> <!-- .container -->
               </div>
