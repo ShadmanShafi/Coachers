@@ -423,18 +423,23 @@ const getAddintroQuestion = (req, res)=>{
 
 const getViewQuestion = (req, res)=>{
 
-  let allquestion = [];
+  let allquestions = [];
   QuestionBank.find().then((data) => {
-    allquestion = data;
+    data.forEach(element=>{
+      allquestions.push(element.questions);
+    });
+    allquestions = [].concat(...allquestions);
+
+    console.log({allquestions});
     res.render("admin/ViewQuestions.ejs", {
           error: req.flash('error'),
-          questions: allquestion
+          questions: allquestions
     });
   }).catch(() => {
     error = 'Failed to fetch data';
     res.render("admin/ViewQuestions.ejs", {
           error: req.flash('error', error),
-          questions: allquestion
+          questions: allquestions
     });
   })
 

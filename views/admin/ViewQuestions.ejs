@@ -69,16 +69,17 @@
                                       
                                           <td> <%= question.topic %> </td>
 
-                                          <td> <%= question.password %> </td>
-                                          <td> <%= question.password %> </td>
-                                          <td> <%= question.password %> </td>
-                                          <td> <%= question.password %> </td>
-                                          <td> <%= question.password %> </td>
+                                          <td> <%= question.question %> </td>
+                                          <td> <%= question.A %> </td>
+                                          <td> <%= question.B %> </td>
+                                          <td> <%= question.C %> </td>
+                                          <td> <%= question.D %> </td>
+                                          <td> <%= question.correctOption %> </td>
 
                                           
                                           
                                           <td>
-                                              <% const deleteURL = 'deleteuser/' + participant._id %>
+                                              <% const deleteURL = '/admin/viewquestion/';%>
                                               <a href = "<%= deleteURL %>">
                                                 <i class="mai-trash" aria-hidden="true"></i>
                                               </a>
