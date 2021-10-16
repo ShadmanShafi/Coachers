@@ -239,9 +239,7 @@ const enrollPostUser = (req, res) => {
             weekMap.set(thisWeek, new Array());
           }
           weekMap.get(thisWeek).push(topicsList[0]);
-          console.log("Size:", topicsList.length);
           topicsList.shift();
-          console.log("after Popping, Size:", topicsList.length);
 
           if(topicsList.length <= 0)
             break;
@@ -251,7 +249,6 @@ const enrollPostUser = (req, res) => {
           break;
       }
 
-      console.log(weekMap);
 
       const toAdd = createSubjectInstanceForEnrolling(subject, weekMap, deadline)
       registeredSubjects.findOneAndUpdate({email: userEmail}, {$push: {subjects: toAdd}}, (error, success)=>{
@@ -493,7 +490,6 @@ const getEnrolledCoursesPage = (req, res) => {
             subjectTopicMap.set(subject.name, subject.topics);
           })
 
-          console.log({subjectsToDisplay, subjectsList})
          
           res.render("users/enrolledCoursesListPage.ejs", { user: req.user,  subjectsToDisplay: subjectsToDisplay, subjectTopicMap: subjectTopicMap});        
         }
@@ -540,7 +536,9 @@ const getQuizInfoPage = (req, res) => {
           user: req.user,
           SubjectList: SubjectList,
           chosenSubject: subjectChosen,
-          topicsList: []
+          topicsList: [],
+          subjectWiseScores: [],
+          topicWiseScores: []
         });
         return;
       }
@@ -549,21 +547,59 @@ const getQuizInfoPage = (req, res) => {
         if(subject.name == subjectChosen){
             subjectTouple = subject;
         }
+      });
+
+      quizData.findOne({email: req.user.email}).then((data, error)=>{
+          if(error){
+            res.redirect('/users/dashboard');
+          }
+          else{
+            
+            let quizes = data.quiz;
+            quizes = Object.values(quizes)
+            quizes = quizes.slice(-10);
+            console.log(quizes);
+
+
+            let marksArray = [];
+
+            quizes.forEach(quiz=>{
+              let scoreObtained = 0, scoreTotal = 0;
+              quiz.forEach(question=>{
+                if(question.correctAnswer == question.optionChosen)
+                  scoreObtained++;
+                scoreTotal++;
+              })
+              const percentage = Math.round(parseFloat(scoreObtained)/scoreTotal * 100);
+              marksArray.push(percentage);
+            });
+
+            console.log({marksArray})
+
+            
+
+            res.render("users/quizInfoPage.ejs", {
+              error: req.flash('error'),
+              user: req.user,
+              SubjectList: SubjectList,
+              chosenSubject: subjectChosen,
+              topicsList: subjectTouple.topicsCovered,
+              subjectWiseScores: [],
+              topicWiseScores: []
+            });
+          }
       })
-      res.render("users/quizInfoPage.ejs", {
-        error: req.flash('error'),
-        user: req.user,
-        SubjectList: SubjectList,
-        chosenSubject: subjectChosen,
-        topicsList: subjectTouple.topicsCovered
-    });
+
+      
 
   }).catch(() => {
     res.render("users/quizInfoPage.ejs", {
       user: req.user,
       SubjectList: SubjectList,
       chosenSubject: [],
-      topicsList: []
+      topicsList: [],
+      subjectWiseScores: [],
+      topicWiseScores: []
     });
 });
 }
