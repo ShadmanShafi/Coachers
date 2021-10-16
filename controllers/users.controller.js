@@ -105,10 +105,18 @@ const postRegister = (req, res, next)=>{
 const getDashboard = (req, res) => {
   const userEmail = req.user.email;
   registeredSubjects.findOne({email: userEmail}, (err, data)=>{
-    res.render("users/dashboard.ejs", { user: req.user, subjectsRegistered: data.subjects });
+    accuracyRecommendSchema.findOne({email: userEmail}).then((results)=>{
+        const accuraciesList = results;
+        console.log({accuraciesList});
+        res.render("users/dashboard.ejs", {
+          user: req.user,
+          subjectsRegistered: data.subjects,
+          recommenedSubjectsAccuracies: accuraciesList
+        });
+    });
   }).catch((error)=>{
     console.log(error);
-    res.render("users/dashboard.ejs", { user: req.user,  subjectsRegistered: []});
+    res.redirect('/logout');
   });
   
 }
