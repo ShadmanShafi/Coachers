@@ -296,6 +296,13 @@ const getCoursePage = (req, res) => {
         
         const totalWeeks = map.size;
         const topicsList = map.get(weekSelected);
+        var totalTopics = 0;
+        for(var i=1; i<=totalWeeks; i++){
+          totalTopics += map.get(i)[0].topics.length;
+          console.log('Total topics increasing ' + totalTopics);
+        }
+        
+        
 
 
         console.log('TopicsList:', topicsList[0].topics);
@@ -318,6 +325,7 @@ const getCoursePage = (req, res) => {
               totalWeeks: totalWeeks,
               topicsCovered: topicsCovered,
               deadline: deadline,
+              totalTopics: totalTopics,
               report: 'If you are done with the video, try a short quiz to see how well you have grasped the concepts',
             });
         });
