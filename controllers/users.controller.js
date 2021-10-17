@@ -577,6 +577,15 @@ const getQuizInfoPage = (req, res) => {
             
             let quizes = data.quiz;
             quizes = Object.values(quizes)
+            let tempQuizes = [];
+            quizes.forEach(quiz=>{
+              if(quiz[0].subject == subjectChosen){
+                tempQuizes.push(quiz);
+              }
+            })
+
+            quizes = tempQuizes;
+
             quizes = quizes.slice(-10);
             console.log(quizes);
 
