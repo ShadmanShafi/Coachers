@@ -1,9 +1,9 @@
 ## A web app for high school students.
 ## Features
--- Watching Videos
--- Creating schedules
--- Tracking progress
--- It also has an Admin Panel
+- Watching Videos
+- Creating schedules
+- Tracking progress
+- Admin Panel to configure users and subjects
 
 ## To run
 - Install Node onto your device including npm.
