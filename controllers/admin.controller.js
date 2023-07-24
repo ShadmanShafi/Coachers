@@ -130,6 +130,7 @@ Admin.findOne({ email: email }).then((user) => {
               req.flash("errors", errors);
               res.redirect("/admin/register");
             } else {
+              
               const newUser = new Admin({
                 name,
                 email,
@@ -140,9 +141,10 @@ Admin.findOne({ email: email }).then((user) => {
                 .then(() => {
                   res.redirect("/admin/login");
                 })
-                .catch(() => {
+                .catch((err) => {
                   errors.push("Saving User to the database failed!");
                   req.flash("errors", errors);
+                  console.log(err);
                   res.redirect("/admin/register");
                 });
             }
